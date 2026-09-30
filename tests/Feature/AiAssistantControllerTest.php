@@ -30,6 +30,16 @@ test('asisten AI answers a greeting without a website source', function () {
     $response->assertJsonPath('sources', []);
 });
 
+test('asisten AI answers halo without a website source', function () {
+    $response = $this->postJson(route('asisten-ai.chat'), [
+        'message' => 'Halo',
+    ]);
+
+    $response->assertOk();
+    $response->assertJsonPath('answer', 'Halo! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?');
+    $response->assertJsonPath('sources', []);
+});
+
 test('asisten AI rejects an empty question with a validation error', function () {
     $response = $this->postJson(route('asisten-ai.chat'), []);
 
