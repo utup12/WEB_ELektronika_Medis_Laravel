@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiAssistantController;
 use Illuminate\Support\Facades\Route;
 
 // ===============================
@@ -33,9 +34,10 @@ Route::get('/monitor-trainer', function () {
     return view('monitor-trainer');
 })->name('monitor-trainer');
 
-Route::get('/asisten-ai', function () {
-    return view('asisten-ai');
-})->name('asisten-ai');
+Route::get('/asisten-ai', [AiAssistantController::class, 'index'])->name('asisten-ai');
+Route::post('/asisten-ai/chat', [AiAssistantController::class, 'store'])
+    ->middleware('throttle:ai-chat')
+    ->name('asisten-ai.chat');
 
 Route::get('/panduan-praktikum', function () {
     return view('panduan-praktikum');
