@@ -203,6 +203,13 @@
             await sendMessage(message);
         });
 
+        chatMessage.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                chatForm.requestSubmit();
+            }
+        });
+
         document.querySelectorAll('[data-prompt]').forEach((button) => {
             button.addEventListener('click', async () => {
                 const message = button.dataset.prompt;
