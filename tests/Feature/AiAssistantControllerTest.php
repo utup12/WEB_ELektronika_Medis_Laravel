@@ -20,6 +20,16 @@ test('asisten AI returns an answer with a website source for a practice question
     expect($response->json('answer'))->toContain('Memeriksa prosedur keselamatan dan kondisi alat.');
 });
 
+test('asisten AI answers a greeting without a website source', function () {
+    $response = $this->postJson(route('asisten-ai.chat'), [
+        'message' => 'Selamat siang!',
+    ]);
+
+    $response->assertOk();
+    $response->assertJsonPath('answer', 'Selamat siang! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?');
+    $response->assertJsonPath('sources', []);
+});
+
 test('asisten AI rejects an empty question with a validation error', function () {
     $response = $this->postJson(route('asisten-ai.chat'), []);
 

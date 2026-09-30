@@ -30,12 +30,35 @@ class AnswerPracticeQuestion
     ];
 
     /**
+     * @var array<string, string>
+     */
+    private const GREETING_RESPONSES = [
+        'halo' => 'Halo! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'hai' => 'Hai! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'hi' => 'Hai! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'hello' => 'Halo! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'selamat pagi' => 'Selamat pagi! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'selamat siang' => 'Selamat siang! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'selamat sore' => 'Selamat sore! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'selamat malam' => 'Selamat malam! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+    ];
+
+    /**
      * Answer a question using only the learning content that appears on this website.
      *
      * @return array{answer: string, sources: array<int, array{title: string, url: string}>}
      */
     public function handle(string $question): array
     {
+        $greetingResponse = $this->greetingResponse($question);
+
+        if ($greetingResponse !== null) {
+            return [
+                'answer' => $greetingResponse,
+                'sources' => [],
+            ];
+        }
+
         $terms = $this->searchTerms($question);
 
         $sources = collect(self::SOURCES)
@@ -103,6 +126,17 @@ class AnswerPracticeQuestion
             fn (string $word): bool => mb_strlen($word) >= 3
                 && ! in_array($word, self::STOP_WORDS, true),
         )));
+    }
+
+    private function greetingResponse(string $question): ?string
+    {
+        $normalizedQuestion = trim((string) preg_replace(
+            '/[^\\p{L}\\p{N}]+/u',
+            ' ',
+            mb_strtolower($question),
+        ));
+
+        return self::GREETING_RESPONSES[$normalizedQuestion] ?? null;
     }
 
     /**
