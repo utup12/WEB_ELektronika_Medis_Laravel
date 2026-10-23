@@ -34,31 +34,39 @@ if (nav && !nav.querySelector('a[href*="panduan-praktikum"]')) {
 const themeStylesheet = document.createElement('link');
 themeStylesheet.rel = 'stylesheet';
 // Versi pada URL mencegah browser memakai stylesheet tema lama setelah pembaruan.
-themeStylesheet.href = 'theme.css?v=20260924-3';
+themeStylesheet.href = new URL('../css/theme.css?v=20261023-1', document.currentScript.src).href;
 document.head.appendChild(themeStylesheet);
 
-if (platformBar && !platformBar.querySelector('.theme-control')) {
-  const themeToggle = document.createElement('button');
+let themeToggle = platformBar?.querySelector('.theme-control');
+
+if (platformBar && !themeToggle) {
+  themeToggle = document.createElement('button');
   themeToggle.className = 'theme-control';
   themeToggle.type = 'button';
-  themeToggle.setAttribute('aria-label', 'Aktifkan mode gelap');
-  themeToggle.title = 'Ubah mode tampilan';
   const headerTools = platformBar.querySelector('.header-tools') || platformBar;
   headerTools.appendChild(themeToggle);
+}
 
-  const applyTheme = (isDark) => {
-    document.body.classList.toggle('dark-mode', isDark);
+const applyTheme = (isDark) => {
+  const theme = isDark ? 'dark' : 'light';
+
+  document.documentElement.dataset.theme = theme;
+  document.body.classList.toggle('dark-mode', isDark);
+
+  if (themeToggle) {
     themeToggle.textContent = isDark ? '☀' : '◐';
     themeToggle.setAttribute('aria-label', isDark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap');
-  };
+    themeToggle.title = isDark ? 'Aktifkan mode terang' : 'Aktifkan mode gelap';
+  }
+};
 
-  applyTheme(localStorage.getItem('pem-theme') === 'dark');
-  themeToggle.addEventListener('click', () => {
-    const isDark = !document.body.classList.contains('dark-mode');
-    localStorage.setItem('pem-theme', isDark ? 'dark' : 'light');
-    applyTheme(isDark);
-  });
-}
+applyTheme(localStorage.getItem('pem-theme') === 'dark');
+
+themeToggle?.addEventListener('click', () => {
+  const isDark = document.documentElement.dataset.theme !== 'dark';
+  localStorage.setItem('pem-theme', isDark ? 'dark' : 'light');
+  applyTheme(isDark);
+});
 
 const trainerHeader = document.querySelector('.trainer-screen-top');
 if (trainerHeader) {

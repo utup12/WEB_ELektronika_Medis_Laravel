@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
 
@@ -161,7 +161,6 @@
                     type="button"
                     aria-label="Ubah mode warna"
                     title="Ubah mode warna"
-                    onclick="togglePageTheme()"
                 >
                     ◐
                 </button>
@@ -1019,73 +1018,6 @@
         </p>
 
     </footer>
-
-
-    <!-- ==========================================
-         DARK / LIGHT MODE
-    =========================================== -->
-
-    <script>
-
-        function togglePageTheme() {
-
-            const root = document.documentElement;
-
-            const button =
-                document.querySelector('.theme-control');
-
-
-            const dark =
-                root.dataset.theme !== 'dark';
-
-
-            root.dataset.theme =
-                dark ? 'dark' : 'light';
-
-
-            localStorage.setItem(
-                'pem-theme',
-                root.dataset.theme
-            );
-
-
-            if (button) {
-
-                button.textContent =
-                    dark ? '☀' : '◐';
-
-            }
-
-        }
-
-
-        (function restorePageTheme() {
-
-            const saved =
-                localStorage.getItem('pem-theme')
-                || 'light';
-
-
-            document.documentElement.dataset.theme =
-                saved;
-
-
-            const button =
-                document.querySelector('.theme-control');
-
-
-            if (button) {
-
-                button.textContent =
-                    saved === 'dark'
-                        ? '☀'
-                        : '◐';
-
-            }
-
-        })();
-
-    </script>
 
 
     <!-- ==========================================
