@@ -73,86 +73,139 @@ if (trainerHeader) {
   const trainerHeaderLabel = trainerHeader.querySelector('span:nth-child(2)');
   if (trainerHeaderLabel) trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MODE SIMULASI';
 
-  const trainerWave = document.querySelector('.trainer-wave');
-  if (trainerWave) {
-    const chartLabel = document.createElement('p');
-    chartLabel.className = 'trainer-chart-label';
-    chartLabel.textContent = 'TREN DETAK JANTUNG · 60 DETIK TERAKHIR · BPM';
-    trainerWave.insertAdjacentElement('beforebegin', chartLabel);
-    trainerWave.setAttribute('aria-label', 'Grafik tren detak jantung contoh dalam BPM');
-    trainerWave.innerHTML = '<path d="M0 45H800M0 105H800M0 165H800M80 0V250M180 0V250M280 0V250M380 0V250M480 0V250M580 0V250M680 0V250" fill="none" stroke="#376b83" stroke-width="1"/><path d="M0 128 L55 122 L110 132 L165 116 L220 124 L275 111 L330 118 L385 102 L440 115 L495 108 L550 121 L605 113 L660 127 L715 106 L770 117 L800 111" fill="none" stroke="#54e1cb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><text x="10" y="34" fill="#8fb7c5" font-size="13" font-family="monospace">80</text><text x="10" y="96" fill="#8fb7c5" font-size="13" font-family="monospace">75</text><text x="10" y="156" fill="#8fb7c5" font-size="13" font-family="monospace">70</text><text x="10" y="222" fill="#8fb7c5" font-size="13" font-family="monospace">65 BPM</text>';
-  }
+  const heartbeatValue = document.querySelector('#heart-rate-value');
+  const heartbeatStatus = document.querySelector('#heart-rate-status');
+  const pulseWrap = document.querySelector('.heart-pulse-wrap');
+  const trainerStatus = trainerHeader.querySelector('.trainer-status');
+  const simulatorPanel = document.querySelector('.simulator-panel');
 
-  const trainerGrid = document.querySelector('.trainer-grid');
-  if (trainerGrid) {
-    trainerGrid.classList.add('heart-only');
-    trainerGrid.innerHTML = '<div><span>HEART RATE</span><strong>72 <small>bpm</small></strong></div><div><span>STATUS DATA</span><strong>DEMO <small>SIM</small></strong></div>';
-  }
+  if (heartbeatValue && heartbeatStatus && pulseWrap && simulatorPanel) {
+    const baseHeartRate = 72;
+    const minHeartRate = 30;
+    const maxHeartRate = 240;
+    let bluetoothDevice;
+    let simulationInterval;
 
-  const connectButton = document.createElement('button');
-  connectButton.className = 'connect-button';
-  connectButton.type = 'button';
-  connectButton.textContent = 'Connect Smartwatch';
-  connectButton.setAttribute('aria-label', 'Hubungkan smartwatch melalui Bluetooth');
-  trainerHeader.insertBefore(connectButton, trainerHeader.querySelector('.trainer-status'));
+    const connectButton = document.createElement('button');
+    connectButton.className = 'connect-button';
+    connectButton.type = 'button';
+    connectButton.textContent = 'Connect Bluetooth';
+    connectButton.setAttribute('aria-label', 'Hubungkan sensor detak jantung melalui Bluetooth');
 
-  const connectMessage = document.createElement('p');
-  connectMessage.className = 'connect-message';
-  connectMessage.setAttribute('aria-live', 'polite');
-  trainerHeader.parentElement.appendChild(connectMessage);
+    const connectMessage = document.createElement('p');
+    connectMessage.className = 'connect-message';
+    connectMessage.setAttribute('role', 'status');
+    connectMessage.setAttribute('aria-live', 'polite');
+    connectMessage.textContent = 'Mode simulasi aktif. Hubungkan sensor BLE untuk membaca BPM nyata.';
 
-  const trainerMeta = document.createElement('p');
-  trainerMeta.className = 'trainer-meta';
-  trainerMeta.innerHTML = 'SUMBER DATA: <strong>SIMULASI PEMBELAJARAN</strong> · PEMBARUAN TERAKHIR: <strong id="trainer-updated">BELUM ADA</strong>';
-  connectMessage.insertAdjacentElement('afterend', trainerMeta);
-  const updateTrainerTime = () => {
-    const target = document.querySelector('#trainer-updated');
-    if (target) target.textContent = new Intl.DateTimeFormat('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date());
-  };
-  updateTrainerTime();
+    const connectRow = document.createElement('div');
+    connectRow.className = 'trainer-connect-row';
+    connectRow.append(connectButton);
+    simulatorPanel.prepend(connectMessage);
+    simulatorPanel.prepend(connectRow);
 
-  let bluetoothDevice;
+    const setHeartRate = (heartRate) => {
+      const displayedRate = Math.round(heartRate);
+      const animationRate = Math.min(Math.max(displayedRate, minHeartRate), maxHeartRate);
+      heartbeatValue.textContent = String(displayedRate);
+      const beatDuration = 60000 / animationRate;
+      pulseWrap.style.setProperty('--beat-duration', `${beatDuration}ms`);
+    };
 
-  const showDisconnected = (message) => {
-    trainerHeader.querySelector('.trainer-status').textContent = 'BELUM TERHUBUNG';
-    connectButton.textContent = 'Connect Smartwatch';
-    connectMessage.textContent = message;
-  };
+    const simulateHeartRate = () => {
+      const variation = 12 * Math.sin(Date.now() / 1800) + 8 * Math.sin(Date.now() / 5200);
+      const targetRate = baseHeartRate + variation;
+      setHeartRate(targetRate);
+    };
 
-  connectButton.addEventListener('click', async () => {
-    if (bluetoothDevice?.gatt?.connected) {
-      bluetoothDevice.gatt.disconnect();
-      showDisconnected('Koneksi smartwatch diputuskan.');
-      return;
-    }
+    const startSimulation = () => {
+      window.clearInterval(simulationInterval);
+      heartbeatStatus.textContent = 'SIM READY';
+      if (trainerStatus) trainerStatus.textContent = 'SIMULASI';
+      connectButton.textContent = 'Connect Bluetooth';
+      simulateHeartRate();
+      simulationInterval = window.setInterval(simulateHeartRate, 300);
+    };
 
-    if (!navigator.bluetooth) {
-      connectMessage.textContent = 'Browser ini belum mendukung Web Bluetooth. Gunakan Google Chrome atau Microsoft Edge melalui HTTPS atau localhost.';
-      return;
-    }
+    const handleDisconnect = () => {
+      bluetoothDevice = undefined;
+      connectMessage.textContent = 'Sensor terputus. Mode simulasi aktif kembali.';
+      startSimulation();
+    };
 
-    try {
-      connectButton.textContent = 'Mencari perangkat…';
-      connectMessage.textContent = 'Pilih ADVAN S2A pada jendela Bluetooth browser.';
-      bluetoothDevice = await navigator.bluetooth.requestDevice({ acceptAllDevices: true, optionalServices: ['heart_rate', 'battery_service', 'device_information'] });
-      bluetoothDevice.addEventListener('gattserverdisconnected', () => showDisconnected('Koneksi smartwatch terputus.'));
-      const server = await bluetoothDevice.gatt.connect();
-      updateTrainerTime();
-      trainerHeader.querySelector('.trainer-status').textContent = `TERHUBUNG: ${bluetoothDevice.name || 'SMARTWATCH'}`;
-      connectButton.textContent = 'Disconnect';
-      try {
-        const services = await server.getPrimaryServices();
-        const serviceNames = services.map((service) => service.uuid).slice(0, 3).join(', ');
-        connectMessage.textContent = serviceNames
-          ? `Smartwatch terhubung. Layanan BLE terdeteksi: ${serviceNames}. Pembacaan data akan ditambahkan setelah karakteristik sensor diketahui.`
-          : 'Smartwatch terhubung. Belum ada layanan BLE yang terdeteksi untuk pembacaan data.';
-      } catch {
-        connectMessage.textContent = 'Smartwatch terhubung. Layanan BLE belum dapat dibaca; UUID sensor masih perlu diidentifikasi.';
+    connectButton.addEventListener('click', async () => {
+      if (bluetoothDevice?.gatt?.connected) {
+        bluetoothDevice.gatt.disconnect();
+        return;
       }
-    } catch (error) {
-      showDisconnected(error.name === 'NotFoundError' ? 'Tidak ada perangkat yang dipilih.' : `Koneksi belum berhasil: ${error.message}`);
-    }
-  });
+
+      if (!navigator.bluetooth) {
+        connectMessage.textContent = 'Browser ini tidak mendukung Web Bluetooth. Gunakan Chrome atau Edge melalui HTTPS atau localhost.';
+        return;
+      }
+
+      connectButton.disabled = true;
+      connectButton.textContent = 'Mencari sensor…';
+      connectMessage.textContent = 'Pilih smartwatch atau sensor yang mendukung BLE Heart Rate Service.';
+
+      let selectedDevice;
+
+      try {
+        selectedDevice = await navigator.bluetooth.requestDevice({
+          acceptAllDevices: true,
+          optionalServices: ['heart_rate'],
+        });
+
+        const server = await selectedDevice.gatt.connect();
+        const heartRateService = await server.getPrimaryService('heart_rate');
+        const measurement = await heartRateService.getCharacteristic('heart_rate_measurement');
+
+        await measurement.startNotifications();
+        bluetoothDevice = selectedDevice;
+        bluetoothDevice.addEventListener('gattserverdisconnected', handleDisconnect, { once: true });
+        measurement.addEventListener('characteristicvaluechanged', (event) => {
+          const value = event.target.value;
+          if (!value || value.byteLength < 2) {
+            return;
+          }
+
+          window.clearInterval(simulationInterval);
+
+          const flags = value.getUint8(0);
+          const heartRate = (flags & 0x01) === 0
+            ? value.getUint8(1)
+            : value.getUint16(1, true);
+
+          if (heartRate > 0) {
+            setHeartRate(heartRate);
+          }
+        });
+
+        window.clearInterval(simulationInterval);
+        heartbeatStatus.textContent = 'BLE LIVE';
+        if (trainerStatus) trainerStatus.textContent = 'TERHUBUNG';
+        connectButton.textContent = 'Disconnect';
+        connectMessage.textContent = `Terhubung ke ${selectedDevice.name || 'sensor'}. Menunggu data BPM…`;
+      } catch (error) {
+        const message = error.name === 'NotFoundError'
+          ? 'Pemilihan sensor dibatalkan.'
+          : error.name === 'NetworkError'
+            ? 'Perangkat tidak menyediakan BLE Heart Rate Service (UUID 0x180D).'
+            : `Koneksi gagal: ${error.message}`;
+
+        if (selectedDevice?.gatt?.connected) {
+          selectedDevice.gatt.disconnect();
+        }
+        bluetoothDevice = undefined;
+        connectMessage.textContent = message;
+        startSimulation();
+      } finally {
+        connectButton.disabled = false;
+      }
+    });
+
+    startSimulation();
+  }
 }
 
 if (window.location.pathname.endsWith('asisten-ai.html')) {
