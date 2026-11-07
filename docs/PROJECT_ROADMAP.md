@@ -21,6 +21,7 @@ Pre-lab -> materi -> jobsheet -> praktikum/simulasi -> data sensor -> interpreta
 ### M0 - Freeze Baseline dan Scope
 
 Definition of Done:
+
 - repository dan branch utama reproducible;
 - baseline CI hijau;
 - scope 2-3 modul disepakati;
@@ -32,6 +33,7 @@ Status: IN PROGRESS. Baseline CI dan dokumentasi scope AI sudah disiapkan. Penet
 ### M1 - Stable Application
 
 Definition of Done:
+
 - fresh clone dapat install, migrate, build, dan test;
 - routing auth/settings/dashboard/invitation konsisten;
 - test, TypeScript, Pint, PHPStan, dan CI lulus.
@@ -41,6 +43,7 @@ Status: READY FOR REVIEW melalui branch audit.
 ### M2 - Learning Core
 
 Definition of Done:
+
 - satu modul pilot memiliki alur materi -> pre-lab -> jobsheet -> praktikum -> evaluasi -> interpretasi/refleksi;
 - tidak ada halaman buntu pada alur pilot;
 - konten telah divalidasi oleh pihak yang berwenang.
@@ -50,6 +53,7 @@ Status: NOT STARTED secara end-to-end.
 ### M3 - PPG/Heart-Rate dan BLE
 
 Definition of Done:
+
 - mode simulasi terdokumentasi;
 - perangkat fisik yang kompatibel diuji;
 - data BPM dapat dibaca melalui BLE Heart Rate Service bila perangkat mendukung;
@@ -61,6 +65,7 @@ Status: EARLY PROTOTYPE. Mode simulasi tersedia; validasi hardware fisik belum m
 ### M4 - Assessment dan Scaffolding
 
 Definition of Done:
+
 - pretest/posttest atau evaluasi formatif tersedia untuk modul penelitian;
 - feedback/hint dan interpretasi hasil dapat ditelusuri;
 - data perkembangan mahasiswa dapat digunakan untuk evaluasi penelitian.
@@ -70,6 +75,7 @@ Status: NOT STARTED.
 ### M5 - Lecturer Dashboard dan Research Logging
 
 Definition of Done:
+
 - dosen dapat melihat aktivitas, hasil praktikum, evaluasi, interpretasi, dan laporan;
 - event/log penelitian memiliki struktur yang terdokumentasi;
 - dataset penelitian dapat diekspor tanpa data pribadi yang tidak diperlukan.
@@ -79,6 +85,7 @@ Status: NOT STARTED.
 ### M6 - Research Candidate dan Evaluasi Tesis
 
 Definition of Done:
+
 - versi penelitian dibekukan;
 - instrumen dan prosedur uji ditetapkan;
 - pilot study dijalankan;
