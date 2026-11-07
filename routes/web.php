@@ -48,6 +48,10 @@ Route::get('/praktikum', function () {
     return view('praktikum');
 })->name('praktikum');
 
+Route::get('/pilot/heart-rate', function () {
+    return view('pilot-heart-rate');
+})->name('pilot.heart-rate');
+
 Route::get('/profil-dosen', function () {
     return view('profil-dosen');
 })->name('profil-dosen');

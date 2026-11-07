@@ -14,6 +14,7 @@ Menutup baseline teknis, menetapkan scope penelitian, memulai satu modul pilot e
 - [x] Dokumentasi batas/scope AI.
 - [x] Baseline test otomatis AI untuk source-grounding, BLE/Monitor Trainer, laporan, dan fallback.
 - [x] Monitor Trainer ditambahkan sebagai sumber pengetahuan resmi untuk baseline assistant.
+- [x] Kerangka candidate pilot Heart Rate/PPG dibuat sebagai hub end-to-end dengan automated test.
 
 ## Harus Dilanjutkan Mahasiswa Minggu Ini
 
@@ -22,7 +23,7 @@ Menutup baseline teknis, menetapkan scope penelitian, memulai satu modul pilot e
 - [ ] Tetapkan maksimal 2-3 modul penelitian berdasarkan RPS/jobsheet resmi.
 - [ ] Pilih satu modul pilot. PPG/heart-rate boleh dipilih bila sesuai materi resmi.
 - [ ] Lengkapi konten resmi modul pilot: tujuan, prasyarat, alat-bahan, keselamatan, langkah kerja, tabel data, interpretasi, refleksi, dan kriteria penilaian.
-- [ ] Hubungkan alur pilot: materi -> pre-lab -> jobsheet -> praktikum/simulasi -> evaluasi -> interpretasi/refleksi -> laporan.
+- [ ] Validasi dan lengkapi candidate pilot: materi -> pre-lab -> jobsheet -> praktikum/simulasi -> evaluasi -> interpretasi/refleksi -> laporan dengan konten resmi.
 - [ ] Uji Monitor Trainer pada mode simulasi dan dokumentasikan hasil.
 - [ ] Jika hardware tersedia, uji BLE pada perangkat fisik yang kompatibel. Catat nama perangkat, browser, OS, durasi, keberhasilan koneksi, BPM, dan error.
 - [ ] Jalankan kasus baseline AI pada dokumen AI_SCOPE dan tambahkan minimal 20-30 pertanyaan evaluasi yang mewakili materi resmi.
