@@ -140,7 +140,7 @@ class AnswerPracticeQuestion
     }
 
     /**
-     * @param array<int, string> $terms
+     * @param  array<int, string>  $terms
      */
     private function score(string $content, array $terms): int
     {
@@ -177,7 +177,7 @@ class AnswerPracticeQuestion
     }
 
     /**
-     * @param array<int, string> $terms
+     * @param  array<int, string>  $terms
      * @return array<int, string>
      */
     private function highlights(string $content, array $terms): array
@@ -217,7 +217,7 @@ class AnswerPracticeQuestion
     }
 
     /**
-     * @param array<int, string> $highlights
+     * @param  array<int, string>  $highlights
      */
     private function answerFrom(string $sourceTitle, array $highlights): string
     {
