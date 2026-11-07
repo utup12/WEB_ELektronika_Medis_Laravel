@@ -69,7 +69,8 @@ class AnswerPracticeQuestion
                 return [
                     ...$source,
                     'content' => $content,
-                    'score' => $this->score($content, $terms),
+                    'score' => $this->score($content, $terms)
+                        + (2 * $this->score($source['title'], $terms)),
                 ];
             })
             ->filter(fn (array $source): bool => $source['score'] > 0)
