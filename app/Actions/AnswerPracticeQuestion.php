@@ -15,6 +15,7 @@ class AnswerPracticeQuestion
         ['title' => 'Jobsheet Praktikum', 'route' => 'jobsheet', 'view' => 'jobsheet'],
         ['title' => 'Panduan Praktikum', 'route' => 'panduan-praktikum', 'view' => 'panduan-praktikum'],
         ['title' => 'Praktikum', 'route' => 'praktikum', 'view' => 'praktikum'],
+        ['title' => 'Monitor Trainer', 'route' => 'monitor-trainer', 'view' => 'monitor-trainer'],
         ['title' => 'Evaluasi Praktikum', 'route' => 'evaluasi', 'view' => 'evaluasi'],
         ['title' => 'Unggah Laporan', 'route' => 'laporan', 'view' => 'laporan'],
     ];
