@@ -55,6 +55,11 @@ Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
 
+// Dashboard pengguna setelah login
+Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 require __DIR__.'/settings.php';
 
 
