@@ -1,0 +1,15 @@
+
+{
+    auto_https off
+    skip_install_trust
+}
+
+:80 {
+    root * /app/public
+
+    encode zstd gzip
+
+    php_server {
+        try_files {path} index.php
+    }
+}
