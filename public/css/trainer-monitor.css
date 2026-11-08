@@ -1,43 +1,320 @@
-.trainer-access { display:flex; align-items:center; justify-content:space-between; gap:30px; margin-top:50px; padding:31px; background:#e4f2f2; border-left:4px solid #168b8a; }
-.trainer-access h2 { margin:0 0 8px; font-size:1.55rem; letter-spacing:-.04em; }
-.trainer-access p:not(.eyebrow) { max-width:670px; margin:0; color:var(--muted); font-size:.9rem; }
-.trainer-screen { padding:20px; background:#092d46; border:10px solid #d6e9ea; box-shadow:16px 18px 0 #badbdd; color:#d5f5ef; }
-.trainer-screen-top { display:flex; align-items:center; gap:9px; padding-bottom:14px; border-bottom:1px solid #35647d; color:#a6c7d3; font:500 .7rem 'DM Mono',monospace; letter-spacing:.08em; }
-.trainer-status { margin-left:auto; color:#5ee6d0; }
-.trainer-connect-row { display:flex; align-items:center; gap:12px; }
-.connect-button { padding:9px 14px; border:1px solid #5ee6d0; border-radius:5px; background:rgba(94,230,208,.08); color:#7ff2df; cursor:pointer; font:600 .72rem 'DM Mono',monospace; letter-spacing:.03em; }
-.connect-button:hover { background:rgba(94,230,208,.18); }
-.connect-button:focus-visible { outline:2px solid #7ff2df; outline-offset:3px; }
-.connect-button:disabled { cursor:wait; opacity:.65; }
-.connect-message { min-height:20px; margin:0; color:#9cc8d2; font-size:.75rem; line-height:1.5; text-align:left; }
-.trainer-dot { width:7px; height:7px; border-radius:50%; background:#5ee6d0; box-shadow:0 0 0 4px rgba(94,230,208,.12); }
-.trainer-wave { width:100%; height:auto; margin:18px 0 14px; }
-.trainer-chart-label { margin:16px 0 0; color:#87b7c6; font:500 .68rem 'DM Mono',monospace; letter-spacing:.06em; }
-.simulator-panel { display:flex; flex-direction:column; gap:18px; margin-top:18px; }
-.heart-monitor-stage { position:relative; display:flex; align-items:center; justify-content:center; min-height:240px; background:linear-gradient(180deg, rgba(19,62,91,.9), rgba(8,31,44,.95)); border:1px solid rgba(110,192,208,.35); border-radius:12px; overflow:hidden; }
-.heart-pulse-wrap { position:relative; display:flex; align-items:center; justify-content:center; width:180px; height:180px; }
-.heart-beat-icon { position:relative; z-index:2; display:flex; align-items:center; justify-content:center; width:164px; height:164px; animation:heartbeat var(--beat-duration, .9s) infinite ease-in-out; filter:drop-shadow(0 10px 20px rgba(255,65,87,.28)); }
-.heart-anatomy-svg { display:block; width:100%; height:100%; overflow:visible; }
-.heart-pulse-ring { position:absolute; inset:18px; border-radius:50%; border:2px solid rgba(255,108,122,.45); animation:pulse-ring var(--beat-duration, .9s) infinite ease-out; }
-.pulse-line { position:absolute; left:50%; transform:translateX(-50%); width:70%; height:2px; background:linear-gradient(90deg, transparent, rgba(112,242,219,.9), transparent); opacity:.8; }
-.pulse-line-one { top:36%; animation:pulse-line-one var(--beat-duration, .9s) infinite ease-in-out; }
-.pulse-line-two { bottom:32%; animation:pulse-line-two var(--beat-duration, .9s) infinite ease-in-out; }
-.trainer-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid #35647d; }
-.trainer-grid.heart-only { grid-template-columns:repeat(2,1fr); }
-.trainer-grid div { padding:13px 10px 2px; border-left:1px solid #35647d; }
-.trainer-grid div:first-child { padding-left:0; border-left:0; }
-.trainer-grid span { display:block; color:#94b5c1; font:500 .61rem 'DM Mono',monospace; }
-.trainer-grid strong { font:500 1.24rem 'DM Mono',monospace; }
-.trainer-grid small { color:#95bdc8; font-size:.62rem; }
-.trainer-disclaimer { margin:13px 0 0; color:#8fb3c0; font-size:.66rem; text-align:right; }
-body.dark-mode .trainer-access { background:#123f50; } body.dark-mode .trainer-screen { border-color:#26556a; box-shadow:16px 18px 0 #0b283a; }
-.ai-boundary { margin-top:30px; padding:21px 23px; border-left:3px solid #168b8a; background:#eff8f7; color:#42616a; }
-.ai-boundary strong { display:block; margin-bottom:5px; color:var(--ink); }
-body.dark-mode .ai-boundary { background:#0d3646; color:#bdd0d7; }
-.trainer-meta { display:flex; flex-wrap:wrap; gap:10px 22px; margin:18px 0 0; color:#8fb7c5; font:600 .78rem/1.4 'DM Mono', monospace; }
-.trainer-meta strong { color:#d9f8f3; }
-@keyframes heartbeat { 0%, 100% { transform:scale(1); filter:drop-shadow(0 0 0 rgba(255,105,126,0)); } 20% { transform:scale(1.18); filter:drop-shadow(0 0 14px rgba(255,105,126,.7)); } 35% { transform:scale(.96); } 55% { transform:scale(1.12); } }
-@keyframes pulse-ring { 0% { transform:scale(.8); opacity:0.9; } 70% { transform:scale(1.2); opacity:0; } 100% { transform:scale(1.2); opacity:0; } }
-@keyframes pulse-line-one { 0%, 100% { opacity:0; transform:translateX(-50%) scaleX(.6); } 50% { opacity:1; transform:translateX(-50%) scaleX(1); } }
-@keyframes pulse-line-two { 0%, 100% { opacity:0; transform:translateX(-50%) scaleX(.4); } 55% { opacity:1; transform:translateX(-50%) scaleX(1.1); } }
-@media(max-width:680px){.trainer-access{display:block}.trainer-access .button{margin-top:20px}.trainer-grid strong{font-size:1rem}.heart-monitor-stage{min-height:190px}.heart-beat-icon{width:142px;height:142px}}
+.trainer-access {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 50px;
+    padding: 31px;
+    background: #e4f2f2;
+    border-left: 4px solid #168b8a;
+}
+.trainer-access h2 {
+    margin: 0 0 8px;
+    font-size: 1.55rem;
+    letter-spacing: -0.04em;
+}
+.trainer-access p:not(.eyebrow) {
+    max-width: 670px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+.trainer-screen {
+    padding: 20px;
+    background: #092d46;
+    border: 10px solid #d6e9ea;
+    box-shadow: 16px 18px 0 #badbdd;
+    color: #d5f5ef;
+}
+.trainer-screen-top {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #35647d;
+    color: #a6c7d3;
+    font:
+        500 0.7rem 'DM Mono',
+        monospace;
+    letter-spacing: 0.08em;
+}
+.trainer-status {
+    margin-left: auto;
+    color: #5ee6d0;
+}
+.trainer-connect-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.connect-button {
+    padding: 9px 14px;
+    border: 1px solid #5ee6d0;
+    border-radius: 5px;
+    background: rgba(94, 230, 208, 0.08);
+    color: #7ff2df;
+    cursor: pointer;
+    font:
+        600 0.72rem 'DM Mono',
+        monospace;
+    letter-spacing: 0.03em;
+}
+.connect-button:hover {
+    background: rgba(94, 230, 208, 0.18);
+}
+.connect-button:focus-visible {
+    outline: 2px solid #7ff2df;
+    outline-offset: 3px;
+}
+.connect-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+.connect-message {
+    min-height: 20px;
+    margin: 0;
+    color: #9cc8d2;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-align: left;
+}
+.trainer-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #5ee6d0;
+    box-shadow: 0 0 0 4px rgba(94, 230, 208, 0.12);
+}
+.trainer-wave {
+    width: 100%;
+    height: auto;
+    margin: 18px 0 14px;
+}
+.trainer-chart-label {
+    margin: 16px 0 0;
+    color: #87b7c6;
+    font:
+        500 0.68rem 'DM Mono',
+        monospace;
+    letter-spacing: 0.06em;
+}
+.simulator-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 18px;
+}
+.heart-monitor-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    background: linear-gradient(
+        180deg,
+        rgba(19, 62, 91, 0.9),
+        rgba(8, 31, 44, 0.95)
+    );
+    border: 1px solid rgba(110, 192, 208, 0.35);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.heart-pulse-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+}
+.heart-beat-icon {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 164px;
+    height: 164px;
+    animation: heartbeat var(--beat-duration, 0.9s) infinite ease-in-out;
+    filter: drop-shadow(0 10px 20px rgba(255, 65, 87, 0.28));
+}
+.heart-anatomy-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.heart-pulse-ring {
+    position: absolute;
+    inset: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 108, 122, 0.45);
+    animation: pulse-ring var(--beat-duration, 0.9s) infinite ease-out;
+}
+.pulse-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(112, 242, 219, 0.9),
+        transparent
+    );
+    opacity: 0.8;
+}
+.pulse-line-one {
+    top: 36%;
+    animation: pulse-line-one var(--beat-duration, 0.9s) infinite ease-in-out;
+}
+.pulse-line-two {
+    bottom: 32%;
+    animation: pulse-line-two var(--beat-duration, 0.9s) infinite ease-in-out;
+}
+.trainer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid #35647d;
+}
+.trainer-grid.heart-only {
+    grid-template-columns: repeat(2, 1fr);
+}
+.trainer-grid div {
+    padding: 13px 10px 2px;
+    border-left: 1px solid #35647d;
+}
+.trainer-grid div:first-child {
+    padding-left: 0;
+    border-left: 0;
+}
+.trainer-grid span {
+    display: block;
+    color: #94b5c1;
+    font:
+        500 0.61rem 'DM Mono',
+        monospace;
+}
+.trainer-grid strong {
+    font:
+        500 1.24rem 'DM Mono',
+        monospace;
+}
+.trainer-grid small {
+    color: #95bdc8;
+    font-size: 0.62rem;
+}
+.trainer-disclaimer {
+    margin: 13px 0 0;
+    color: #8fb3c0;
+    font-size: 0.66rem;
+    text-align: right;
+}
+body.dark-mode .trainer-access {
+    background: #123f50;
+}
+body.dark-mode .trainer-screen {
+    border-color: #26556a;
+    box-shadow: 16px 18px 0 #0b283a;
+}
+.ai-boundary {
+    margin-top: 30px;
+    padding: 21px 23px;
+    border-left: 3px solid #168b8a;
+    background: #eff8f7;
+    color: #42616a;
+}
+.ai-boundary strong {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--ink);
+}
+body.dark-mode .ai-boundary {
+    background: #0d3646;
+    color: #bdd0d7;
+}
+.trainer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin: 18px 0 0;
+    color: #8fb7c5;
+    font:
+        600 0.78rem/1.4 'DM Mono',
+        monospace;
+}
+.trainer-meta strong {
+    color: #d9f8f3;
+}
+@keyframes heartbeat {
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0 rgba(255, 105, 126, 0));
+    }
+    20% {
+        transform: scale(1.18);
+        filter: drop-shadow(0 0 14px rgba(255, 105, 126, 0.7));
+    }
+    35% {
+        transform: scale(0.96);
+    }
+    55% {
+        transform: scale(1.12);
+    }
+}
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.9;
+    }
+    70% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}
+@keyframes pulse-line-one {
+    0%,
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scaleX(0.6);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1);
+    }
+}
+@keyframes pulse-line-two {
+    0%,
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scaleX(0.4);
+    }
+    55% {
+        opacity: 1;
+        transform: translateX(-50%) scaleX(1.1);
+    }
+}
+@media (max-width: 680px) {
+    .trainer-access {
+        display: block;
+    }
+    .trainer-access .button {
+        margin-top: 20px;
+    }
+    .trainer-grid strong {
+        font-size: 1rem;
+    }
+    .heart-monitor-stage {
+        min-height: 190px;
+    }
+    .heart-beat-icon {
+        width: 142px;
+        height: 142px;
+    }
+}
