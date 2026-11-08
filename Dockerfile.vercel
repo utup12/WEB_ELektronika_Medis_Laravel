@@ -1,0 +1,113 @@
+
+# ============================================
+# STAGE 1 — BUILD LARAVEL + REACT
+# ============================================
+
+FROM dunglas/frankenphp:1-php8.4-bookworm AS build
+
+WORKDIR /app
+
+# Configure PHP
+RUN cp "$PHP_INI_DIR/php.ini-production" \
+    "$PHP_INI_DIR/php.ini" \
+    && install-php-extensions \
+        intl \
+        zip \
+        pdo_mysql \
+        pdo_pgsql \
+        pdo_sqlite
+
+# Install Composer
+COPY --from=composer:2 \
+    /usr/bin/composer /usr/bin/composer
+
+# Install Node.js 22 and npm
+COPY --from=node:22-bookworm \
+    /usr/local/bin/node /usr/local/bin/node
+
+COPY --from=node:22-bookworm \
+    /usr/local/lib/node_modules \
+    /usr/local/lib/node_modules
+
+RUN ln -s \
+    /usr/local/lib/node_modules/npm/bin/npm-cli.js \
+    /usr/local/bin/npm
+
+# Copy project files
+COPY . .
+
+# Create required Laravel directories
+RUN mkdir -p \
+    storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
+
+# Install Laravel dependencies
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader
+
+# Build React + Inertia frontend
+RUN npm ci \
+    && npm run build
+
+
+# ============================================
+# STAGE 2 — PRODUCTION
+# ============================================
+
+FROM dunglas/frankenphp:1-php8.4-bookworm
+
+WORKDIR /app
+
+# Configure PHP for production
+RUN cp "$PHP_INI_DIR/php.ini-production" \
+    "$PHP_INI_DIR/php.ini" \
+    && install-php-extensions \
+        intl \
+        zip \
+        pdo_mysql \
+        pdo_pgsql \
+        pdo_sqlite \
+        opcache
+
+# Copy compiled Laravel application
+COPY --from=build \
+    --chown=www-data:www-data \
+    /app /app
+
+# Configure FrankenPHP / Caddy
+COPY Caddyfile /etc/frankenphp/Caddyfile
+
+# Production environment defaults
+ENV APP_ENV=production \
+    APP_DEBUG=false \
+    LOG_CHANNEL=stderr \
+    CACHE_STORE=array \
+    QUEUE_CONNECTION=sync \
+    PORT=80
+
+# Create directories and configure permissions
+RUN mkdir -p \
+    /config/caddy \
+    /data/caddy \
+    /app/storage/framework/cache/data \
+    /app/storage/framework/sessions \
+    /app/storage/framework/views \
+    /app/storage/logs \
+    /app/bootstrap/cache \
+    && chown -R www-data:www-data \
+        /app/storage \
+        /app/bootstrap/cache \
+        /config \
+        /data
+
+# Expose HTTP port
+EXPOSE 80
+
+# Start FrankenPHP
+CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile"]
