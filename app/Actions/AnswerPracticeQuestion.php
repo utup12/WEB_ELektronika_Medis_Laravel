@@ -15,6 +15,7 @@ class AnswerPracticeQuestion
         ['title' => 'Jobsheet Praktikum', 'route' => 'jobsheet', 'view' => 'jobsheet'],
         ['title' => 'Panduan Praktikum', 'route' => 'panduan-praktikum', 'view' => 'panduan-praktikum'],
         ['title' => 'Praktikum', 'route' => 'praktikum', 'view' => 'praktikum'],
+        ['title' => 'Monitor Trainer', 'route' => 'monitor-trainer', 'view' => 'monitor-trainer'],
         ['title' => 'Evaluasi Praktikum', 'route' => 'evaluasi', 'view' => 'evaluasi'],
         ['title' => 'Unggah Laporan', 'route' => 'laporan', 'view' => 'laporan'],
     ];
@@ -68,7 +69,8 @@ class AnswerPracticeQuestion
                 return [
                     ...$source,
                     'content' => $content,
-                    'score' => $this->score($content, $terms),
+                    'score' => $this->score($content, $terms)
+                        + (2 * $this->score($source['title'], $terms)),
                 ];
             })
             ->filter(fn (array $source): bool => $source['score'] > 0)
@@ -140,7 +142,7 @@ class AnswerPracticeQuestion
     }
 
     /**
-     * @param array<int, string> $terms
+     * @param  array<int, string>  $terms
      */
     private function score(string $content, array $terms): int
     {
@@ -177,7 +179,7 @@ class AnswerPracticeQuestion
     }
 
     /**
-     * @param array<int, string> $terms
+     * @param  array<int, string>  $terms
      * @return array<int, string>
      */
     private function highlights(string $content, array $terms): array
@@ -217,7 +219,7 @@ class AnswerPracticeQuestion
     }
 
     /**
-     * @param array<int, string> $highlights
+     * @param  array<int, string>  $highlights
      */
     private function answerFrom(string $sourceTitle, array $highlights): string
     {

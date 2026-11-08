@@ -4,7 +4,9 @@ import { register } from '@/routes';
 
 export default function Welcome() {
     const { auth, currentTeam } = usePage().props;
-    const dashboardUrl = currentTeam ? dashboard(currentTeam.slug) : '/';
+    const dashboardUrl = currentTeam
+        ? `/${encodeURIComponent(currentTeam.slug)}/dashboard`
+        : dashboard();
 
     return (
         <>
