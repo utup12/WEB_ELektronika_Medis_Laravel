@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AiAssistantController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
 // ===============================
@@ -9,7 +11,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 })->name('home');
-
 
 // ===============================
 // HALAMAN WEBSITE ELEKTRONIKA MEDIS
@@ -47,6 +48,10 @@ Route::get('/praktikum', function () {
     return view('praktikum');
 })->name('praktikum');
 
+Route::get('/pilot/heart-rate', function () {
+    return view('pilot-heart-rate');
+})->name('pilot.heart-rate');
+
 Route::get('/profil-dosen', function () {
     return view('profil-dosen');
 })->name('profil-dosen');
@@ -54,7 +59,6 @@ Route::get('/profil-dosen', function () {
 Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
-
 
 // ===============================
 // TAMBAHAN HALAMAN
@@ -67,3 +71,13 @@ Route::get('/tentang', function () {
 // Route::get('/panduan-praktikum', function () {
 //     return view('panduan-praktikum');
 // })->name('panduan-praktikum');
+
+// Laravel/Inertia team-scoped dashboard
+Route::prefix('{current_team}')
+    ->middleware(['auth', 'verified', EnsureTeamMembership::class])
+    ->group(function () {
+        Route::get('dashboard', DashboardController::class)->name('dashboard');
+    });
+
+// Laravel/Inertia settings routes
+require __DIR__.'/settings.php';
