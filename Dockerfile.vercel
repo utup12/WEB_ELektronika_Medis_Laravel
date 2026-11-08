@@ -1,0 +1,56 @@
+
+FROM dunglas/frankenphp:1-php8.4-bookworm AS build
+
+WORKDIR /app
+
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && install-php-extensions intl zip pdo_mysql pdo_pgsql
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+COPY --from=node:22-bookworm /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:22-bookworm /usr/local/lib/node_modules /usr/local/lib/node_modules
+
+RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
+
+COPY . .
+
+RUN mkdir -p storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
+
+RUN composer install \
+    --no-dev \
+    --no-interaction \
+    --prefer-dist \
+    --optimize-autoloader
+
+RUN npm ci && npm run build
+
+FROM dunglas/frankenphp:1-php8.4-bookworm
+
+WORKDIR /app
+
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && install-php-extensions intl zip pdo_mysql pdo_pgsql
+
+COPY --from=build --chown=www-data:www-data /app /app
+
+COPY Caddyfile /etc/frankenphp/Caddyfile
+
+ENV APP_ENV=production \
+    APP_DEBUG=false \
+    LOG_CHANNEL=stderr \
+    CACHE_STORE=array \
+    QUEUE_CONNECTION=sync \
+    PORT=80
+
+RUN chown -R www-data:www-data \
+    /app/storage /app/bootstrap/cache \
+    /config/caddy /data/caddy
+
+EXPOSE 80
+
+CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile"]
