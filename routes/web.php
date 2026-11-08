@@ -55,6 +55,8 @@ Route::get('/tentang', function () {
     return view('tentang');
 })->name('tentang');
 
+require __DIR__.'/settings.php';
+
 
 // ===============================
 // TAMBAHAN HALAMAN
