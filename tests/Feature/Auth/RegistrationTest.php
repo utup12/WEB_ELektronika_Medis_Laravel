@@ -44,5 +44,7 @@ test('new users can register', function () {
     $this->assertAuthenticated();
 
     $user = User::where('email', 'test@example.com')->first();
-    $response->assertRedirect(route('dashboard'));
+    $response->assertRedirect(route('teams.dashboard', [
+        'current_team' => $user->currentTeam->slug,
+    ]));
 });
