@@ -21,3 +21,18 @@ test('profile page route does not create a server login', function () {
     $this->get('/profil-mahasiswa')->assertOk();
     $this->get('/profil-mahasiswa/logout')->assertNotFound();
 });
+
+test('profile button supports an in-page dialog across website pages', function () {
+    $script = file_get_contents(public_path('js/student-profile.js'));
+
+    expect($script)->toContain('showProfileDialog(link)')
+        ->toContain('aria-modal')
+        ->toContain("frame.src = '/profil-mahasiswa'")
+        ->toContain('closeDialog');
+
+    foreach (['/', '/asisten-ai', '/jobsheet'] as $path) {
+        $this->get($path)
+            ->assertOk()
+            ->assertSee('/js/script.js');
+    }
+});

@@ -52,6 +52,63 @@
         label.dataset.studentProfileName = '';
         link.append(photo, label);
         bar.append(link);
+        // Open the locally stored profile inline without leaving the current page.
+        if (!panel) {
+            link.setAttribute('aria-haspopup', 'dialog');
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                showProfileDialog(link);
+            });
+        }
+    };
+    const showProfileDialog = (trigger) => {
+        if (document.querySelector('[data-profile-dialog]')) return;
+        const overlay = document.createElement('div');
+        overlay.className = 'student-profile-overlay';
+        overlay.dataset.profileDialog = '';
+        const dialog = document.createElement('section');
+        dialog.className = 'student-profile-dialog';
+        dialog.setAttribute('role', 'dialog');
+        dialog.setAttribute('aria-modal', 'true');
+        dialog.setAttribute('aria-label', 'Profil Mahasiswa');
+        const heading = document.createElement('h2');
+        heading.className = 'student-profile-dialog-title';
+        heading.textContent = 'Profil Mahasiswa';
+        const close = document.createElement('button');
+        close.className = 'student-profile-dialog-close';
+        close.type = 'button';
+        close.setAttribute('aria-label', 'Tutup profil mahasiswa');
+        close.textContent = '×';
+        const frame = document.createElement('iframe');
+        frame.className = 'student-profile-dialog-frame';
+        frame.src = '/profil-mahasiswa';
+        frame.title = 'Isi nama, NIM dan foto profil';
+        frame.setAttribute('loading', 'eager');
+        const closeDialog = () => {
+            overlay.remove();
+            document.removeEventListener('keydown', onKey);
+            document.body.classList.remove('student-profile-dialog-open');
+            update();
+            trigger.focus();
+        };
+        const onKey = (event) => {
+            if (event.key === 'Escape') closeDialog();
+            if (event.key === 'Tab' && document.activeElement === close &&
+                event.shiftKey) {
+                event.preventDefault();
+                close.focus();
+            }
+        };
+        close.addEventListener('click', closeDialog);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) closeDialog();
+        });
+        dialog.append(heading, close, frame);
+        overlay.append(dialog);
+        document.body.append(overlay);
+        document.body.classList.add('student-profile-dialog-open');
+        document.addEventListener('keydown', onKey);
+        close.focus();
     };
     const update = () => {
         const p = safeRead();

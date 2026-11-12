@@ -102,3 +102,13 @@ dapat mengubah dan membaca profil. Data browser bersifat per-origin,
 sehingga domain Preview dan Production terpisah.
 Hapus melalui tombol Hapus Profil Lokal atau hapus data situs browser.
 Jangan masukkan informasi pasien/medis pada profil.
+
+## Dialog profil langsung di website
+
+Tautan profil yang muncul di header membuka dialog di halaman aktif,
+tanpa navigasi meninggalkan materi atau jobsheet. Dialog menampilkan
+formulir `/profil-mahasiswa` dalam iframe **same-origin** sehingga
+tetap membaca `localStorage` origin yang sama. Setelah profil disimpan,
+perubahan disinkronkan ke identitas header melalui peristiwa `storage`.
+Tombol tutup, klik area luar, dan Escape menutup dialog. Halaman profil
+langsung tetap dapat diakses untuk kompatibilitas dan akses tanpa dialog.
