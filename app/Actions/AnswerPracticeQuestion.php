@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\File;
 
 class AnswerPracticeQuestion
@@ -49,7 +50,11 @@ class AnswerPracticeQuestion
      *
      * @return array{answer: string, sources: array<int, array{title: string, url: string}>}
      */
-    public function handle(string $question): array
+    public function handle(
+        string $question,
+        ?SearchJobsheetContent $jobsheetSearch = null,
+        ?JobsheetCatalog $jobsheetCatalog = null,
+    ): array
     {
         $greetingResponse = $this->greetingResponse($question);
 
@@ -58,6 +63,13 @@ class AnswerPracticeQuestion
                 'answer' => $greetingResponse,
                 'sources' => [],
             ];
+        }
+
+        $jobsheetAnswer = ($jobsheetSearch ?? app(SearchJobsheetContent::class))
+            ->answer($question, $jobsheetCatalog ?? app(JobsheetCatalog::class));
+
+        if ($jobsheetAnswer !== null) {
+            return $jobsheetAnswer;
         }
 
         $terms = $this->searchTerms($question);
