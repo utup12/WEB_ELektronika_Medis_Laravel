@@ -82,3 +82,29 @@ test('AD620 page has no LPF frequency chart', function () {
         ->assertOk()
         ->assertDontSee('data-frequency-chart', false);
 });
+
+test('source-aligned modules display private workspace and report controls', function () {
+    foreach (['penguat-ad620', 'low-pass-orde-pertama'] as $slug) {
+        $this->get(route('jobsheet.module', [
+            'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+            'module' => $slug,
+        ]))
+            ->assertOk()
+            ->assertSee('Ruang Kerja Praktikum')
+            ->assertSee('Simpan draf di browser')
+            ->assertSee('Impor draf JSON')
+            ->assertSee('Cetak laporan / PDF')
+            ->assertSee('data-print-report', false)
+            ->assertSee('js/jobsheet-workspace.js');
+    }
+});
+
+test('modules with no verified activities do not expose a draft workspace', function () {
+    $this->get(route('jobsheet.module', [
+        'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+        'module' => 'electrocardiogram-ecg',
+    ]))
+        ->assertOk()
+        ->assertDontSee('data-jobsheet-workspace', false)
+        ->assertDontSee('js/jobsheet-workspace.js');
+});

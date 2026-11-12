@@ -41,3 +41,4 @@ jobs:
         run: |
           node --check public/js/jobsheet-observations.js
           node --check public/js/jobsheet-frequency-chart.js
+          node --check public/js/jobsheet-workspace.js

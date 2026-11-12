@@ -50,6 +50,30 @@
 @endforeach
 </section>
 @endif
+@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)
+<section class="jobsheet-workspace" data-jobsheet-workspace data-edition="{{ $edition['id'] }}" data-module="{{ $module['slug'] }}" aria-labelledby="workspace-heading">
+<h2 id="workspace-heading">Ruang Kerja Praktikum</h2>
+<p>Atur draf pengukuran dan jawaban diskusi pada perangkat Anda sendiri. Tidak ada upload ke server. Penyimpanan hanya dilakukan saat Anda menekan tombol simpan.</p>
+<label class="jobsheet-workspace-identity" for="student-label">Nama atau label laporan (opsional)
+<input id="student-label" data-student-label type="text" maxlength="100" autocomplete="off" placeholder="Contoh: Kelompok A">
+</label>
+<label for="work-progress">Kelengkapan isian (bukan nilai)</label>
+<progress id="work-progress" data-work-progress max="1" value="0"></progress>
+<p data-work-progress-detail>Belum ada pengukuran atau jawaban.</p>
+<div class="jobsheet-workspace-actions">
+<button type="button" data-save-draft>Simpan draf di browser</button>
+<button type="button" data-load-draft>Muat draf</button>
+<button type="button" data-export-json>Ekspor draf JSON</button>
+<button type="button" data-import-json>Impor draf JSON</button>
+<button type="button" data-print-worksheet>Cetak laporan / PDF</button>
+<button type="button" data-delete-draft>Hapus draf tersimpan</button>
+</div>
+<input class="jobsheet-sr-only" data-import-file type="file" accept=".json,application/json" aria-label="Pilih berkas draf JSON">
+<p data-draft-status role="status" aria-live="polite">Draf belum disimpan.</p>
+<p class="jobsheet-inline-note">Gunakan komputer tepercaya bila mengisi nama atau data praktikum. Hindari data pasien atau informasi kesehatan pribadi. Draf tersimpan pada browser dapat hilang jika data situs dibersihkan.</p>
+</section>
+<section class="jobsheet-print-report" data-print-report aria-label="Laporan untuk dicetak"></section>
+@endif
 @if(count($activities['tables'] ?? []) > 0)
 <section class="jobsheet-observations" aria-labelledby="observation-heading">
 <h2 id="observation-heading">Tabel Pengamatan Digital</h2>
@@ -174,6 +198,9 @@
 <p>Konten lengkap untuk modul ini belum tersedia dalam folder sumber.</p>
 @endif
 </section></main><script src="{{ asset('js/script.js') }}"></script>@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)<script defer src="{{ asset('js/jobsheet-observations.js') }}"></script>
+@endif
+@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)
+<script defer src="{{ asset('js/jobsheet-workspace.js') }}"></script>
 @endif
 @if($module['slug'] === 'low-pass-orde-pertama')
 <script defer src="{{ asset('js/jobsheet-frequency-chart.js') }}"></script>

@@ -77,3 +77,18 @@ Mahasiswa dapat mengekspor grafik sebagai SVG tanpa mengunggah data.
 Angka teoritis dipertahankan sebagaimana tercetak di jobsheet, termasuk
 nilai yang tampak tidak mulus. Diagram rangkaian harus tetap diperiksa dari
 PDF asli; grafik ini bukan salinan diagram rangkaian elektronik.
+
+## Paket Ruang Kerja Praktikum (satu commit)
+
+Untuk modul dengan aktivitas terverifikasi, halaman menyediakan fitur:
+1. Persentase/kemajuan kelengkapan isian (bukan nilai kompetensi).
+2. Identitas atau label laporan opsional.
+3. Simpan/muat/hapus draf di localStorage **secara manual**, bukan autosave.
+4. Ekspor dan impor draf JSON dengan validasi edisi, slug, jumlah tabel/baris, panjang jawaban, dan nilai numerik.
+5. Cetak ringkasan pengamatan serta jawaban diskusi ke printer atau PDF browser.
+6. Pengingat eksplisit bahwa hasil kosong bukan pengukuran dan rumus ideal bukan hasil uji alat.
+
+Data tidak dikirim ke server maupun API LLM. Penyimpanan lokal tidak
+sinkron antar perangkat. Jangan masukkan identitas pasien; pengguna
+bertanggung jawab menyimpan berkas ekspor dengan aman. Validasi impor
+menolak berkas lebih dari 256 KB atau dengan bentuk yang tidak sesuai.

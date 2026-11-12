@@ -329,3 +329,118 @@
     color: white;
     cursor: pointer;
 }
+
+.jobsheet-workspace {
+    margin: 2rem 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid #bdd1e5;
+    border-radius: 16px;
+    background: #f3f8fe;
+}
+
+.jobsheet-workspace h2 {
+    margin-top: 0;
+    color: #183d68;
+}
+
+.jobsheet-workspace-identity {
+    display: grid;
+    max-width: 420px;
+    gap: 0.4rem;
+    margin: 1rem 0;
+    font-weight: 600;
+}
+
+.jobsheet-workspace-identity input {
+    padding: 0.7rem;
+    border: 1px solid #a3bed9;
+    border-radius: 9px;
+    font: inherit;
+}
+
+.jobsheet-workspace progress {
+    display: block;
+    width: min(100%, 550px);
+    height: 1rem;
+    margin-top: 0.5rem;
+    accent-color: #2361a0;
+}
+
+.jobsheet-workspace-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1rem 0;
+}
+
+.jobsheet-workspace-actions button {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #2c6099;
+    border-radius: 9px;
+    background: white;
+    color: #164b82;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.jobsheet-workspace-actions button:first-child,
+.jobsheet-workspace-actions [data-print-worksheet] {
+    background: #235b93;
+    color: white;
+}
+
+.jobsheet-workspace [data-draft-status] {
+    color: #3c5673;
+    line-height: 1.6;
+}
+
+.jobsheet-print-report {
+    display: none;
+}
+
+@media print {
+    body > header,
+    main,
+    body > script {
+        display: none !important;
+    }
+
+    .jobsheet-print-report {
+        display: block !important;
+        color: black;
+        font: 11pt/1.5 Arial, sans-serif;
+    }
+
+    .jobsheet-print-report h1 {
+        font-size: 19pt;
+    }
+
+    .jobsheet-print-report h2 {
+        margin-top: 1.5rem;
+        font-size: 13pt;
+        break-after: avoid;
+    }
+
+    .jobsheet-print-report table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0.8rem 0 1.5rem;
+        font-size: 8.5pt;
+    }
+
+    .jobsheet-print-report td,
+    .jobsheet-print-report th {
+        border: 1px solid #666;
+        padding: 0.3rem;
+        overflow-wrap: anywhere;
+    }
+
+    .jobsheet-print-report tr {
+        break-inside: avoid;
+    }
+
+    @page {
+        size: A4 landscape;
+        margin: 12mm;
+    }
+}
