@@ -9,6 +9,20 @@
 <p>{{ $edition['source_note'] ?? 'Gunakan dokumen sumber untuk membaca teori, K3, alat dan bahan, langkah kerja, tabel pengamatan, serta pertanyaan diskusi secara lengkap.' }}</p>
 <p>Ringkasan di website ini belum menggantikan prosedur lengkap pada dokumen asli. Ikuti supervisi dosen untuk penggunaan peralatan medis dan percobaan yang melibatkan tubuh manusia.</p>
 </div>
+@if(count($equations ?? []) > 0)
+<section aria-labelledby="verified-equations-heading" style="margin-top:2rem">
+<h2 id="verified-equations-heading">Persamaan yang sudah diverifikasi</h2>
+<p>Persamaan berikut ditranskripsikan dan diperiksa terhadap halaman PDF asli. Gunakan bersama dengan penjelasan dan batasan pada jobsheet.</p>
+@foreach($equations as $equation)
+<div style="padding:1rem 1.25rem;margin:1rem 0;border:1px solid #d9e3ef;border-radius:12px;background:#f8fbff">
+<strong>{{ $equation['label'] }}</strong>
+<p style="font-size:1.2rem;font-weight:700;overflow-wrap:anywhere">{{ $equation['expression'] }}</p>
+<p>{{ $equation['note'] ?? '' }}</p>
+<a href="#halaman-{{ $equation['pdf_page'] }}">Lihat teks halaman PDF {{ $equation['pdf_page'] }}</a>
+</div>
+@endforeach
+</section>
+@endif
 @if(count($pages) > 0)
 <section aria-labelledby="source-text-heading" style="margin-top:2rem">
 <h2 id="source-text-heading">Isi Jobsheet dari Dokumen 2019</h2>
