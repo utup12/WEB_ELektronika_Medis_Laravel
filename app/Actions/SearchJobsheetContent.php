@@ -139,8 +139,8 @@ class SearchJobsheetContent
             $chunk = trim((string) preg_replace('/\\s+/u', ' ', $chunk));
 
             if (mb_strlen($chunk) < 40
-                || str_contains($chunk, 'PROGRAM STUDI PENDIDIKAN TEKNIK ELEKTRONIKA')
-                || str_contains($chunk, 'PANDUAN PRAKTIKUM INSTRUMENTASI DAN ELEKTRONIKA')
+                || (mb_strlen($chunk) < 320 && str_contains($chunk, 'PROGRAM STUDI PENDIDIKAN TEKNIK ELEKTRONIKA'))
+                || (mb_strlen($chunk) < 320 && str_contains($chunk, 'PANDUAN PRAKTIKUM INSTRUMENTASI DAN ELEKTRONIKA'))
                 || preg_match('/^Tabel \\d+\\./u', $chunk) === 1) {
                 continue;
             }
