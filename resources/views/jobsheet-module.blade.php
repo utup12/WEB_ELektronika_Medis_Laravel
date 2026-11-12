@@ -9,6 +9,33 @@
 <p>{{ $edition['source_note'] ?? 'Gunakan dokumen sumber untuk membaca teori, K3, alat dan bahan, langkah kerja, tabel pengamatan, serta pertanyaan diskusi secara lengkap.' }}</p>
 <p>Ringkasan di website ini belum menggantikan prosedur lengkap pada dokumen asli. Ikuti supervisi dosen untuk penggunaan peralatan medis dan percobaan yang melibatkan tubuh manusia.</p>
 </div>
+@if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')
+<section data-ad620-calculator aria-labelledby="ad620-calculator-heading" style="margin:2rem 0;padding:1.5rem;border:1px solid #cad9e8;border-radius:16px;background:#f7fbff">
+<h2 id="ad620-calculator-heading">Kalkulator Interaktif AD620</h2>
+<p>Uji persamaan penguatan AD620 berdasarkan Jobsheet 2019 halaman PDF 16. Perhitungan berjalan langsung di browser, tanpa API.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;align-items:end">
+<label style="display:grid;gap:.5rem;font-weight:600">Jenis perhitungan
+<select name="ad620-mode" style="padding:.75rem;border:1px solid #a9bdd0;border-radius:8px">
+<option value="gain-to-resistor">Cari RG dari gain</option>
+<option value="resistor-to-gain">Cari gain dari RG</option>
+</select></label>
+<label style="display:grid;gap:.5rem;font-weight:600"><span data-input-label>Penguatan G (kali)</span>
+<input name="ad620-value" type="number" min="1.01" max="10000" step="any" value="100" inputmode="decimal" style="padding:.75rem;border:1px solid #a9bdd0;border-radius:8px"></label>
+<label style="display:grid;gap:.5rem;font-weight:600">Satuan RG
+<select name="ad620-unit" style="padding:.75rem;border:1px solid #a9bdd0;border-radius:8px" hidden>
+<option value="ohm">Ω</option>
+<option value="kohm" selected>kΩ</option>
+</select></label>
+</div>
+<div aria-live="polite" style="margin-top:1rem;padding:1rem;background:#fff;border:1px solid #cad9e8;border-radius:12px">
+<p style="margin:0;color:#345">Hasil perhitungan ideal</p>
+<p data-calculator-output style="font-size:1.6rem;font-weight:750;margin:.3rem 0">498,99 Ω</p>
+<p data-calculator-explanation style="margin:.5rem 0">RG = 49.400 Ω / (100 − 1).</p>
+</div>
+<p style="margin-top:1rem">Hasil teoritis tidak memperhitungkan toleransi komponen, saturasi keluaran, atau keselamatan pasien. Jangan menghubungkan rangkaian ke tubuh tanpa pemeriksaan dan supervisi dosen.</p>
+<a href="#halaman-16">Lihat rujukan rumus di halaman PDF 16</a>
+</section>
+@endif
 @if(count($equations ?? []) > 0)
 <section aria-labelledby="verified-equations-heading" style="margin-top:2rem">
 <h2 id="verified-equations-heading">Persamaan yang sudah diverifikasi</h2>
@@ -37,4 +64,4 @@
 @else
 <p>Konten lengkap untuk modul ini belum tersedia dalam folder sumber.</p>
 @endif
-</section></main><script src="{{ asset('js/script.js') }}"></script></body></html>
+</section></main><script src="{{ asset('js/script.js') }}"></script>@if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')<script defer src="{{ asset('js/ad620-calculator.js') }}"></script>@endif</body></html>
