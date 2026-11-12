@@ -27,7 +27,7 @@ test('jobsheet topic route renders source information', function () {
     ]))
         ->assertOk()
         ->assertSee('Penguat AD620')
-        ->assertSee('Halaman PDF: 14');
+        ->assertSee('Mulai halaman PDF: 14');
 });
 
 test('unknown jobsheet topic returns not found', function () {
