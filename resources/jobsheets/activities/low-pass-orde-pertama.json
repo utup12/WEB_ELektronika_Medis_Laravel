@@ -1,0 +1,195 @@
+{
+    "schema_version": 1,
+    "edition": "panduan-instrumentasi-elektronika-medis-2019",
+    "slug": "low-pass-orde-pertama",
+    "status": "table-structure-verified-against-pdf; observations-empty",
+    "tables": [
+        {
+            "id": "lpf-t6",
+            "number": 6,
+            "title": "Hasil Amatan Low Pass Filter Orde Pertama",
+            "pdf_page": 27,
+            "kind": "lpf",
+            "note": "Frekuensi dan penguatan teoritis disalin dari Tabel 6. Kolom Vin tambahan membantu menghitung rasio Vo/Vi serta dB eksperimen; bukan kolom pada tabel asli.",
+            "columns": [
+                {
+                    "key": "frequency",
+                    "label": "Frekuensi (Hz)",
+                    "type": "fixed"
+                },
+                {
+                    "key": "vin",
+                    "label": "Vin terukur (V), kolom bantu",
+                    "type": "input"
+                },
+                {
+                    "key": "vout",
+                    "label": "Vo (V)",
+                    "type": "input"
+                },
+                {
+                    "key": "ratio",
+                    "label": "Vo/Vi",
+                    "type": "derived"
+                },
+                {
+                    "key": "gain_db",
+                    "label": "Penguatan dB eksperimen",
+                    "type": "derived"
+                },
+                {
+                    "key": "theoretical_db",
+                    "label": "Penguatan dB teoritis",
+                    "type": "fixed"
+                }
+            ],
+            "rows": [
+                {
+                    "frequency": 100,
+                    "theoretical_db": -0.04
+                },
+                {
+                    "frequency": 200,
+                    "theoretical_db": -0.17
+                },
+                {
+                    "frequency": 300,
+                    "theoretical_db": -0.37
+                },
+                {
+                    "frequency": 400,
+                    "theoretical_db": -0.64
+                },
+                {
+                    "frequency": 500,
+                    "theoretical_db": -0.97
+                },
+                {
+                    "frequency": 600,
+                    "theoretical_db": -1.34
+                },
+                {
+                    "frequency": 700,
+                    "theoretical_db": -1.37
+                },
+                {
+                    "frequency": 800,
+                    "theoretical_db": -2.15
+                },
+                {
+                    "frequency": 900,
+                    "theoretical_db": -2.58
+                },
+                {
+                    "frequency": 1000,
+                    "theoretical_db": -3.01
+                },
+                {
+                    "frequency": 2000,
+                    "theoretical_db": -6.99
+                },
+                {
+                    "frequency": 4000,
+                    "theoretical_db": -12.3
+                },
+                {
+                    "frequency": 10000,
+                    "theoretical_db": -20
+                }
+            ]
+        },
+        {
+            "id": "lpf-t7",
+            "number": 7,
+            "title": "Hasil Amatan Low Pass Filter Orde Pertama — Penguatan Positif",
+            "pdf_page": 28,
+            "kind": "lpf",
+            "note": "Frekuensi dari Tabel 7. Kolom Vin tambahan untuk perhitungan rasio dan penguatan dB eksperimen; bukan kolom pada tabel asli. Semua nilai pengukuran tetap kosong.",
+            "columns": [
+                {
+                    "key": "frequency",
+                    "label": "Frekuensi (Hz)",
+                    "type": "fixed"
+                },
+                {
+                    "key": "vin",
+                    "label": "Vinput (Vp-p), kolom bantu",
+                    "type": "input"
+                },
+                {
+                    "key": "vout",
+                    "label": "Voutput (Vp-p)",
+                    "type": "input"
+                },
+                {
+                    "key": "ratio",
+                    "label": "Voutput/Vinput",
+                    "type": "derived"
+                },
+                {
+                    "key": "gain_db",
+                    "label": "Penguatan dB eksperimen",
+                    "type": "derived"
+                }
+            ],
+            "rows": [
+                {
+                    "frequency": 100
+                },
+                {
+                    "frequency": 200
+                },
+                {
+                    "frequency": 300
+                },
+                {
+                    "frequency": 400
+                },
+                {
+                    "frequency": 500
+                },
+                {
+                    "frequency": 600
+                },
+                {
+                    "frequency": 700
+                },
+                {
+                    "frequency": 800
+                },
+                {
+                    "frequency": 900
+                },
+                {
+                    "frequency": 1000
+                },
+                {
+                    "frequency": 2000
+                },
+                {
+                    "frequency": 4000
+                },
+                {
+                    "frequency": 10000
+                }
+            ]
+        }
+    ],
+    "discussion": [
+        {
+            "pdf_page": 29,
+            "number": 1,
+            "text": "Buatlah rangkaian yang mampu meloloskan sinyal dengan frekuensi di bawah sekitar 100 Hz - 105 Hz!"
+        },
+        {
+            "pdf_page": 29,
+            "number": 2,
+            "text": "Berapa penguatan rangkaian pada diskusi 1? Dapatkah nilai penguatan tersebut diubah sesuai kebutuhan kita?"
+        },
+        {
+            "pdf_page": 29,
+            "number": 3,
+            "text": "Rancanglah agar rangkaian lolos rendah pada diskusi 1 agar memiliki penguatan 90x!"
+        }
+    ]
+}

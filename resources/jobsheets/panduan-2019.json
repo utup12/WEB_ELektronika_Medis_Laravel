@@ -1,0 +1,123 @@
+{
+    "id": "panduan-instrumentasi-elektronika-medis-2019",
+    "title": "Panduan Praktikum Instrumentasi & Elektronika Medis",
+    "year": 2019,
+    "author": "Purwanto, S.Pd.",
+    "status": "Referensi pembelajaran sementara; bukan pengesahan kurikulum terbaru",
+    "source_file": "Jobsheet 2019.pdf",
+    "source_note": "Nomor halaman merujuk halaman PDF (bukan nomor cetak pada footer). Dokumen asli belum diunggah sebagai berkas publik di repository.",
+    "modules": [
+        {
+            "slug": "penguat-instrumentasi",
+            "number": 1,
+            "title": "Penguat Instrumentasi",
+            "group": "Penguat Sinyal",
+            "pdf_page": 10,
+            "summary": "Mengenal rangkaian penguat instrumentasi, menghitung penguatan, eror dan akurasi."
+        },
+        {
+            "slug": "penguat-ad620",
+            "number": 2,
+            "title": "Penguat AD620",
+            "group": "Penguat Sinyal",
+            "pdf_page": 14,
+            "summary": "Menggunakan IC AD620 sebagai penguat instrumentasi dan menghitung penguatannya."
+        },
+        {
+            "slug": "rangkaian-adder-summing",
+            "number": 3,
+            "title": "Rangkaian Adder / Summing",
+            "group": "Penguat Sinyal",
+            "pdf_page": 19,
+            "summary": "Mempelajari penjumlahan sinyal dan pergeseran level tegangan DC."
+        },
+        {
+            "slug": "low-pass-orde-pertama",
+            "number": 4,
+            "title": "Filter Aktif Low Pass Orde Pertama",
+            "group": "Filter",
+            "pdf_page": 24,
+            "summary": "Mempelajari karakteristik filter lolos rendah orde pertama."
+        },
+        {
+            "slug": "high-pass-orde-pertama",
+            "number": 5,
+            "title": "Filter Aktif High Pass Orde Pertama",
+            "group": "Filter",
+            "pdf_page": 30,
+            "summary": "Mempelajari karakteristik filter lolos tinggi orde pertama."
+        },
+        {
+            "slug": "butterworth-low-pass-orde-dua",
+            "number": 6,
+            "title": "Filter Butterworth Low Pass Orde Dua",
+            "group": "Filter",
+            "pdf_page": 35,
+            "summary": "Mempelajari respons filter Butterworth lolos rendah orde kedua."
+        },
+        {
+            "slug": "low-pass-orde-kedua",
+            "number": 7,
+            "title": "Filter Low Pass Orde Kedua",
+            "group": "Filter",
+            "pdf_page": 39,
+            "summary": "Menganalisis karakteristik rangkaian filter lolos rendah orde kedua."
+        },
+        {
+            "slug": "butterworth-low-pass-orde-tiga",
+            "number": 8,
+            "title": "Filter Aktif Low Pass Butterworth Orde Tiga",
+            "group": "Filter",
+            "pdf_page": 43,
+            "summary": "Menganalisis filter aktif Butterworth lolos rendah orde ketiga."
+        },
+        {
+            "slug": "band-pass-filter",
+            "number": 9,
+            "title": "Band Pass Filter",
+            "group": "Filter",
+            "pdf_page": 47,
+            "summary": "Mempelajari rangkaian penyaring pada pita frekuensi tertentu."
+        },
+        {
+            "slug": "notch-filter",
+            "number": 10,
+            "title": "Notch Filter",
+            "group": "Filter",
+            "pdf_page": 51,
+            "summary": "Mempelajari filter penolak pita frekuensi tertentu."
+        },
+        {
+            "slug": "penghitung-detak-jantung-plethysmograph",
+            "number": 11,
+            "title": "Penghitung Detak Jantung Metode Plethysmograph",
+            "group": "Aplikasi",
+            "pdf_page": 56,
+            "summary": "Mempelajari pemantauan detak jantung menggunakan metode plethysmograph."
+        },
+        {
+            "slug": "termometer-badan",
+            "number": 12,
+            "title": "Termometer Badan",
+            "group": "Aplikasi",
+            "pdf_page": 59,
+            "summary": "Mempelajari pengukuran suhu tubuh dengan sensor suhu."
+        },
+        {
+            "slug": "electrocardiogram-ecg",
+            "number": 13,
+            "title": "Electrocardiogram (ECG)",
+            "group": "Aplikasi",
+            "pdf_page": 62,
+            "summary": "Mengenal perekaman sinyal listrik jantung serta konfigurasi elektroda."
+        },
+        {
+            "slug": "electromyogram-emg",
+            "number": 14,
+            "title": "Electromyogram (EMG)",
+            "group": "Aplikasi",
+            "pdf_page": 66,
+            "summary": "Mengenal sinyal listrik otot dan penggunaan elektroda permukaan."
+        }
+    ]
+}
