@@ -79,7 +79,7 @@
                 </article>
             </div>
 
-            <form class="chat-composer" id="ai-chat-form" action="{{ route('asisten-ai.chat') }}" method="POST">
+            <form class="chat-composer" id="ai-chat-form" action="{{ route('asisten-ai.chat', [], false) }}" method="POST">
                 @csrf
                 <label class="sr-only" for="chat-message">Pertanyaan Anda</label>
                 <textarea id="chat-message" name="message" maxlength="1000" placeholder="Tulis pertanyaan tentang Praktik Elektronika Medis…" required></textarea>
@@ -173,17 +173,33 @@
                     body: JSON.stringify({ message }),
                 });
 
-                const data = await response.json();
+                const contentType = response.headers.get('content-type') ?? '';
+                const data = contentType.includes('application/json')
+                    ? await response.json()
+                    : null;
 
                 if (!response.ok) {
-                    throw new Error(data.errors?.message?.[0] ?? 'Pesan belum dapat diproses.');
+                    const message = response.status === 419
+                        ? 'Sesi formulir kedaluwarsa. Muat ulang halaman sebelum mengirim pesan.'
+                        : response.status >= 500
+                            ? 'Server asisten mengalami gangguan (HTTP ' + response.status + ').'
+                            : data?.errors?.message?.[0] ?? data?.message ??
+                                'Pesan belum dapat diproses (HTTP ' + response.status + ').';
+                    throw new Error(message);
                 }
 
-                addMessage('assistant', data.answer, data.sources);
+                if (!data || typeof data.answer !== 'string') {
+                    throw new Error('Server tidak mengembalikan jawaban JSON yang valid.');
+                }
+
+                addMessage('assistant', data.answer, Array.isArray(data.sources) ? data.sources : []);
                 chatNotice.textContent = 'Jawaban diberikan dari sumber website yang paling relevan.';
             } catch (error) {
-                addMessage('assistant', error.message ?? 'Terjadi gangguan. Silakan coba lagi.');
-                chatNotice.textContent = 'Pesan belum terkirim. Periksa koneksi lalu coba lagi.';
+                const message = error instanceof TypeError
+                    ? 'Koneksi ke endpoint asisten gagal. Periksa domain dan koneksi, lalu muat ulang halaman.'
+                    : error.message ?? 'Terjadi gangguan. Silakan coba lagi.';
+                addMessage('assistant', message);
+                chatNotice.textContent = 'Jawaban gagal dimuat. Pertanyaan masih dapat dikirim ulang.';
             } finally {
                 setSubmitting(false);
                 chatMessage.focus();

@@ -59,3 +59,16 @@ test('asisten AI does not answer questions outside the website sources', functio
 
     expect($response->json('answer'))->toStartWith('Saya belum menemukan jawaban');
 });
+
+test('assistant form uses same-origin relative endpoint on Vercel preview domains', function () {
+    config()->set('app.url', 'https://production.example.test');
+
+    $this->withServerVariables([
+        'HTTP_HOST' => 'preview.example.test',
+        'HTTPS' => 'on',
+    ])
+        ->get('/asisten-ai')
+        ->assertOk()
+        ->assertSee('action="/asisten-ai/chat"', false)
+        ->assertDontSee('action="https://production.example.test/asisten-ai/chat"', false);
+});

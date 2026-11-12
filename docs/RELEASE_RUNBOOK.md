@@ -53,3 +53,18 @@ Kelayakan teknis awal adalah CI sukses dan semua fungsi utama terbukti berjalan 
 - https://vercel.com/docs/project-configuration/project-settings
 - https://vercel.com/docs/project-configuration/git-configuration
 - https://vercel.com/docs/builds
+
+## Perbaikan endpoint Asisten AI pada domain Preview
+
+Frontend asisten harus mengirim POST ke path relatif `/asisten-ai/chat`
+di origin yang sedang dibuka. Laravel `route('asisten-ai.chat', [], false)`
+menghindari form `action` absolut menuju domain `APP_URL` Production
+ketika mahasiswa menguji halaman melalui domain Vercel Preview.
+Tes fitur memeriksa HTML `action` tetap relatif meskipun
+`APP_URL` berbeda dari host request.
+
+Jika pengguna melihat HTTP 419, periksa pengaturan session/CSRF
+dan muat ulang halaman. Jika error HTTP 5xx, lihat Vercel runtime logs.
+Jika masih muncul kesalahan jaringan, gunakan browser DevTools
+Network untuk memeriksa Request URL, Status, dan kemungkinan redirect/CORS.
+Jangan menonaktifkan CSRF atau membuka CORS wildcard untuk mengatasinya.
