@@ -23,7 +23,8 @@ class GenerateGroundedTutorAnswer
 
         if (! is_string($key) || $key === ''
             || ! is_string($model) || $model === ''
-            || ! is_string($url) || $url === '') {
+            || ! is_string($url) || $url === ''
+        ) {
             return $retrieval;
         }
 
@@ -36,7 +37,8 @@ class GenerateGroundedTutorAnswer
 
         if (! is_array($source)
             || ! str_contains($source['url'], '/jobsheet/')
-            || ! str_contains($source['url'], '#halaman-')) {
+            || ! str_contains($source['url'], '#halaman-')
+        ) {
             return $retrieval;
         }
 
@@ -86,7 +88,7 @@ INSTRUCTIONS,
             }
 
             return [
-                'answer' => trim($answer)."\n\nSumber: ".$source['title'].". Jawaban AI perlu diperiksa terhadap dokumen asli.",
+                'answer' => trim($answer)."\n\nSumber: ".$source['title'].'. Jawaban AI perlu diperiksa terhadap dokumen asli.',
                 'sources' => $retrieval['sources'],
             ];
         } catch (Throwable $exception) {
