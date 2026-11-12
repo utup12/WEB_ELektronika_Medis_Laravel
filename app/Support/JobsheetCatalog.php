@@ -103,6 +103,7 @@ class JobsheetCatalog
         return null;
     }
 
+    /** @param array<string, mixed> $data */
     private function validEdition(array $data): bool
     {
         return isset($data['id'], $data['title'], $data['year'], $data['modules'])
