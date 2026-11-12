@@ -49,7 +49,7 @@
                         <p>Jawaban dibatasi pada sumber pembelajaran yang tersedia di website ini.</p>
                     </div>
                 </div>
-                <div class="ai-status">Sumber terbatas</div>
+                <div class="ai-status">100% lokal · tanpa API AI</div>
             </header>
 
             <div class="ai-source-scope" aria-label="Sumber pengetahuan asisten">
@@ -68,12 +68,12 @@
                     <div class="message-content">
                         <p class="message-author">Asisten Praktik</p>
                         <div class="message-bubble">
-                            Halo! Saya membantu menjelaskan informasi yang sudah ada di website Praktik Elektronika Medis. Tanyakan persiapan praktikum, jobsheet, evaluasi, training kit, atau laporan.
+                            Halo! Saya membantu mencari materi Jobsheet 2019, menjelaskan kutipan sumber, dan menghitung penguatan AD620 tanpa mengirim pertanyaan ke layanan AI eksternal.
                         </div>
                         <div class="suggestion-row" aria-label="Contoh pertanyaan">
                             <button class="suggestion" type="button" data-prompt="Apa langkah pertama sebelum menggunakan peralatan praktikum?">Persiapan praktikum</button>
                             <button class="suggestion" type="button" data-prompt="Apa saja yang perlu dicantumkan dalam laporan praktikum?">Isi laporan</button>
-                            <button class="suggestion" type="button" data-prompt="Apa fungsi pengkondisian sinyal?">Pengkondisian sinyal</button>
+                            <button class="suggestion" type="button" data-prompt="Hitung RG AD620 untuk gain 100 kali">Hitung AD620</button>
                         </div>
                     </div>
                 </article>
