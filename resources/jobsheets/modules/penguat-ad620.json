@@ -3,7 +3,7 @@
   "edition": "panduan-instrumentasi-elektronika-medis-2019",
   "slug": "penguat-ad620",
   "source": "Purwanto (2019), Panduan Praktikum Instrumentasi & Elektronika Medis",
-  "extraction_status": "text-layer; tables, equations and circuit figures require visual verification",
+  "extraction_status": "Teks halaman diekstraksi; dua persamaan penguatan pada halaman PDF 16 sudah diverifikasi secara visual. Gambar dan tabel lainnya belum direkonstruksi.",
   "pages": [
     {
       "pdf_page": 14,
@@ -24,6 +24,20 @@
     {
       "pdf_page": 18,
       "text": "Rangkaian Penguat AD620\n                 PROGRAM STUDI PENDIDIKAN TEKNIK ELEKTRONIKA FAKULTAS\n                            TEKNIK UNIVERSITAS NEGERI YOGYAKARTA\n                    PANDUAN PRAKTIKUM INSTRUMENTASI DAN ELEKTRONIKA\n                                             MEDIS\n                  No.MP/PTE/EKA6218          Revisi/ Tgl: 03/0819 Hal 5 dari 5\n                   Semester 3          2. PENGUAT AD620           4x50 menit\n\n\n     5. Catat tegangan baterai yang akan digunakan.\n     6. Atur R dengan nilai sesuai tabel\n     7. Nyalakan power supply ±12V, ukur dan catat tegangan output pada tabel\n     8. Hubungkan input 1 ke sumber tegangan DC 2 Volt (power supply DC) dan Input 2 ke\n           tegangan DC 1,5 Volt (baterai)\n     9. Lepas input dan matikan power supply ±12V\n     10. Setiap perubahan mohon matikan power supply\n     11. Ulangi langkah ke 6 – 10 sesuai dengan tabel amatan.\n     12. Pergunakan software perancangan rangkaian elektronik untuk pembuktian hasil praktik\n           hardware dan pembuktian bahan diskusi.\n     13. Simpulkan.\n     14. Buatlah laporan sementara di akhir sesi praktikum.\n     15. Buatlah laporan praktikum dan kumpulkan sebelum sesi selanjutnya dimulai.\n\n     Tabel 3 Hasil Pengamatan\n          Input 1 Input 2 Vinput 1-2 Vout Hitung        Vout Praktik Gain         Gain\n   R (Ω)\n           (Volt)   (Volt) (Volt)      (Volt)              (Volt)    Hitung      Praktik\n   47.000        2 *\n   24.000          2 *\n   16.000          2 *\n   12.000          2 *\n    9.100          2 *\n    8.200         1,5 *\n    7.500         1,5 *\n    6.800         1,5 *\n    5.600         1,5 *\n    2.700         1,5 *\n                                               * silakan tulis tegangan baterai yang digunakan\n\nF. Diskusi:\n    1. Sebutkan 5 kelebihan penggunaan AD620 dibanding dengan 3 op-amp ?\n    2.    Buatlah rangkaian yang memiliki penguatan sebesar 90x ?\n         Panduan Praktikum Instrumentasi dan Elektronika Medis                             17"
+    }
+  ],
+  "verified_equations": [
+    {
+      "pdf_page": 16,
+      "label": "Penguatan IC AD620",
+      "expression": "G = (49,4 kΩ / R_G) + 1",
+      "note": "R_G adalah resistor eksternal pengatur penguatan."
+    },
+    {
+      "pdf_page": 16,
+      "label": "Menentukan resistor penguatan",
+      "expression": "R_G = 49,4 kΩ / (G − 1)",
+      "note": "Persamaan berlaku untuk G > 1; satuan R_G mengikuti satuan 49,4 kΩ."
     }
   ]
 }
