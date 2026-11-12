@@ -83,3 +83,22 @@ Jika halaman tampak tanpa gaya, cek DevTools Network untuk status
 `/js/script.js`; pastikan request memakai hostname halaman.
 Perbaikan asset tidak dengan sendirinya membuktikan bahwa request POST
 chat berhasil; diagnostik CSRF/session harus diuji terpisah.
+
+## Profil mahasiswa lokal (bukan autentikasi)
+
+Halaman `/profil-mahasiswa` menerima nama (2–100 karakter), NIM numerik
+(6–20 digit), dan foto opsional (JPEG/PNG/WebP maksimum 2 MB).
+JavaScript mengecilkan foto ke 224×224 piksel dan menyimpan data URL JPEG,
+nama, serta NIM ke `localStorage` dengan kunci
+`pem-student-profile:v1`. Tidak ada request upload ke server.
+Profil ditampilkan pada header halaman yang memuat `/js/script.js`,
+dan mengisi otomatis nama/NIM pada formulir laporan jika masih kosong.
+Jobsheet menggunakan nama+NIM sebagai label awal laporan; pengguna
+tetap dapat mengubahnya.
+
+Ini **bukan login resmi**: tidak ada password, token identitas, kontrol
+akses, atau verifikasi NIM. Siapa saja yang memakai browser yang sama
+dapat mengubah dan membaca profil. Data browser bersifat per-origin,
+sehingga domain Preview dan Production terpisah.
+Hapus melalui tombol Hapus Profil Lokal atau hapus data situs browser.
+Jangan masukkan informasi pasien/medis pada profil.

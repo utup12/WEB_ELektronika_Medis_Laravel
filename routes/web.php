@@ -23,6 +23,10 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
+Route::get('/profil-mahasiswa', function () {
+    return view('profil-mahasiswa');
+})->name('profil-mahasiswa');
+
 Route::get('/materi', function () {
     return view('materi');
 })->name('materi');

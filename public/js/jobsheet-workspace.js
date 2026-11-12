@@ -25,6 +25,21 @@
     };
     let dirty = false;
 
+    // Gunakan identitas mahasiswa lokal hanya bila belum ada label laporan.
+    if (identity && !identity.value) {
+        try {
+            const profile = JSON.parse(localStorage.getItem('pem-student-profile:v1') || 'null');
+            if (profile?.version === 1 &&
+                typeof profile.name === 'string' &&
+                typeof profile.nim === 'string' &&
+                /^\d{6,20}$/.test(profile.nim)) {
+                identity.value = (profile.name.trim() + ' · ' + profile.nim).slice(0, 100);
+            }
+        } catch {
+            // Profil lokal bersifat opsional.
+        }
+    }
+
     const mark = (message) => {
         savedStatus.textContent = message;
     };
