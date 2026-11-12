@@ -28,7 +28,7 @@ test('jobsheet topic route renders source information', function () {
         ->assertOk()
         ->assertSee('Penguat AD620')
         ->assertSee('Mulai halaman PDF: 14')
-        ->assertSee('Isi Jobsheet dari Dokumen 2019')
+        ->assertSee('Arsip Teks PDF per Halaman')
         ->assertSee('Halaman PDF 14')
         ->assertSee('49,4');
 });
