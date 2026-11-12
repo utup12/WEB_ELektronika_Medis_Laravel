@@ -6,15 +6,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Asisten pembelajaran Praktik Elektronika Medis berbasis materi website.">
     <title>Asisten AI | Praktik Elektronika Medis</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/identity.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/ai.css') }}">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/identity.css">
+    <link rel="stylesheet" href="/css/ai.css">
 </head>
 <body>
     <header class="site-header">
         <div class="identity-bar">
-            <a class="uny-seal" href="{{ route('home') }}" aria-label="Kembali ke Beranda">
-                <span><img src="{{ asset('assets/logo-uny-reference.png') }}" alt="Lambang Universitas Negeri Yogyakarta"></span>
+            <a class="uny-seal" href="{{ route('home', [], false) }}" aria-label="Kembali ke Beranda">
+                <span><img src="/assets/logo-uny-reference.png" alt="Lambang Universitas Negeri Yogyakarta"></span>
             </a>
             <div class="institution-name">
                 <strong>Universitas Negeri Yogyakarta</strong>
@@ -22,18 +22,18 @@
             </div>
         </div>
         <div class="platform-bar">
-            <a class="course-brand" href="{{ route('home') }}">Praktik Elektronika Medis</a>
+            <a class="course-brand" href="{{ route('home', [], false) }}">Praktik Elektronika Medis</a>
             <button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span></button>
             <nav class="main-nav" aria-label="Navigasi utama">
-                <a href="{{ route('home') }}">Beranda</a>
-                <a href="{{ route('materi') }}">Materi</a>
-                <a href="{{ route('jobsheet') }}">Jobsheet</a>
-                <a href="{{ route('praktikum') }}">Praktikum</a>
-                <a href="{{ route('evaluasi') }}">Evaluasi</a>
-                <a href="{{ route('laporan') }}">Unggah Laporan</a>
-                <a class="active" href="{{ route('asisten-ai') }}">Asisten AI</a>
-                <a href="{{ route('profil-dosen') }}">Profil Dosen</a>
-                <a href="{{ route('tentang') }}">Tentang</a>
+                <a href="{{ route('home', [], false) }}">Beranda</a>
+                <a href="{{ route('materi', [], false) }}">Materi</a>
+                <a href="{{ route('jobsheet', [], false) }}">Jobsheet</a>
+                <a href="{{ route('praktikum', [], false) }}">Praktikum</a>
+                <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
+                <a href="{{ route('laporan', [], false) }}">Unggah Laporan</a>
+                <a class="active" href="{{ route('asisten-ai', [], false) }}">Asisten AI</a>
+                <a href="{{ route('profil-dosen', [], false) }}">Profil Dosen</a>
+                <a href="{{ route('tentang', [], false) }}">Tentang</a>
             </nav>
         </div>
     </header>
@@ -54,12 +54,12 @@
 
             <div class="ai-source-scope" aria-label="Sumber pengetahuan asisten">
                 <span>Menjawab dari:</span>
-                <a href="{{ route('materi') }}">Materi</a>
-                <a href="{{ route('jobsheet') }}">Jobsheet</a>
-                <a href="{{ route('panduan-praktikum') }}">Panduan</a>
-                <a href="{{ route('praktikum') }}">Praktikum</a>
-                <a href="{{ route('evaluasi') }}">Evaluasi</a>
-                <a href="{{ route('laporan') }}">Laporan</a>
+                <a href="{{ route('materi', [], false) }}">Materi</a>
+                <a href="{{ route('jobsheet', [], false) }}">Jobsheet</a>
+                <a href="{{ route('panduan-praktikum', [], false) }}">Panduan</a>
+                <a href="{{ route('praktikum', [], false) }}">Praktikum</a>
+                <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
+                <a href="{{ route('laporan', [], false) }}">Laporan</a>
             </div>
 
             <div class="chat-stream" id="chat-stream" aria-live="polite" aria-label="Percakapan dengan asisten">
@@ -92,7 +92,7 @@
         </section>
     </main>
 
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="/js/script.js"></script>
     <script>
         const chatForm = document.querySelector('#ai-chat-form');
         const chatMessage = document.querySelector('#chat-message');

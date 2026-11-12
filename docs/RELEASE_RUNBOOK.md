@@ -68,3 +68,18 @@ dan muat ulang halaman. Jika error HTTP 5xx, lihat Vercel runtime logs.
 Jika masih muncul kesalahan jaringan, gunakan browser DevTools
 Network untuk memeriksa Request URL, Status, dan kemungkinan redirect/CORS.
 Jangan menonaktifkan CSRF atau membuka CORS wildcard untuk mengatasinya.
+
+## Aset dan navigasi lintas domain Preview/Production
+
+Template Asisten AI memakai URL berbasis root `/css/*`, `/js/*`,
+`/assets/*` serta route relatif Laravel `route(name, [], false)`.
+Tujuannya agar gambar, CSS, JS, form POST, dan tautan navigasi tetap
+mengarah ke origin Vercel yang sedang dibuka. URL dari helper `asset()`
+dapat terpengaruh `APP_URL`, `ASSET_URL`, dan header proxy sehingga
+perlu diaudit khusus dalam deployment Preview.
+
+Jika halaman tampak tanpa gaya, cek DevTools Network untuk status
+`/css/styles.css`, `/css/identity.css`, `/css/ai.css`,
+`/js/script.js`; pastikan request memakai hostname halaman.
+Perbaikan asset tidak dengan sendirinya membuktikan bahwa request POST
+chat berhasil; diagnostik CSRF/session harus diuji terpisah.
