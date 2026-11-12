@@ -72,3 +72,19 @@ test('assistant form uses same-origin relative endpoint on Vercel preview domain
         ->assertSee('action="/asisten-ai/chat"', false)
         ->assertDontSee('action="https://production.example.test/asisten-ai/chat"', false);
 });
+
+test('AI preview page uses same-origin asset URLs and navigation', function () {
+    config()->set('app.url', 'https://unrelated-production.example.test');
+
+    $this->withServerVariables([
+        'HTTP_HOST' => 'preview.example.test',
+        'HTTPS' => 'on',
+    ])->get('/asisten-ai')
+        ->assertOk()
+        ->assertSee('href="/css/styles.css"', false)
+        ->assertSee('href="/css/ai.css"', false)
+        ->assertSee('src="/js/script.js"', false)
+        ->assertSee('src="/assets/logo-uny-reference.png"', false)
+        ->assertSee('action="/asisten-ai/chat"', false)
+        ->assertDontSee('href="https://unrelated-production.example.test', false);
+});
