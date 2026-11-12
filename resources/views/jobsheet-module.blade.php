@@ -50,6 +50,69 @@
 @endforeach
 </section>
 @endif
+@if(count($activities['tables'] ?? []) > 0)
+<section class="jobsheet-observations" aria-labelledby="observation-heading">
+<h2 id="observation-heading">Tabel Pengamatan Digital</h2>
+<p>Format tabel berikut ditranskripsikan dari Jobsheet 2019. Nilai eksperimen sengaja kosong; isi setelah pengukuran yang disetujui dosen. Perhitungan otomatis adalah hasil model ideal, bukan pengukuran atau jaminan keselamatan rangkaian.</p>
+@foreach($activities['tables'] as $observationTable)
+<div class="jobsheet-observation-card" data-observation-table data-table-kind="{{ $observationTable['kind'] }}" data-export-name="{{ $module['slug'] }}-tabel-{{ $observationTable['number'] }}">
+<div class="jobsheet-observation-head">
+<div>
+<h3>Tabel {{ $observationTable['number'] }}. {{ $observationTable['title'] }}</h3>
+<p>{{ $observationTable['note'] }}</p>
+</div>
+<a href="#halaman-{{ $observationTable['pdf_page'] }}">PDF halaman {{ $observationTable['pdf_page'] }}</a>
+</div>
+<div class="jobsheet-table-scroll">
+<table class="jobsheet-observation-table">
+<thead><tr>
+@foreach($observationTable['columns'] as $column)
+<th scope="col">{{ $column['label'] }}</th>
+@endforeach
+</tr></thead>
+<tbody>
+@foreach($observationTable['rows'] as $observationRow)
+<tr>
+@foreach($observationTable['columns'] as $column)
+<td data-col="{{ $column['key'] }}" @if($column['type'] === 'fixed') data-raw="{{ $observationRow[$column['key']] ?? '' }}" @endif>
+@if($column['type'] === 'fixed')
+{{ str_replace('.', ',', (string) ($observationRow[$column['key']] ?? '')) }}
+@elseif($column['type'] === 'input')
+<label class="jobsheet-sr-only" for="obs-{{ $observationTable['id'] }}-{{ $loop->parent->iteration }}-{{ $column['key'] }}">{{ $column['label'] }} baris {{ $loop->parent->iteration }}</label>
+<input id="obs-{{ $observationTable['id'] }}-{{ $loop->parent->iteration }}-{{ $column['key'] }}" type="number" step="any" data-input-col="{{ $column['key'] }}" inputmode="decimal" aria-label="{{ $column['label'] }} baris {{ $loop->parent->iteration }}" autocomplete="off" placeholder="—">
+@else
+<span data-result-col="{{ $column['key'] }}">—</span>
+@endif
+</td>
+@endforeach
+</tr>
+@endforeach
+</tbody>
+</table>
+</div>
+<div class="jobsheet-observation-actions">
+<button type="button" data-export-table>Unduh CSV hasil pengamatan</button>
+<button type="button" data-reset-table>Hapus isian tabel</button>
+</div>
+<p class="jobsheet-observation-note" role="status" data-table-status>Isian hanya tersedia pada halaman ini dan tidak dikirim ke server. Unduh CSV sebelum menutup atau memuat ulang halaman.</p>
+</div>
+@endforeach
+</section>
+@endif
+@if(count($activities['discussion'] ?? []) > 0)
+<section class="jobsheet-discussion" aria-labelledby="discussion-heading" data-discussion data-discussion-title="{{ $module['title'] }}">
+<h2 id="discussion-heading">Latihan Diskusi dari Jobsheet</h2>
+<p>Pertanyaan berikut mengikuti dokumen sumber; jawaban diisi mandiri, tidak dinilai otomatis dan tidak disimpan ke server.</p>
+@foreach($activities['discussion'] as $discussion)
+<div class="jobsheet-discussion-item">
+<label for="discussion-{{ $loop->iteration }}"><strong>{{ $discussion['number'] }}. {{ $discussion['text'] }}</strong></label>
+<p><a href="#halaman-{{ $discussion['pdf_page'] }}">Rujukan halaman PDF {{ $discussion['pdf_page'] }}</a></p>
+<textarea id="discussion-{{ $loop->iteration }}" data-discussion-answer rows="4" maxlength="2000" placeholder="Tuliskan penjelasan atau rancangan Anda..."></textarea>
+</div>
+@endforeach
+<button type="button" data-export-discussion>Unduh jawaban diskusi (.txt)</button>
+</section>
+@endif
 @if(count($sections ?? []) > 0)
 <section aria-labelledby="structured-heading" class="jobsheet-learning">
 <h2 id="structured-heading">Materi Praktikum per Bagian</h2>
@@ -94,4 +157,4 @@
 @else
 <p>Konten lengkap untuk modul ini belum tersedia dalam folder sumber.</p>
 @endif
-</section></main><script src="{{ asset('js/script.js') }}"></script>@if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')<script defer src="{{ asset('js/ad620-calculator.js') }}"></script>@endif</body></html>
+</section></main><script src="{{ asset('js/script.js') }}"></script>@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)<script defer src="{{ asset('js/jobsheet-observations.js') }}"></script>@endif@if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')<script defer src="{{ asset('js/ad620-calculator.js') }}"></script>@endif</body></html>
