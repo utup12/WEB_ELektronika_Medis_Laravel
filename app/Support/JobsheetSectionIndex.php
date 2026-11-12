@@ -17,7 +17,7 @@ class JobsheetSectionIndex
 
         foreach ($pages as $page) {
             $parts = preg_split(
-                '/(?m)^\\s*[A-F]\\.\\s*(Tujuan|Rangkuman Teori|Kesehatan dan Keselamatan Kerja|Alat Bahan|Alat dan Bahan|Langkah percobaan|Langkah kerja|Diskusi)\\s*:\\s*/iu',
+                '/(?m)^\\s*[A-F]\\.\\s*(Tujuan|Rangkuman Teori|Kesehatan dan Keselamatan Kerja|Alat Bahan|Alat dan Bahan|Langkah percobaan|Langkah kerja|Diskusi)\\s*:?\\s*/iu',
                 $page['text'],
                 -1,
                 PREG_SPLIT_DELIM_CAPTURE,
