@@ -50,11 +50,7 @@ class AnswerPracticeQuestion
      *
      * @return array{answer: string, sources: array<int, array{title: string, url: string}>}
      */
-    public function handle(
-        string $question,
-        ?SearchJobsheetContent $jobsheetSearch = null,
-        ?JobsheetCatalog $jobsheetCatalog = null,
-    ): array
+    public function handle(string $question): array
     {
         $greetingResponse = $this->greetingResponse($question);
 
@@ -65,8 +61,8 @@ class AnswerPracticeQuestion
             ];
         }
 
-        $jobsheetAnswer = ($jobsheetSearch ?? app(SearchJobsheetContent::class))
-            ->answer($question, $jobsheetCatalog ?? app(JobsheetCatalog::class));
+        $jobsheetAnswer = app(SearchJobsheetContent::class)
+            ->answer($question, app(JobsheetCatalog::class));
 
         if ($jobsheetAnswer !== null) {
             return $jobsheetAnswer;
