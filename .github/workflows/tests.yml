@@ -37,12 +37,5 @@ jobs:
       - name: Run CI Checks
         run: composer ci:check
 
-      - name: Inspect compiled jobsheet view if checks fail
-        if: failure()
-        run: |
-          echo "Compiled jobsheet view around rendering error:"
-          for file in storage/framework/views/*.php; do
-            if grep -q 'Tabel Pengamatan Digital' "$file"; then
-              nl -ba "$file" | sed -n '75,185p'
-            fi
-          done
+      - name: Validate browser observation controller syntax
+        run: node --check public/js/jobsheet-observations.js
