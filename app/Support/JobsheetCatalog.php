@@ -65,6 +65,7 @@ class JobsheetCatalog
                     $pages = [];
                     $equations = [];
                     $sections = [];
+                    $activities = ['tables' => [], 'discussion' => []];
 
                     if (File::isFile($moduleFile)) {
                         try {
@@ -98,7 +99,37 @@ class JobsheetCatalog
                         }
                     }
 
-                    return ['edition' => $edition, 'module' => $module, 'pages' => $pages, 'equations' => $equations, 'sections' => $sections];
+                    $activityFile = resource_path('jobsheets/activities/'.$slug.'.json');
+
+                    if (File::isFile($activityFile)) {
+                        try {
+                            $activityData = json_decode(File::get($activityFile), true, 512, JSON_THROW_ON_ERROR);
+
+                            if (is_array($activityData)
+                                && ($activityData['edition'] ?? null) === $editionId
+                                && ($activityData['slug'] ?? null) === $slug
+                            ) {
+                                $activities = [
+                                    'tables' => is_array($activityData['tables'] ?? null) ? $activityData['tables'] : [],
+                                    'discussion' => is_array($activityData['discussion'] ?? null) ? $activityData['discussion'] : [],
+                                ];
+                            }
+                        } catch (\JsonException $exception) {
+                            Log::warning('Cannot parse jobsheet activities', [
+                                'file' => basename($activityFile),
+                                'error' => $exception->getMessage(),
+                            ]);
+                        }
+                    }
+
+                    return [
+                        'edition' => $edition,
+                        'module' => $module,
+                        'pages' => $pages,
+                        'equations' => $equations,
+                        'sections' => $sections,
+                        'activities' => $activities,
+                    ];
                 }
             }
         }
