@@ -35,3 +35,13 @@ Simpan setiap edisi jobsheet sebagai **satu file JSON** dalam folder ini, misaln
 ## Implementasi
 
 Katalog dari `App\\Support\\JobsheetCatalog`; halaman `/jobsheet` dan `/jobsheet/{edition}/{module}` mengambil data melalui katalog ini. Jika JSON tidak valid, file dilewati (laporan kesalahan di log), sehingga halaman lain tetap dapat digunakan.
+
+## Konten lengkap per modul
+
+Setiap modul pada `modules/<slug>.json` berisi `schema_version`, `edition`, `slug`, `source`, `extraction_status`, dan daftar `pages`. Setiap page memiliki `pdf_page` (nomor halaman fisik mulai 1) dan `text` (teks sumber).
+
+Halaman detail menggunakan `JobsheetCatalog::module()` untuk membaca konten modul sesuai edisi dan slug. Edisi tambahan yang memakai slug sama tetapi teks berbeda **belum boleh menggunakan** nama file modul yang sama: versi saat ini hanya membaca konten halaman bila `edition` cocok. Untuk edisi baru, buat penamaan file terpisah per edisi dan perluas pemetaan katalog sebelum publikasi.
+
+**Kualitas ekstraksi:** Data 2019 berasal dari lapisan teks PDF. Beberapa tabel, rumus, dan gambar rangkaian belum dapat direkonstruksi secara akurat sebagai elemen HTML. Jangan mengandalkan ekstraksi ini sebagai panduan K3 untuk koneksi elektroda pada manusia; periksa dokumen asli dan minta supervisi dosen. PDF asli tidak disertakan di repository publik.
+
+**Deploy Vercel:** Direktori `resources/jobsheets` terbawa ke image container saat `COPY . .`; data dibaca sebagai berkas read-only. Untuk mengubah isi, commit file JSON ke GitHub dan lakukan deployment baru. Jangan menyimpan unggahan pengguna secara permanen di filesystem container.
