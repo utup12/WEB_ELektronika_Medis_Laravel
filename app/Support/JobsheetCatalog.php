@@ -63,6 +63,7 @@ class JobsheetCatalog
                 if ($module['slug'] === $slug) {
                     $moduleFile = resource_path('jobsheets/modules/'.$slug.'.json');
                     $pages = [];
+                    $equations = [];
 
                     if (File::isFile($moduleFile)) {
                         try {
@@ -77,6 +78,14 @@ class JobsheetCatalog
                                         && is_int($page['pdf_page'] ?? null)
                                         && is_string($page['text'] ?? null),
                                 ));
+
+                                $equations = array_values(array_filter(
+                                    $document['verified_equations'] ?? [],
+                                    fn (mixed $equation): bool => is_array($equation)
+                                        && is_string($equation['label'] ?? null)
+                                        && is_string($equation['expression'] ?? null)
+                                        && is_int($equation['pdf_page'] ?? null),
+                                ));
                             }
                         } catch (\JsonException $exception) {
                             Log::warning('Cannot parse jobsheet module content', [
@@ -86,7 +95,7 @@ class JobsheetCatalog
                         }
                     }
 
-                    return ['edition' => $edition, 'module' => $module, 'pages' => $pages];
+                    return ['edition' => $edition, 'module' => $module, 'pages' => $pages, 'equations' => $equations];
                 }
             }
         }
