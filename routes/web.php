@@ -4,6 +4,7 @@
 use App\Http\Controllers\AiAssistantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\EnsureTeamMembership;
+use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,16 +27,17 @@ Route::get('/materi', function () {
     return view('materi');
 })->name('materi');
 
-Route::get('/jobsheet', function (\App\Support\JobsheetCatalog $catalog) {
+Route::get('/jobsheet', function (JobsheetCatalog $catalog) {
     return view('jobsheet', ['editions' => $catalog->editions()]);
 })->name('jobsheet');
 
 Route::get('/jobsheet/{edition}/{module}', function (
     string $edition,
     string $module,
-    \App\Support\JobsheetCatalog $catalog
+    JobsheetCatalog $catalog
 ) {
     $found = $catalog->module($edition, $module);
+
     abort_if($found === null, 404);
 
     return view('jobsheet-module', $found);
