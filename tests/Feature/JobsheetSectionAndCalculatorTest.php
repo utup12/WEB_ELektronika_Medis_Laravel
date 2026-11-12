@@ -21,6 +21,7 @@ test('AD620 module renders a browser calculator with both directions', function 
         'module' => 'penguat-ad620',
     ]))
         ->assertOk()
+        ->assertSee('Daftar bagian materi')
         ->assertSee('Kalkulator Interaktif AD620')
         ->assertSee('Cari RG dari gain')
         ->assertSee('Cari gain dari RG')
