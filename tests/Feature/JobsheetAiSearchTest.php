@@ -6,7 +6,7 @@ test('assistant can retrieve a grounded source passage from the AD620 jobsheet',
     ]);
 
     $response->assertOk();
-    expect($response->json('answer'))->toContain('Jobsheet', 'halaman PDF');
+    expect($response->json('answer'))->toContain('Tutor berbasis sumber lokal', 'halaman PDF');
     expect($response->json('sources.0.title'))->toContain('AD620');
     expect($response->json('sources.0.url'))->toContain('/jobsheet/', '#halaman-');
 });
