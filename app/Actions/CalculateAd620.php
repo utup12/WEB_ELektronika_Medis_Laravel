@@ -2,8 +2,6 @@
 
 namespace App\Actions;
 
-use App\Support\JobsheetCatalog;
-
 class CalculateAd620
 {
     /**
