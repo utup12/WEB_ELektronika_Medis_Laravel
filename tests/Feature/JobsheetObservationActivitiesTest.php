@@ -108,3 +108,13 @@ test('modules with no verified activities do not expose a draft workspace', func
         ->assertDontSee('data-jobsheet-workspace', false)
         ->assertDontSee('js/jobsheet-workspace.js');
 });
+
+test('workspace print output remains available outside the screen-only content', function () {
+    $this->get(route('jobsheet.module', [
+        'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+        'module' => 'low-pass-orde-pertama',
+    ]))
+        ->assertOk()
+        ->assertSee('jobsheet-print-report')
+        ->assertSee('data-print-worksheet');
+});

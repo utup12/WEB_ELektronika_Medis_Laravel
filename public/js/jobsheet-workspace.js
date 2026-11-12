@@ -116,6 +116,7 @@
                 row.querySelectorAll('[data-input-col]').forEach((input) => {
                     input.value =
                         draft.tables[index].rows[rowIndex][input.dataset.inputCol];
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
                 });
             });
             table.dispatchEvent(new Event('input', { bubbles: true }));

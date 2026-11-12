@@ -400,8 +400,8 @@
 
 @media print {
     body > header,
-    main,
-    body > script {
+    .page-hero,
+    .page-content > :not(.jobsheet-print-report) {
         display: none !important;
     }
 
