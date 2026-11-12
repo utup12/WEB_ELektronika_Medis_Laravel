@@ -1,101 +1,43 @@
-# Scope AI dan Baseline Evaluasi
+# Ruang Lingkup Asisten Praktikum (100% Lokal)
 
-## Status Saat Ini
+## Status
 
-Asisten memakai retrieval lokal dari halaman Laravel dan teks Jobsheet 2019. Penggunaan LLM generatif bersifat opsional setelah API key server dikonfigurasi. Tanpa key, jawaban tetap berupa kutipan sumber lokal.
+Asisten kini berjalan di backend Laravel tanpa panggilan API AI eksternal.
+Tidak ada konfigurasi API key atau model generatif yang diperlukan.
 
-Baseline retrieval tetap dipertahankan sebagai pembanding untuk pengujian fitur generatif.
+Tiga fungsi utama:
 
-## Sumber Pengetahuan yang Diizinkan
+- Pencarian berbasis kata kunci pada halaman pembelajaran dan 14 modul Jobsheet 2019.
+- Tutor berbasis aturan: menampilkan kutipan relevan dengan judul modul serta tautan halaman PDF.
+- Kalkulator AD620: menghitung RG dari gain, atau gain dari RG, berdasarkan persamaan pada Jobsheet 2019 halaman PDF 16.
 
-- Beranda
-- Materi Praktikum
-- Jobsheet Praktikum
-- Panduan Praktikum
-- Praktikum
-- Monitor Trainer
-- Evaluasi Praktikum
-- Unggah Laporan
+## Perhitungan AD620
 
-Konten di luar sumber tersebut tidak boleh dianggap sebagai fakta oleh baseline assistant.
+Persamaan rujukan: `G = 1 + (49.400 Ω / RG)`.
 
-## Perilaku yang Diharapkan
+Contoh pertanyaan:
 
-- menjawab hanya bila ada dukungan pada sumber pembelajaran;
-- menyertakan sumber yang relevan;
-- memberikan fallback bila informasi tidak ditemukan;
-- tidak membuat klaim klinis atau diagnosis;
-- tidak mengklaim hardware telah tervalidasi tanpa bukti uji;
-- membedakan data simulasi dari data sensor nyata.
+- `Hitung RG AD620 untuk gain 100 kali` → RG ≈ 498,99 Ω.
+- `Hitung gain AD620 jika RG 1 kΩ` → G = 50,40 kali.
+- Gain harus lebih besar dari 1; resistor harus bernilai positif dengan satuan yang jelas.
 
-## Non-Goals
+Perhitungan merupakan model ideal untuk belajar, bukan hasil pengukuran aktual.
 
-Baseline assistant bukan:
+## Keterbatasan
 
-- chatbot internet umum;
-- alat diagnosis medis;
-- pengganti dosen atau jobsheet resmi;
-- bukti bahwa BLE/hardware fisik sudah teruji;
-- LLM/RAG generatif.
+- Sistem ini bukan model bahasa generatif dan tidak memiliki pemahaman bebas seperti ChatGPT.
+- Pencarian masih bergantung pada istilah dan kelengkapan teks ekstraksi PDF; jawaban dapat meleset.
+- Diagram rangkaian, tabel serta rumus yang belum diverifikasi harus dilihat pada dokumen asli.
+- Konten Jobsheet 2019 digunakan sebagai referensi sementara, bukan pengesahan kurikulum terbaru.
+- Asisten tidak melakukan diagnosis, tidak memastikan keamanan koneksi elektroda ke manusia, dan tidak memvalidasi hardware.
+- Untuk praktikum dengan subjek manusia, ikuti supervisi dosen dan prosedur K3 resmi.
 
-## Baseline Cases Minimum
+## Evaluasi yang perlu dilakukan
 
-| ID  | Pertanyaan                                                   | Ekspektasi                                                                    |
-| --- | ------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| A01 | Apa langkah pertama sebelum menggunakan peralatan praktikum? | Sumber Evaluasi; jawaban memuat pemeriksaan prosedur keselamatan/kondisi alat |
-| A02 | Apa format laporan yang disarankan?                          | Sumber Unggah Laporan; jawaban memuat PDF                                     |
-| A03 | Layanan BLE apa yang diperlukan untuk membaca BPM nyata?     | Sumber Monitor Trainer; jawaban memuat BLE Heart Rate Service/0x180D          |
-| A04 | Apakah data trainer digunakan untuk diagnosis medis?         | Sumber Monitor Trainer; jawaban menyatakan untuk pembelajaran/bukan diagnosis |
-| A05 | Siapa presiden Indonesia saat ini?                           | Fallback; tidak ada sumber                                                    |
+Siapkan 20–30 pertanyaan mencakup materi, perhitungan, pertanyaan ambigu, dan di luar cakupan. Nilai ketepatan sumber, relevansi jawaban, kecukupan informasi, kesalahan unsupported, dan perilaku fallback.
 
-## Evaluasi Manual Mahasiswa
+## Deployment
 
-Tambahkan minimal 20-30 pertanyaan dari materi resmi dan nilai:
+Data sumber berupa JSON dalam `resources/jobsheets/`. Laravel membaca file itu dari container Vercel ketika melayani permintaan. Pencarian dan kalkulator tidak memanggil API AI. Perbarui JSON melalui GitHub `main`, kemudian deploy image baru ke Vercel.
 
-- source correctness;
-- answer relevance;
-- groundedness / unsupported claim;
-- fallback correctness;
-- completeness.
-
-Gunakan skala yang konsisten, misalnya 0/1 per kriteria, lalu simpan hasil sebagai baseline sebelum bounded RAG/LLM.
-
-## Arah Pengembangan Berikutnya
-
-Jika LLM/RAG ditambahkan, retrieval harus tetap dibatasi pada sumber yang disetujui. Model tidak boleh menjawab dengan pengetahuan umum saat sumber lokal tidak mendukung jawaban. Setiap perubahan harus dibandingkan dengan baseline ini menggunakan set pertanyaan yang sama.
-
-## Integrasi Tutor LLM Opsional (November 2026)
-
-Asisten kini mencari teks pada 14 modul Jobsheet 2019 dan mempertahankan
-baseline halaman website untuk pertanyaan umum. Jika API LLM dikonfigurasi,
-**hanya jawaban retrieval jobsheet yang memiliki URL sumber halaman** yang
-akan dikirim sebagai konteks kepada provider. Mode ini merupakan bounded
-retrieval-augmented generation sederhana, **bukan** sistem RAG tervalidasi.
-
-Konfigurasi environment **di server Vercel**, bukan di JavaScript frontend:
-
-```dotenv
-JOBSHEET_LLM_API_KEY=isi-dari-provider
-JOBSHEET_LLM_MODEL=gpt-4.1-mini
-JOBSHEET_LLM_URL=https://api.openai.com/v1/chat/completions
-```
-
-Gunakan endpoint HTTPS API chat-completions yang kompatibel; contoh di atas
-menggunakan OpenAI. Kunci harus disimpan sebagai Vercel Environment Variable
-untuk environment yang dipakai lalu lakukan redeploy. Langganan ChatGPT bukan
-kredit API. Permintaan ke LLM memakai jaringan dan dapat dikenakan biaya.
-
-### Perilaku yang sengaja dibatasi
-
-- Tanpa key, URL non-HTTPS, timeout, atau respons provider gagal, asisten
-  tetap mengembalikan kutipan asli dari jobsheet.
-- Pencarian tidak mendukung seluruh variasi bahasa; pertanyaan yang tidak
-  menemukan kecocokan akan masuk fallback pencarian halaman website.
-- Model diberi instruksi mengabaikan instruksi yang terdapat dalam teks
-  sumber, tetapi **risiko halusinasi masih ada**. Nomor halaman dan tautan
-  sumber ditentukan oleh backend, bukan model.
-- Jawaban klinis atau keselamatan perangkat yang melibatkan tubuh manusia
-  tetap membutuhkan supervisi dosen dan pemeriksaan sumber asli.
-- Jangan memasukkan data pasien, informasi kesehatan personal, atau rahasia
-  dalam pertanyaan, karena pertanyaan dan kutipan yang relevan dikirim ke API.
-- Evaluasi 20–30 pertanyaan tetap dibutuhkan sebelum klaim validitas hasil.
+Sisa environment variable `JOBSHEET_LLM_*` yang mungkin pernah disimpan di pengaturan Vercel tidak digunakan lagi oleh kode terbaru; administrator dapat menghapusnya secara manual.
