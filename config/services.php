@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'jobsheet_llm' => [
+        'key' => env('JOBSHEET_LLM_API_KEY'),
+        'model' => env('JOBSHEET_LLM_MODEL', 'gpt-4.1-mini'),
+        'url' => env('JOBSHEET_LLM_URL', 'https://api.openai.com/v1/chat/completions'),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
