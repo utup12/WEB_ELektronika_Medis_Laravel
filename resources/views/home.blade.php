@@ -32,13 +32,13 @@
     >
 
     <!-- CSS WEBSITE LAMA -->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/identity.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/compact-features.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/report-upload.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dark-mode-fix.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/visual-enhancements.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pages.css') }}">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/identity.css">
+    <link rel="stylesheet" href="/css/compact-features.css">
+    <link rel="stylesheet" href="/css/report-upload.css">
+    <link rel="stylesheet" href="/css/dark-mode-fix.css">
+    <link rel="stylesheet" href="/css/visual-enhancements.css">
+    <link rel="stylesheet" href="/css/pages.css">
 </head>
 
 
@@ -55,12 +55,12 @@
 
             <a
                 class="uny-seal"
-                href="{{ route('home') }}"
+                href="{{ route('home', [], false) }}"
                 aria-label="Universitas Negeri Yogyakarta"
             >
                 <span>
                     <img
-                        src="{{ asset('assets/logo-uny.png') }}"
+                        src="/assets/logo-uny.png"
                         alt="Lambang Universitas Negeri Yogyakarta"
                     >
                 </span>
@@ -102,38 +102,38 @@
 
                     <a
                         class="active"
-                        href="{{ route('home') }}"
+                        href="{{ route('home', [], false) }}"
                     >
                         Beranda
                     </a>
 
-                    <a href="{{ route('materi') }}">
+                    <a href="{{ route('materi', [], false) }}">
                         Materi
                     </a>
 
-                    <a href="{{ route('jobsheet') }}">
+                    <a href="{{ route('jobsheet', [], false) }}">
                         Jobsheet
                     </a>
 
                     <!-- route praktikum akan kita buat setelah ini -->
-                    <a href="{{ route('praktikum') }}">
+                    <a href="{{ route('praktikum', [], false) }}">
                         Praktikum
                     </a>
 
-                    <a href="{{ route('evaluasi') }}">
+                    <a href="{{ route('evaluasi', [], false) }}">
                         Evaluasi
                     </a>
 
-                    <a href="{{ route('laporan') }}">
+                    <a href="{{ route('laporan', [], false) }}">
                         Unggah Laporan
                     </a>
 
-                    <a href="{{ route('asisten-ai') }}">
+                    <a href="{{ route('asisten-ai', [], false) }}">
                         Asisten AI
                     </a>
 
                     <!-- route profil dosen akan kita buat setelah ini -->
-                    <a href="{{ route('profil-dosen') }}">
+                    <a href="{{ route('profil-dosen', [], false) }}">
                         Profil Dosen
                     </a>
 
@@ -219,7 +219,7 @@
 
                     <a
                         class="button primary"
-                        href="{{ route('praktikum') }}"
+                        href="{{ route('praktikum', [], false) }}"
                     >
                         Jelajahi Praktikum
                         <span>→</span>
@@ -273,7 +273,7 @@
             <figure class="training-photo">
 
                 <img
-                    src="{{ asset('assets/training-kit-hd.png') }}"
+                    src="/assets/training-kit-hd.png"
                     alt="Ilustrasi training kit elektronika medis dengan monitor dan beberapa sensor"
                 >
 
@@ -322,7 +322,7 @@
 
                 <a
                     class="button primary"
-                    href="{{ route('praktikum') }}"
+                    href="{{ route('praktikum', [], false) }}"
                 >
                     Buka menu Praktikum
                     <span>→</span>
@@ -524,7 +524,7 @@
 
 
                 <a
-                    href="{{ route('jobsheet') }}"
+                    href="{{ route('jobsheet', [], false) }}"
                     class="inline-link"
                 >
                     Lihat semua jobsheet
@@ -726,7 +726,7 @@
 
                 <a
                     class="button outline"
-                    href="{{ route('evaluasi') }}"
+                    href="{{ route('evaluasi', [], false) }}"
                 >
                     Lihat format evaluasi
                     <span>→</span>
@@ -1024,9 +1024,9 @@
          JAVASCRIPT WEBSITE
     =========================================== -->
 
-    <script src="{{ asset('js/navigation.js') }}"></script>
+    <script src="/js/navigation.js"></script>
 
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="/js/script.js"></script>
 
 </body>
 </html>
