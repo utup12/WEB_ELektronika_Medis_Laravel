@@ -64,6 +64,7 @@ class JobsheetCatalog
                     $moduleFile = resource_path('jobsheets/modules/'.$slug.'.json');
                     $pages = [];
                     $equations = [];
+                    $sections = [];
 
                     if (File::isFile($moduleFile)) {
                         try {
@@ -78,6 +79,8 @@ class JobsheetCatalog
                                         && is_int($page['pdf_page'] ?? null)
                                         && is_string($page['text'] ?? null),
                                 ));
+
+                                $sections = app(JobsheetSectionIndex::class)->build($pages);
 
                                 $equations = array_values(array_filter(
                                     $document['verified_equations'] ?? [],
@@ -95,7 +98,7 @@ class JobsheetCatalog
                         }
                     }
 
-                    return ['edition' => $edition, 'module' => $module, 'pages' => $pages, 'equations' => $equations];
+                    return ['edition' => $edition, 'module' => $module, 'pages' => $pages, 'equations' => $equations, 'sections' => $sections];
                 }
             }
         }
