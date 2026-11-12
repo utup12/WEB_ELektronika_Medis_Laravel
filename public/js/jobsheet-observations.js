@@ -1,115 +1,102 @@
 (() => {
-    const numberFormat = new Intl.NumberFormat('id-ID', {
+    const formatter = new Intl.NumberFormat('id-ID', {
         maximumFractionDigits: 4,
     });
 
     const readNumber = (row, key) => {
-        const fixed = row.querySelector('[data-col="' + key + '"][data-raw]');
+        const cell = row.querySelector('[data-col="' + key + '"]');
 
-        if (fixed) {
-            const value = Number(fixed.dataset.raw);
-            return Number.isFinite(value) ? value : null;
-        }
-
-        const input = row.querySelector('[data-input-col="' + key + '"]');
-
-        if (!input || input.value.trim() === '') {
+        if (!cell) {
             return null;
         }
 
-        const value = Number(input.value);
-        return Number.isFinite(value) ? value : null;
+        const input = cell.querySelector('input');
+        const raw = input ? input.value : cell.dataset.raw;
+
+        if (raw === undefined || raw === '') {
+            return null;
+        }
+
+        const number = Number(raw);
+        return Number.isFinite(number) ? number : null;
     };
 
-    const setResult = (row, key, value) => {
-        const target = row.querySelector('[data-result-col="' + key + '"]');
+    const showResult = (row, key, number) => {
+        const cell = row.querySelector('[data-result-col="' + key + '"]');
 
-        if (target) {
-            target.textContent =
-                value === null || !Number.isFinite(value)
-                    ? '—'
-                    : numberFormat.format(value);
+        if (!cell) {
+            return;
         }
+
+        cell.textContent =
+            number === null || !Number.isFinite(number)
+                ? '—'
+                : formatter.format(number);
     };
 
     const calculateRow = (row, kind) => {
         if (kind === 'ad620') {
-            const resistor = readNumber(row, 'rg');
-            const inputOne = readNumber(row, 'vin1');
-            const inputTwo = readNumber(row, 'vin2');
+            const resistance = readNumber(row, 'rg');
+            const vin1 = readNumber(row, 'vin1');
+            const vin2 = readNumber(row, 'vin2');
             const measured = readNumber(row, 'vout_measured');
-            const gain =
-                resistor !== null && resistor > 0
-                    ? 1 + 49400 / resistor
-                    : null;
-            const difference =
-                inputOne !== null && inputTwo !== null
-                    ? inputOne - inputTwo
-                    : null;
+            const gain = resistance > 0 ? 1 + 49400 / resistance : null;
+            const delta = vin1 !== null && vin2 !== null ? vin1 - vin2 : null;
+            const predicted = gain !== null && delta !== null
+                ? gain * delta
+                : null;
+            const observed = delta !== null && delta !== 0 &&
+                measured !== null ? measured / delta : null;
 
-            setResult(row, 'gain_calc', gain);
-            setResult(row, 'vin_diff', difference);
-            setResult(
-                row,
-                'vout_calc',
-                difference !== null && gain !== null
-                    ? difference * gain
-                    : null,
-            );
-            setResult(
-                row,
-                'gain_measured',
-                difference !== null &&
-                    difference !== 0 &&
-                    measured !== null
-                    ? measured / difference
-                    : null,
-            );
+            showResult(row, 'gain_calc', gain);
+            showResult(row, 'vin_diff', delta);
+            showResult(row, 'vout_calc', predicted);
+            showResult(row, 'gain_measured', observed);
         }
 
         if (kind === 'lpf') {
             const vin = readNumber(row, 'vin');
             const vout = readNumber(row, 'vout');
-            const ratio =
-                vin !== null && vin > 0 && vout !== null && vout >= 0
-                    ? vout / vin
-                    : null;
+            const ratio = vin !== null && vin > 0 &&
+                vout !== null && vout >= 0 ? vout / vin : null;
+            const decibels = ratio !== null && ratio > 0
+                ? 20 * Math.log10(ratio)
+                : null;
 
-            setResult(row, 'ratio', ratio);
-            setResult(
-                row,
-                'gain_db',
-                ratio !== null && ratio > 0 ? 20 * Math.log10(ratio) : null,
-            );
+            showResult(row, 'ratio', ratio);
+            showResult(row, 'gain_db', decibels);
         }
     };
 
-    const exportFile = (name, content, mime) => {
-        const blob = new Blob([content], { type: mime });
+    const download = (filename, content, type) => {
+        const blob = new Blob([content], { type });
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
 
         link.href = url;
-        link.download = name;
+        link.download = filename;
         document.body.append(link);
         link.click();
         link.remove();
         URL.revokeObjectURL(url);
     };
 
-    const csvCell = (value) => {
-        const safe = String(value ?? '')
-            .replace(/^[=+@-](?=[^\d])/u, "'$&")
-            .replace(/"/g, '""');
-        return '"' + safe + '"';
+    const csv = (text) => {
+        let value = String(text ?? '');
+
+        if (/^[=+@]/u.test(value) || /^-(?!\d)/u.test(value)) {
+            value = "'" + value;
+        }
+
+        return '"' + value.replace(/"/g, '""') + '"';
     };
 
     document.querySelectorAll('[data-observation-table]').forEach((table) => {
         const rows = Array.from(table.querySelectorAll('tbody tr'));
-        const kind = table.dataset.tableKind;
-
         const update = () => {
-            rows.forEach((row) => calculateRow(row, kind));
+            rows.forEach((row) => {
+                calculateRow(row, table.dataset.tableKind);
+            });
         };
 
         table.querySelectorAll('input').forEach((input) => {
@@ -119,38 +106,32 @@
         table.querySelector('[data-export-table]').addEventListener(
             'click',
             () => {
-                const headers = Array.from(table.querySelectorAll('thead th'));
+                const headings = Array.from(table.querySelectorAll('thead th'));
                 const lines = [
-                    headers.map((header) => csvCell(header.textContent)).join(';'),
+                    headings.map((heading) => csv(heading.textContent)).join(';'),
                 ];
 
                 rows.forEach((row) => {
                     const cells = Array.from(row.querySelectorAll('td'));
-                    const values = cells.map((cell) => {
+                    const data = cells.map((cell) => {
                         const input = cell.querySelector('input');
+                        const raw = cell.dataset.raw;
+                        const value = input ? input.value :
+                            raw || cell.textContent.trim();
 
-                        if (input) {
-                            return csvCell(input.value);
-                        }
-
-                        return csvCell(
-                            cell.dataset.raw ??
-                                cell.querySelector('[data-result-col]')
-                                    ?.textContent ??
-                                '',
-                        );
+                        return csv(value);
                     });
 
-                    lines.push(values.join(';'));
+                    lines.push(data.join(';'));
                 });
 
-                exportFile(
+                download(
                     table.dataset.exportName + '.csv',
                     '\uFEFF' + lines.join('\r\n'),
                     'text/csv;charset=utf-8',
                 );
                 table.querySelector('[data-table-status]').textContent =
-                    'CSV telah dibuat. Pastikan file tersimpan sebelum meninggalkan halaman.';
+                    'CSV telah dibuat. Simpan file sebelum menutup halaman.';
             },
         );
 
@@ -166,7 +147,7 @@
                 });
                 update();
                 table.querySelector('[data-table-status]').textContent =
-                    'Isian tabel telah dikosongkan.';
+                    'Seluruh isian tabel telah dikosongkan.';
             },
         );
 
@@ -177,22 +158,24 @@
         discussion
             .querySelector('[data-export-discussion]')
             .addEventListener('click', () => {
-                const lines = ['Diskusi: ' + discussion.dataset.discussionTitle];
+                const title = discussion.dataset.discussionTitle;
+                const lines = ['Diskusi: ' + title];
 
                 discussion
                     .querySelectorAll('.jobsheet-discussion-item')
                     .forEach((item, index) => {
-                        const question = item.querySelector('label').textContent;
+                        const label = item.querySelector('label');
                         const answer = item.querySelector('textarea').value;
 
                         lines.push(
                             '',
-                            'Pertanyaan ' + (index + 1) + ': ' + question,
+                            'Pertanyaan ' + (index + 1) + ': ' +
+                                label.textContent,
                             'Jawaban: ' + (answer || '(belum diisi)'),
                         );
                     });
 
-                exportFile(
+                download(
                     'jawaban-diskusi-jobsheet.txt',
                     lines.join('\n'),
                     'text/plain;charset=utf-8',
