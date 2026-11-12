@@ -87,3 +87,61 @@
     .student-profile-link { margin-left: 0.4rem; max-width: 115px; }
     .student-profile-mini-avatar { width: 32px; height: 32px; }
 }
+
+/* In-page profile dialog for desktop and mobile. */
+.student-profile-dialog-open { overflow: hidden; }
+.student-profile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(7, 26, 44, 0.64);
+}
+.student-profile-dialog {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: min(96vw, 720px);
+    height: min(90dvh, 840px);
+    min-height: 380px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.3);
+}
+.student-profile-dialog-title {
+    flex: none;
+    margin: 0;
+    padding: 0.8rem 3.25rem 0.8rem 1.25rem;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: #173956;
+    border-bottom: 1px solid #d5e0e9;
+}
+.student-profile-dialog-close {
+    position: absolute;
+    z-index: 1;
+    top: 0.45rem;
+    right: 0.65rem;
+    width: 37px;
+    height: 37px;
+    border: 0;
+    border-radius: 9px;
+    color: #1b3c58;
+    background: #eef4f8;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+.student-profile-dialog-frame {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    border: 0;
+    background: #f8fbff;
+}
+@media (max-width: 620px) {
+    .student-profile-overlay { padding: 0; }
+    .student-profile-dialog { width: 100vw; height: 100dvh; border-radius: 0; }
+}
