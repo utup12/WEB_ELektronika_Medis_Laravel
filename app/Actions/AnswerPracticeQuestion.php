@@ -65,7 +65,7 @@ class AnswerPracticeQuestion
             ->answer($question, app(JobsheetCatalog::class));
 
         if ($jobsheetAnswer !== null) {
-            return $jobsheetAnswer;
+            return app(GenerateGroundedTutorAnswer::class)->handle($question, $jobsheetAnswer);
         }
 
         $terms = $this->searchTerms($question);
