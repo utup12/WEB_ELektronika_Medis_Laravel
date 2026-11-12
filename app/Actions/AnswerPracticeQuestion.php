@@ -61,11 +61,17 @@ class AnswerPracticeQuestion
             ];
         }
 
+        $calculation = app(CalculateAd620::class)->answer($question);
+
+        if ($calculation !== null) {
+            return $calculation;
+        }
+
         $jobsheetAnswer = app(SearchJobsheetContent::class)
             ->answer($question, app(JobsheetCatalog::class));
 
         if ($jobsheetAnswer !== null) {
-            return app(GenerateGroundedTutorAnswer::class)->handle($question, $jobsheetAnswer);
+            return $jobsheetAnswer;
         }
 
         $terms = $this->searchTerms($question);
