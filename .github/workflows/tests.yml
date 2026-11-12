@@ -42,3 +42,4 @@ jobs:
           node --check public/js/jobsheet-observations.js
           node --check public/js/jobsheet-frequency-chart.js
           node --check public/js/jobsheet-workspace.js
+          node --check public/js/jobsheet-data-quality.js

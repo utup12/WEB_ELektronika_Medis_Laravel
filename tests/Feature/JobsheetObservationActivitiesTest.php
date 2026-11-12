@@ -118,3 +118,18 @@ test('workspace print output remains available outside the screen-only content',
         ->assertSee('jobsheet-print-report')
         ->assertSee('data-print-worksheet');
 });
+
+test('jobsheet workspace provides source-based readiness prompts and local data review', function () {
+    foreach (['penguat-ad620', 'low-pass-orde-pertama'] as $slug) {
+        $this->get(route('jobsheet.module', [
+            'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+            'module' => $slug,
+        ]))
+            ->assertOk()
+            ->assertSee('Pemeriksaan Mandiri Sebelum Praktikum')
+            ->assertSee('data-readiness-item', false)
+            ->assertSee('bukan bukti bahwa rangkaian aman')
+            ->assertSee('data-quality-summary', false)
+            ->assertSee('js/jobsheet-data-quality.js');
+    }
+});

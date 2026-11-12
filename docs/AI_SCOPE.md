@@ -92,3 +92,28 @@ Data tidak dikirim ke server maupun API LLM. Penyimpanan lokal tidak
 sinkron antar perangkat. Jangan masukkan identitas pasien; pengguna
 bertanggung jawab menyimpan berkas ekspor dengan aman. Validasi impor
 menolak berkas lebih dari 256 KB atau dengan bentuk yang tidak sesuai.
+
+## Paket uji coba mandiri dan pemeriksaan data
+
+Pada modul AD620 dan Low Pass Orde Pertama ditambahkan daftar cek
+persiapan berbasis langkah umum K3 dalam Jobsheet 2019. Checklist
+hanya pencatatan mandiri, bukan sertifikat keselamatan, persetujuan
+dosen, ataupun hasil validasi perangkat. Status cek dapat disimpan
+di draf JSON dan akan tertera pada laporan cetak. Draf lama tanpa
+daftar cek masih dapat diimpor; semua kotak akan dimulai tanpa centang.
+
+Pemeriksaan data di browser menandai baris dengan isian numerik
+tidak valid. Untuk filter, penguatan dB hanya dapat dihitung jika
+Vin dan Vout positif. Untuk AD620, keluaran ideal yang mencapai atau
+melebihi 12 V ditandai sebagai potensi keterbatasan akibat catu
+simetris ±12 V yang disebut di panduan. Peringatan bukan prediksi
+output fisik aktual. Tidak ada data eksperimen yang dibuat otomatis.
+
+## Rancangan uji coba terbatas
+
+Uji pengalaman pengguna dilakukan hanya setelah deployment berhasil,
+konten disetujui dosen, dan SOP K3 disepakati. Lakukan uji secara
+terpisah terhadap akurasi konten, fungsi antarmuka, dan kepraktisan.
+Simpan data observasi/feedback terpisah dari data kesehatan atau
+identitas pasien. Hasil pengujian belum tersedia; tidak ada klaim
+kelayakan, kepraktisan, atau efektivitas dari kode saja.

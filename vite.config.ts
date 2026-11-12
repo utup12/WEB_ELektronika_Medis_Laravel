@@ -71,6 +71,7 @@ export default defineConfig({
             'public/js/jobsheet-observations.js',
             'public/js/jobsheet-frequency-chart.js',
             'public/js/jobsheet-workspace.js',
+            'public/js/jobsheet-data-quality.js',
             'public/css/jobsheet-learning.css',
             'docs/AI_SCOPE.md',
         ],

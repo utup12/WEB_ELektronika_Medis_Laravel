@@ -57,6 +57,19 @@
 <label class="jobsheet-workspace-identity" for="student-label">Nama atau label laporan (opsional)
 <input id="student-label" data-student-label type="text" maxlength="100" autocomplete="off" placeholder="Contoh: Kelompok A">
 </label>
+<section class="jobsheet-readiness" aria-labelledby="readiness-heading" data-readiness-checklist>
+<h3 id="readiness-heading">Pemeriksaan Mandiri Sebelum Praktikum</h3>
+<p>Daftar bantu untuk mengingat langkah persiapan. Centang setelah Anda melakukan pemeriksaan. <strong>Centang bukan bukti bahwa rangkaian aman atau telah disetujui dosen.</strong> Konfirmasi keselamatan tetap harus dilakukan langsung dengan dosen pendamping.</p>
+<div class="jobsheet-readiness-items">
+<label><input type="checkbox" data-readiness-item value="panduan"> Saya telah membaca panduan dan memahami tujuan percobaan.</label>
+<label><input type="checkbox" data-readiness-item value="komponen"> Saya telah memeriksa kondisi dan posisi kaki komponen serta alat ukur.</label>
+<label><input type="checkbox" data-readiness-item value="catu"> Saya telah memeriksa setelan catu daya dan prosedur mematikan catu saat mengubah rangkaian.</label>
+<label><input type="checkbox" data-readiness-item value="dosen"> Saya telah meminta pemeriksaan rangkaian kepada dosen pendamping sebelum catu daya dihidupkan.</label>
+<label><input type="checkbox" data-readiness-item value="data"> Saya memahami bahwa kolom pengukuran harus diisi dari data eksperimen yang benar-benar diperoleh.</label>
+</div>
+<p data-readiness-status role="status">Belum ada pemeriksaan mandiri yang ditandai.</p>
+<p class="jobsheet-inline-note">Untuk rangkaian dengan elektroda atau subjek manusia, pemeriksaan mandiri ini tidak cukup untuk menyatakan perangkat aman. Gunakan prosedur K3 dan persetujuan resmi institusi.</p>
+</section>
 <label for="work-progress">Kelengkapan isian (bukan nilai)</label>
 <progress id="work-progress" data-work-progress max="1" value="0"></progress>
 <p data-work-progress-detail>Belum ada pengukuran atau jawaban.</p>
@@ -130,6 +143,7 @@
 <p class="jobsheet-inline-note">Kurva teoritis diambil sebagaimana tercetak pada Tabel {{ $observationTable['number'] }}; tidak dianggap sebagai pengukuran. Jika tidak ada kolom teoritis pada tabel sumber, grafik tidak membuat kurva teoritis.</p>
 </section>
 @endif
+<p class="jobsheet-data-quality" data-quality-summary role="status">Pemeriksaan data akan muncul setelah isian diubah.</p>
 <div class="jobsheet-observation-actions">
 <button type="button" data-export-table>Unduh CSV hasil pengamatan</button>
 <button type="button" data-reset-table>Hapus isian tabel</button>
@@ -201,6 +215,9 @@
 @endif
 @if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)
 <script defer src="{{ asset('js/jobsheet-workspace.js') }}"></script>
+@endif
+@if(count($activities['tables'] ?? []) > 0)
+<script defer src="{{ asset('js/jobsheet-data-quality.js') }}"></script>
 @endif
 @if($module['slug'] === 'low-pass-orde-pertama')
 <script defer src="{{ asset('js/jobsheet-frequency-chart.js') }}"></script>

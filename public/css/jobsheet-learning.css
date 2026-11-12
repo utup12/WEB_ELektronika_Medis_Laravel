@@ -444,3 +444,45 @@
         margin: 12mm;
     }
 }
+
+.jobsheet-readiness {
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid #b8cee3;
+    border-radius: 12px;
+    background: white;
+}
+
+.jobsheet-readiness h3 {
+    margin-top: 0;
+    color: #193d66;
+}
+
+.jobsheet-readiness-items {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.jobsheet-readiness-items label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    line-height: 1.65;
+}
+
+.jobsheet-readiness-items input {
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+}
+
+.jobsheet-data-quality {
+    padding: 0.75rem 0.9rem;
+    border-radius: 9px;
+    background: #eef4fb;
+    color: #274968;
+    line-height: 1.6;
+}
+
+.jobsheet-observation-table .jobsheet-row-warning {
+    background: #fff1d9 !important;
+}

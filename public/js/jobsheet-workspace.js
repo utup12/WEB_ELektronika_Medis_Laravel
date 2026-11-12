@@ -14,6 +14,15 @@
     const loadFile = workspace.querySelector('[data-import-file]');
     const report = document.querySelector('[data-print-report]');
     const maxFileBytes = 256 * 1024;
+    const checks = Array.from(workspace.querySelectorAll('[data-readiness-item]'));
+    const readinessStatus = workspace.querySelector('[data-readiness-status]');
+
+    const updateReadiness = () => {
+        const marked = checks.filter((check) => check.checked).length;
+        readinessStatus.textContent =
+            marked + ' dari ' + checks.length +
+            ' pemeriksaan mandiri ditandai. Ini bukan persetujuan keselamatan dosen.';
+    };
     let dirty = false;
 
     const mark = (message) => {
@@ -37,6 +46,7 @@
             }),
         })),
         discussion: questions.map((textarea) => textarea.value),
+        readiness: checks.map((check) => check.checked),
     });
 
     const calculateProgress = () => {
@@ -98,9 +108,15 @@
             }
         }
 
-        return draft.discussion.every((answer) => {
+        const validDiscussion = draft.discussion.every((answer) => {
             return typeof answer === 'string' && answer.length <= 2000;
         });
+        const validReadiness = draft.readiness === undefined ||
+            (Array.isArray(draft.readiness) &&
+                draft.readiness.length === checks.length &&
+                draft.readiness.every((value) => typeof value === 'boolean'));
+
+        return validDiscussion && validReadiness;
     };
 
     const restore = (draft) => {
@@ -124,6 +140,10 @@
         questions.forEach((textarea, index) => {
             textarea.value = draft.discussion[index];
         });
+        checks.forEach((check, index) => {
+            check.checked = draft.readiness?.[index] === true;
+        });
+        updateReadiness();
         dirty = false;
         calculateProgress();
         mark('Draf dimuat. Periksa kembali nilai sebelum membuat laporan.');
@@ -255,6 +275,14 @@
                 report.append(printTable);
             });
 
+            report.append(element('h2', 'Pemeriksaan mandiri (bukan persetujuan dosen)'));
+            checks.forEach((check) => {
+                const label = check.closest('label')?.textContent.trim() || '';
+                report.append(
+                    element('p', (check.checked ? '[x] ' : '[ ] ') + label),
+                );
+            });
+
             questions.forEach((textarea, index) => {
                 const item = textarea.closest('.jobsheet-discussion-item');
                 report.append(
@@ -294,6 +322,14 @@
         });
     });
 
+    checks.forEach((check) => {
+        check.addEventListener('change', () => {
+            dirty = true;
+            updateReadiness();
+            mark('Pemeriksaan mandiri berubah. Simpan draf atau ekspor JSON.');
+        });
+    });
+    updateReadiness();
     calculateProgress();
     try {
         if (localStorage.getItem(key)) {
