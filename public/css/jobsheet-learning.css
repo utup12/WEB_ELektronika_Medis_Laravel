@@ -259,3 +259,73 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
 }
+
+.jobsheet-frequency-chart {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    border: 1px solid #d9e5f0;
+    border-radius: 12px;
+    background: #f8fbff;
+}
+
+.jobsheet-frequency-chart h4 {
+    margin: 0 0 0.5rem;
+    color: #1e456b;
+}
+
+.jobsheet-frequency-chart p {
+    line-height: 1.65;
+}
+
+.jobsheet-chart-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dae4ee;
+    border-radius: 10px;
+    background: white;
+}
+
+.jobsheet-chart-scroll svg {
+    display: block;
+    width: 100%;
+    min-width: 520px;
+    height: auto;
+}
+
+.jobsheet-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: #344e68;
+}
+
+.jobsheet-chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.jobsheet-chart-legend i {
+    display: inline-block;
+    width: 1.4rem;
+    height: 3px;
+}
+
+.jobsheet-legend-theory {
+    background: #2361a0;
+}
+
+.jobsheet-legend-measured {
+    background: #c15b2d;
+}
+
+.jobsheet-frequency-chart button {
+    padding: 0.6rem 1rem;
+    border: 1px solid #285d90;
+    border-radius: 8px;
+    background: #285d90;
+    color: white;
+    cursor: pointer;
+}

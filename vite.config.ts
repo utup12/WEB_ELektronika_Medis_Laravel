@@ -69,6 +69,7 @@ export default defineConfig({
             'resources/js/components/ui/*',
             'resources/views/mail/*',
             'public/js/jobsheet-observations.js',
+            'public/js/jobsheet-frequency-chart.js',
         ],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],

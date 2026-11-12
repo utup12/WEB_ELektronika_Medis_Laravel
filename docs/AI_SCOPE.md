@@ -62,3 +62,18 @@ Jawaban diskusi dapat diunduh sebagai teks. Data tidak dikirim ke server
 dan hilang jika halaman dimuat ulang sebelum diekspor. Tidak ada
 penilaian otomatis maupun klaim hasil praktikum yang sudah dilakukan.
 Gambar rangkaian asli tetap harus diperiksa pada dokumen PDF.
+
+## Grafik respons frekuensi Low Pass Filter
+
+Halaman modul `low-pass-orde-pertama` kini menampilkan grafik SVG interaktif
+untuk Tabel 6 dan Tabel 7. Sumbu frekuensi memakai skala logaritmik. Garis
+teoritis hanya ditampilkan jika nilai `theoretical_db` tersedia pada data
+tabel sumber (Tabel 6); untuk Tabel 7 tidak ada kurva teoritis rekaan.
+Titik eksperimen dihitung dari Vin dan Vout yang diisi mahasiswa dengan
+rumus `20 log10(Vout/Vin)`. Jika Vin atau Vout kosong/nonpositif,
+titik eksperimen tidak digambar. Tidak ada interpolasi data kosong.
+
+Mahasiswa dapat mengekspor grafik sebagai SVG tanpa mengunggah data.
+Angka teoritis dipertahankan sebagaimana tercetak di jobsheet, termasuk
+nilai yang tampak tidak mulus. Diagram rangkaian harus tetap diperiksa dari
+PDF asli; grafik ini bukan salinan diagram rangkaian elektronik.

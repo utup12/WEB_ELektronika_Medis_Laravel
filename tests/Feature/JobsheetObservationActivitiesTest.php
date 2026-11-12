@@ -60,3 +60,25 @@ test('modules without verified activity tables stay available', function () {
     expect($found['activities']['tables'])->toBe([]);
     expect($found['activities']['discussion'])->toBe([]);
 });
+
+test('LPF tables have source-linked frequency charts without invented readings', function () {
+    $this->get(route('jobsheet.module', [
+        'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+        'module' => 'low-pass-orde-pertama',
+    ]))
+        ->assertOk()
+        ->assertSee('Grafik respons frekuensi')
+        ->assertSee('data-frequency-table="lpf-t6"', false)
+        ->assertSee('data-frequency-table="lpf-t7"', false)
+        ->assertSee('Unduh grafik SVG')
+        ->assertSee('js/jobsheet-frequency-chart.js');
+});
+
+test('AD620 page has no LPF frequency chart', function () {
+    $this->get(route('jobsheet.module', [
+        'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+        'module' => 'penguat-ad620',
+    ]))
+        ->assertOk()
+        ->assertDontSee('data-frequency-chart', false);
+});

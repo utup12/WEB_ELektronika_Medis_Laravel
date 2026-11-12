@@ -55,7 +55,7 @@
 <h2 id="observation-heading">Tabel Pengamatan Digital</h2>
 <p>Format tabel berikut ditranskripsikan dari Jobsheet 2019. Nilai eksperimen sengaja kosong; isi setelah pengukuran yang disetujui dosen. Perhitungan otomatis adalah hasil model ideal, bukan pengukuran atau jaminan keselamatan rangkaian.</p>
 @foreach($activities['tables'] as $observationTable)
-<div class="jobsheet-observation-card" data-observation-table data-table-kind="{{ $observationTable['kind'] }}" data-export-name="{{ $module['slug'] }}-tabel-{{ $observationTable['number'] }}">
+<div class="jobsheet-observation-card" data-observation-table data-table-id="{{ $observationTable['id'] }}" data-table-kind="{{ $observationTable['kind'] }}" data-export-name="{{ $module['slug'] }}-tabel-{{ $observationTable['number'] }}">
 <div class="jobsheet-observation-head">
 <div>
 <h3>Tabel {{ $observationTable['number'] }}. {{ $observationTable['title'] }}</h3>
@@ -90,6 +90,22 @@
 </tbody>
 </table>
 </div>
+@if($observationTable['kind'] === 'lpf')
+<section class="jobsheet-frequency-chart" data-frequency-chart data-frequency-table="{{ $observationTable['id'] }}" aria-labelledby="grafik-{{ $observationTable['id'] }}">
+<h4 id="grafik-{{ $observationTable['id'] }}">Grafik respons frekuensi · Tabel {{ $observationTable['number'] }}</h4>
+<p>Kurva teoritis (bila tersedia dalam tabel asli) dibandingkan dengan penguatan hasil pengukuran. Grafik diperbarui ketika Vin dan Vout diisi. Skala frekuensi menggunakan logaritma.</p>
+<div class="jobsheet-chart-legend">
+<span><i class="jobsheet-legend-theory" aria-hidden="true"></i> Teoritis dari PDF</span>
+<span><i class="jobsheet-legend-measured" aria-hidden="true"></i> Hasil eksperimen</span>
+</div>
+<div class="jobsheet-chart-scroll">
+<svg viewBox="0 0 960 360" role="img" aria-label="Grafik respons frekuensi Low Pass Filter berdasarkan tabel pengamatan" width="960" height="360"></svg>
+</div>
+<p role="status" aria-live="polite" data-frequency-status>Belum ada pengukuran lengkap.</p>
+<button type="button" data-save-chart>Unduh grafik SVG</button>
+<p class="jobsheet-inline-note">Kurva teoritis diambil sebagaimana tercetak pada Tabel {{ $observationTable['number'] }}; tidak dianggap sebagai pengukuran. Jika tidak ada kolom teoritis pada tabel sumber, grafik tidak membuat kurva teoritis.</p>
+</section>
+@endif
 <div class="jobsheet-observation-actions">
 <button type="button" data-export-table>Unduh CSV hasil pengamatan</button>
 <button type="button" data-reset-table>Hapus isian tabel</button>
@@ -158,6 +174,9 @@
 <p>Konten lengkap untuk modul ini belum tersedia dalam folder sumber.</p>
 @endif
 </section></main><script src="{{ asset('js/script.js') }}"></script>@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)<script defer src="{{ asset('js/jobsheet-observations.js') }}"></script>
+@endif
+@if($module['slug'] === 'low-pass-orde-pertama')
+<script defer src="{{ asset('js/jobsheet-frequency-chart.js') }}"></script>
 @endif
 @if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')<script defer src="{{ asset('js/ad620-calculator.js') }}"></script>
 @endif
