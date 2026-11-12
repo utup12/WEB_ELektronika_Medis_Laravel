@@ -21,7 +21,10 @@ test('AD620 module renders a browser calculator with both directions', function 
         'module' => 'penguat-ad620',
     ]))
         ->assertOk()
+        ->assertSee('Materi Praktikum per Bagian')
         ->assertSee('Daftar bagian materi')
+        ->assertSee('jobsheet-learning-card')
+        ->assertSee('Arsip Teks PDF per Halaman')
         ->assertSee('Kalkulator Interaktif AD620')
         ->assertSee('Cari RG dari gain')
         ->assertSee('Cari gain dari RG')
@@ -35,4 +38,15 @@ test('other jobsheet modules do not show AD620 calculator', function () {
     ]))
         ->assertOk()
         ->assertDontSee('data-ad620-calculator');
+});
+
+test('structured jobsheet content displays source and caution for figures', function () {
+    $this->get(route('jobsheet.module', [
+        'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
+        'module' => 'penguat-ad620',
+    ]))
+        ->assertOk()
+        ->assertSee('Sumber PDF hlm.')
+        ->assertSee('Bagian ini merujuk tabel atau gambar.')
+        ->assertSee('css/jobsheet-learning.css');
 });
