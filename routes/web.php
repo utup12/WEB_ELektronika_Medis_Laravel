@@ -26,9 +26,20 @@ Route::get('/materi', function () {
     return view('materi');
 })->name('materi');
 
-Route::get('/jobsheet', function () {
-    return view('jobsheet');
+Route::get('/jobsheet', function (\App\Support\JobsheetCatalog $catalog) {
+    return view('jobsheet', ['editions' => $catalog->editions()]);
 })->name('jobsheet');
+
+Route::get('/jobsheet/{edition}/{module}', function (
+    string $edition,
+    string $module,
+    \App\Support\JobsheetCatalog $catalog
+) {
+    $found = $catalog->module($edition, $module);
+    abort_if($found === null, 404);
+
+    return view('jobsheet-module', $found);
+})->where(['edition' => '[a-z0-9-]+', 'module' => '[a-z0-9-]+'])->name('jobsheet.module');
 
 Route::get('/laporan', function () {
     return view('laporan');
