@@ -157,4 +157,8 @@
 @else
 <p>Konten lengkap untuk modul ini belum tersedia dalam folder sumber.</p>
 @endif
-</section></main><script src="{{ asset('js/script.js') }}"></script>@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)<script defer src="{{ asset('js/jobsheet-observations.js') }}"></script>@endif@if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')<script defer src="{{ asset('js/ad620-calculator.js') }}"></script>@endif</body></html>
+</section></main><script src="{{ asset('js/script.js') }}"></script>@if(count($activities['tables'] ?? []) > 0 || count($activities['discussion'] ?? []) > 0)<script defer src="{{ asset('js/jobsheet-observations.js') }}"></script>
+@endif
+@if($edition['id'] === 'panduan-instrumentasi-elektronika-medis-2019' && $module['slug'] === 'penguat-ad620')<script defer src="{{ asset('js/ad620-calculator.js') }}"></script>
+@endif
+</body></html>
