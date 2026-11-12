@@ -41,3 +41,24 @@ Siapkan 20–30 pertanyaan mencakup materi, perhitungan, pertanyaan ambigu, dan 
 Data sumber berupa JSON dalam `resources/jobsheets/`. Laravel membaca file itu dari container Vercel ketika melayani permintaan. Pencarian dan kalkulator tidak memanggil API AI. Perbarui JSON melalui GitHub `main`, kemudian deploy image baru ke Vercel.
 
 Sisa environment variable `JOBSHEET_LLM_*` yang mungkin pernah disimpan di pengaturan Vercel tidak digunakan lagi oleh kode terbaru; administrator dapat menghapusnya secara manual.
+
+## Tabel pengamatan digital dan diskusi (Jobsheet 2019)
+
+Modul `penguat-ad620` memuat Tabel 3 (PDF halaman 18) dengan
+10 nilai resistor yang sudah dicocokkan terhadap dokumen. Kolom Input 2 dan
+Vout praktik tetap kosong sampai mahasiswa mengisi pengukuran.
+Gain ideal dihitung dari `G = 1 + 49400/RG`; Vout teoritis dari selisih
+input dikalikan gain, yang mungkin melebihi kemampuan catu daya nyata.
+
+Modul `low-pass-orde-pertama` memuat Tabel 6 dan Tabel 7
+(PDF halaman 27–28), dengan 13 frekuensi yang sesuai dokumen.
+Nilai dB teoritis Tabel 6 dipertahankan sebagaimana tercetak, termasuk
+nilai yang mungkin perlu ditinjau secara akademik.
+Kolom input terukur (`Vin`) adalah **kolom bantu tambahan**, bukan
+kolom PDF asli, untuk menghitung rasio dan `20log10(Vo/Vi)`.
+
+Seluruh perhitungan dan ekspor CSV berlangsung di browser tanpa API.
+Jawaban diskusi dapat diunduh sebagai teks. Data tidak dikirim ke server
+dan hilang jika halaman dimuat ulang sebelum diekspor. Tidak ada
+penilaian otomatis maupun klaim hasil praktikum yang sudah dilakukan.
+Gambar rangkaian asli tetap harus diperiksa pada dokumen PDF.
