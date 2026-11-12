@@ -2,9 +2,9 @@
 
 ## Status Saat Ini
 
-Asisten saat ini adalah baseline retrieval berbasis konten halaman Laravel. Sistem belum menggunakan LLM atau RAG generatif. Jawaban diambil dari sumber pembelajaran lokal, diberi skor berdasarkan istilah pertanyaan, lalu mengembalikan potongan sumber yang paling relevan.
+Asisten memakai retrieval lokal dari halaman Laravel dan teks Jobsheet 2019. Penggunaan LLM generatif bersifat opsional setelah API key server dikonfigurasi. Tanpa key, jawaban tetap berupa kutipan sumber lokal.
 
-Baseline ini dipertahankan sebagai pembanding sebelum pengembangan bounded RAG/LLM.
+Baseline retrieval tetap dipertahankan sebagai pembanding untuk pengujian fitur generatif.
 
 ## Sumber Pengetahuan yang Diizinkan
 
@@ -63,3 +63,39 @@ Gunakan skala yang konsisten, misalnya 0/1 per kriteria, lalu simpan hasil sebag
 ## Arah Pengembangan Berikutnya
 
 Jika LLM/RAG ditambahkan, retrieval harus tetap dibatasi pada sumber yang disetujui. Model tidak boleh menjawab dengan pengetahuan umum saat sumber lokal tidak mendukung jawaban. Setiap perubahan harus dibandingkan dengan baseline ini menggunakan set pertanyaan yang sama.
+
+## Integrasi Tutor LLM Opsional (November 2026)
+
+Asisten kini mencari teks pada 14 modul Jobsheet 2019 dan mempertahankan
+baseline halaman website untuk pertanyaan umum. Jika API LLM dikonfigurasi,
+**hanya jawaban retrieval jobsheet yang memiliki URL sumber halaman** yang
+akan dikirim sebagai konteks kepada provider. Mode ini merupakan bounded
+retrieval-augmented generation sederhana, **bukan** sistem RAG tervalidasi.
+
+Konfigurasi environment **di server Vercel**, bukan di JavaScript frontend:
+
+```dotenv
+JOBSHEET_LLM_API_KEY=isi-dari-provider
+JOBSHEET_LLM_MODEL=gpt-4.1-mini
+JOBSHEET_LLM_URL=https://api.openai.com/v1/chat/completions
+```
+
+Gunakan endpoint HTTPS API chat-completions yang kompatibel; contoh di atas
+menggunakan OpenAI. Kunci harus disimpan sebagai Vercel Environment Variable
+untuk environment yang dipakai lalu lakukan redeploy. Langganan ChatGPT bukan
+kredit API. Permintaan ke LLM memakai jaringan dan dapat dikenakan biaya.
+
+### Perilaku yang sengaja dibatasi
+
+- Tanpa key, URL non-HTTPS, timeout, atau respons provider gagal, asisten
+  tetap mengembalikan kutipan asli dari jobsheet.
+- Pencarian tidak mendukung seluruh variasi bahasa; pertanyaan yang tidak
+  menemukan kecocokan akan masuk fallback pencarian halaman website.
+- Model diberi instruksi mengabaikan instruksi yang terdapat dalam teks
+  sumber, tetapi **risiko halusinasi masih ada**. Nomor halaman dan tautan
+  sumber ditentukan oleh backend, bukan model.
+- Jawaban klinis atau keselamatan perangkat yang melibatkan tubuh manusia
+  tetap membutuhkan supervisi dosen dan pemeriksaan sumber asli.
+- Jangan memasukkan data pasien, informasi kesehatan personal, atau rahasia
+  dalam pertanyaan, karena pertanyaan dan kutipan yang relevan dikirim ke API.
+- Evaluasi 20–30 pertanyaan tetap dibutuhkan sebelum klaim validitas hasil.
