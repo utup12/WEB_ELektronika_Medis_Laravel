@@ -74,6 +74,7 @@ export default defineConfig({
             'public/js/jobsheet-data-quality.js',
             'public/css/jobsheet-learning.css',
             'docs/AI_SCOPE.md',
+            'docs/UJI_COBA_MEDIA_PRAKTIKUM.md',
         ],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],
