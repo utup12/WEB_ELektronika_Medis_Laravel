@@ -1,0 +1,123 @@
+.jobsheet-learning {
+    max-width: 1060px;
+    margin: 2.5rem auto;
+}
+
+.jobsheet-learning-intro {
+    max-width: 78ch;
+    line-height: 1.75;
+    color: #41536b;
+}
+
+.jobsheet-section-nav {
+    padding: 1.25rem;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid #d7e3f0;
+    border-radius: 16px;
+    background: #f6f9fd;
+}
+
+.jobsheet-section-nav strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: #213a57;
+}
+
+.jobsheet-section-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jobsheet-section-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #c7d7e7;
+    border-radius: 10px;
+    background: #fff;
+    color: #153e6c;
+    text-decoration: none;
+}
+
+.jobsheet-section-nav a:hover,
+.jobsheet-section-nav a:focus-visible {
+    border-color: #2865a5;
+    outline-offset: 3px;
+    background: #edf5ff;
+}
+
+.jobsheet-section-nav small {
+    color: #5e6e82;
+    font-size: 0.75rem;
+}
+
+.jobsheet-learning-card {
+    margin: 1.1rem 0;
+    padding: clamp(1rem, 2.8vw, 1.75rem);
+    border: 1px solid #d5e2ef;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(24, 48, 82, 0.05);
+    scroll-margin-top: 1.5rem;
+}
+
+.jobsheet-learning-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid #e5edf5;
+}
+
+.jobsheet-learning-heading h3 {
+    margin: 0.25rem 0;
+    color: #183d68;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+.jobsheet-section-overline {
+    margin: 0;
+    color: #62748a;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+}
+
+.jobsheet-page-link {
+    color: #205b94;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.jobsheet-learning-text {
+    max-width: 95ch;
+    color: #26364b;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.jobsheet-inline-note {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid #bf852b;
+    border-radius: 0 8px 8px 0;
+    background: #fff8ec;
+    color: #664d25;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .jobsheet-learning-card:target {
+        box-shadow: 0 0 0 3px rgba(41, 107, 173, 0.12);
+    }
+}
