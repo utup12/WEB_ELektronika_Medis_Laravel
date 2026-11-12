@@ -24,6 +24,10 @@ class SearchJobsheetContent
     public function answer(string $question, JobsheetCatalog $catalog): ?array
     {
         $terms = $this->terms($question);
+        $lowerQuestion = mb_strtolower($question);
+        $topicTerms = array_values(array_filter($terms, fn (string $term): bool => ! in_array($term, [
+            'tujuan', 'teori', 'ringkasan', 'diskusi', 'alat', 'bahan', 'jelaskan', 'kerja',
+        ], true)));
 
         if (count($terms) < 2) {
             return null;
@@ -53,7 +57,8 @@ class SearchJobsheetContent
 
                 $titleMatches = $this->matches($module['title'], $terms);
 
-                if ($titleMatches === 0) {
+                // Prefer matching a named module; avoid matching broad words from other jobsheets.
+                if ($titleMatches === 0 || ($topicTerms !== [] && $this->matches($module['title'], $topicTerms) === 0)) {
                     continue;
                 }
 
@@ -71,12 +76,19 @@ class SearchJobsheetContent
                             continue;
                         }
 
+                        $relevantSection = match (true) {
+                            str_contains($lowerQuestion, 'tujuan') => preg_match('/tujuan/i', $passage) === 1,
+                            str_contains($lowerQuestion, 'alat') || str_contains($lowerQuestion, 'bahan') => preg_match('/alat|bahan/i', $passage) === 1,
+                            str_contains($lowerQuestion, 'keselamatan') => preg_match('/keselamatan|catu daya|periksa/i', $passage) === 1,
+                            default => false,
+                        };
+
                         $candidates[] = [
                             'edition' => $edition,
                             'module' => $module,
                             'page' => $page['pdf_page'],
                             'passage' => $passage,
-                            'score' => $matches * 3 + $titleMatches,
+                            'score' => $matches * 3 + $titleMatches + ($relevantSection ? 5 : 0),
                             'matches' => $matches,
                         ];
                     }
@@ -105,7 +117,7 @@ class SearchJobsheetContent
         ]).'#halaman-'.$page;
 
         return [
-            'answer' => "Kutipan relevan dari Jobsheet {$title} (Purwanto, 2019, halaman PDF {$page}): {$excerpt}\n\nIni adalah hasil pencarian teks sumber, bukan jawaban generatif. Periksa dokumen asli untuk rumus, tabel dan diagram rangkaian.",
+            'answer' => "Tutor berbasis sumber lokal — {$title} (Purwanto, 2019, halaman PDF {$page}):\n\n{$excerpt}\n\nUntuk belajar: perhatikan konsep dan langkah pada kutipan tersebut, lalu cocokkan dengan jobsheet asli. Saya tidak membuat jawaban di luar informasi yang tersedia. Gambar rangkaian, rumus, dan tabel tetap perlu diperiksa pada PDF.",
             'sources' => [
                 ['title' => "Jobsheet {$title} · halaman PDF {$page}", 'url' => $url],
             ],
