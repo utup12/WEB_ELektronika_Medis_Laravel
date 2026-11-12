@@ -68,6 +68,7 @@ export default defineConfig({
             'composer.json',
             'resources/js/components/ui/*',
             'resources/views/mail/*',
+            'public/js/jobsheet-observations.js',
         ],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],
