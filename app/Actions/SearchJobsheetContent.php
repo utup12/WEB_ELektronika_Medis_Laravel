@@ -122,6 +122,7 @@ class SearchJobsheetContent
         )));
     }
 
+    /** @param array<int, string> $terms */
     private function matches(string $content, array $terms): int
     {
         $content = mb_strtolower($content);
