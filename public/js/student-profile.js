@@ -51,7 +51,25 @@
         const label = document.createElement('span');
         label.dataset.studentProfileName = '';
         link.append(photo, label);
-        bar.append(link);
+        // Keep the navigation dropdown on the left. Align the student profile
+        // directly above the course title in the right-hand header group.
+        const tools = bar.querySelector('.header-tools');
+        const brand = tools?.querySelector('.course-brand');
+        if (tools && brand) {
+            let stack = tools.querySelector('[data-profile-course-stack]');
+            if (!stack) {
+                stack = document.createElement('div');
+                stack.className = 'student-profile-course-stack';
+                stack.dataset.profileCourseStack = '';
+                brand.replaceWith(stack);
+                stack.append(brand);
+            }
+            stack.prepend(link);
+        } else {
+            // Defensive fallback for pages without the standard header group.
+            link.classList.add('student-profile-link-fallback');
+            bar.append(link);
+        }
         // Open the locally stored profile inline without leaving the current page.
         if (!panel) {
             link.setAttribute('aria-haspopup', 'dialog');
