@@ -1,0 +1,89 @@
+
+.student-profile-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-shrink: 0;
+    max-width: 185px;
+    color: #153b62;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.student-profile-link [data-student-profile-name] {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.student-profile-mini-avatar,
+.student-profile-preview {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #daeaf4;
+    color: #163f67;
+    font-size: 1.05rem;
+    font-weight: 750;
+}
+.student-profile-mini-avatar img,
+.student-profile-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.student-profile-page {
+    max-width: 850px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+}
+.student-profile-card {
+    border: 1px solid #cbdde9;
+    border-radius: 18px;
+    padding: clamp(1.1rem, 3vw, 2rem);
+    background: #fff;
+    box-shadow: 0 12px 32px #113c5a12;
+}
+.student-profile-card h1 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    letter-spacing: -0.04em;
+}
+.student-profile-card p { color: #4a6076; line-height: 1.7; }
+.student-profile-preview { width: 112px; height: 112px; font-size: 2.5rem; }
+.student-profile-form { display: grid; gap: 1.1rem; margin-top: 1.2rem; }
+.student-profile-form label { display: grid; gap: 0.35rem; font-weight: 700; }
+.student-profile-form input {
+    width: 100%;
+    max-width: 520px;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid #9eb9ca;
+    border-radius: 9px;
+    font: inherit;
+    background: #fff;
+    color: #13324e;
+}
+.student-profile-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.student-profile-actions button {
+    padding: 0.7rem 1rem;
+    border: 1px solid #245d95;
+    border-radius: 9px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    background: #fff;
+    color: #245d95;
+}
+.student-profile-actions button[type="submit"] { background: #245d95; color: #fff; }
+.student-profile-actions [data-remove-student-profile] { border-color: #b65c53; color: #8b2920; }
+@media (max-width: 760px) {
+    .student-profile-link { margin-left: 0.4rem; max-width: 115px; }
+    .student-profile-mini-avatar { width: 32px; height: 32px; }
+}
