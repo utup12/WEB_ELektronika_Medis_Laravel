@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Support\JobsheetCatalog;
+use App\Support\JobsheetSectionIndex;
 use Illuminate\Support\Facades\File;
 
 class SearchJobsheetContent
@@ -62,34 +63,46 @@ class SearchJobsheetContent
                     continue;
                 }
 
-                foreach ($document['pages'] as $page) {
-                    if (! is_array($page) || ! is_int($page['pdf_page'] ?? null)
-                        || ! is_string($page['text'] ?? null)) {
-                        continue;
-                    }
+                $pages = array_values(array_filter(
+                    $document['pages'],
+                    fn (mixed $page): bool => is_array($page)
+                        && is_int($page['pdf_page'] ?? null)
+                        && is_string($page['text'] ?? null),
+                ));
 
-                    foreach ($this->passages($page['text']) as $passage) {
+                foreach (app(JobsheetSectionIndex::class)->build($pages) as $section) {
+                    $sectionLabel = mb_strtolower($section['section']);
+
+                    foreach ($this->passages($section['text']) as $passage) {
                         $matches = $this->matches($passage, $terms);
+                        $sectionMatches = $this->matches($sectionLabel, $terms);
 
-                        // Require evidence beyond a single shared technical word.
-                        if ($matches < 2 || str_ends_with(trim($passage), '?')) {
+                        // Evidence must appear in content, not only the module title.
+                        if (($matches < 2 && ! ($matches >= 1 && $sectionMatches >= 1))
+                            || str_ends_with(trim($passage), '?')) {
                             continue;
                         }
 
-                        $relevantSection = match (true) {
-                            str_contains($lowerQuestion, 'tujuan') => preg_match('/tujuan/i', $passage) === 1,
-                            str_contains($lowerQuestion, 'alat') || str_contains($lowerQuestion, 'bahan') => preg_match('/alat|bahan/i', $passage) === 1,
-                            str_contains($lowerQuestion, 'keselamatan') => preg_match('/keselamatan|catu daya|periksa/i', $passage) === 1,
-                            default => false,
+                        $requestedSection = match (true) {
+                            str_contains($lowerQuestion, 'tujuan') => 'tujuan',
+                            str_contains($lowerQuestion, 'keselamatan') || str_contains($lowerQuestion, 'k3') => 'keselamatan',
+                            str_contains($lowerQuestion, 'alat') || str_contains($lowerQuestion, 'bahan') => 'alat bahan',
+                            str_contains($lowerQuestion, 'langkah') || str_contains($lowerQuestion, 'prosedur') => 'langkah',
+                            str_contains($lowerQuestion, 'teori') => 'teori',
+                            str_contains($lowerQuestion, 'diskusi') => 'diskusi',
+                            default => '',
                         };
+
+                        $sectionBoost = $requestedSection !== ''
+                            && str_contains($sectionLabel, $requestedSection) ? 8 : 0;
 
                         $candidates[] = [
                             'edition' => $edition,
                             'module' => $module,
-                            'page' => $page['pdf_page'],
+                            'page' => $section['pdf_page'],
+                            'section' => $section['section'],
                             'passage' => $passage,
-                            'score' => $matches * 3 + $titleMatches + ($relevantSection ? 5 : 0),
-                            'matches' => $matches,
+                            'score' => $matches * 3 + $titleMatches + $sectionMatches * 3 + $sectionBoost,
                         ];
                     }
                 }
@@ -111,13 +124,14 @@ class SearchJobsheetContent
 
         $title = $best['module']['title'];
         $page = $best['page'];
+        $sectionName = $best['section'];
         $url = route('jobsheet.module', [
             'edition' => $best['edition']['id'],
             'module' => $best['module']['slug'],
         ]).'#halaman-'.$page;
 
         return [
-            'answer' => "Tutor berbasis sumber lokal — {$title} (Purwanto, 2019, halaman PDF {$page}):\n\n{$excerpt}\n\nUntuk belajar: perhatikan konsep dan langkah pada kutipan tersebut, lalu cocokkan dengan jobsheet asli. Saya tidak membuat jawaban di luar informasi yang tersedia. Gambar rangkaian, rumus, dan tabel tetap perlu diperiksa pada PDF.",
+            'answer' => "Tutor berbasis sumber lokal — {$title}, bagian {$sectionName} (Purwanto, 2019, halaman PDF {$page}):\n\n{$excerpt}\n\nUntuk belajar: perhatikan konsep dan langkah pada kutipan tersebut, lalu cocokkan dengan jobsheet asli. Saya tidak membuat jawaban di luar informasi yang tersedia. Gambar rangkaian, rumus, dan tabel tetap perlu diperiksa pada PDF.",
             'sources' => [
                 ['title' => "Jobsheet {$title} · halaman PDF {$page}", 'url' => $url],
             ],
