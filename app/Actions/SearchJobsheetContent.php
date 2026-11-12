@@ -12,6 +12,8 @@ class SearchJobsheetContent
         'untuk', 'pada', 'yang', 'dari', 'dalam', 'adalah', 'cara', 'suatu',
         'sebuah', 'materi', 'jobsheet', 'praktikum', 'tersebut', 'tentang',
         'fungsi', 'berapa', 'nilai', 'dan', 'atau', 'jika', 'saya', 'bisa',
+        'pertama', 'kedua', 'ketiga', 'langkah', 'sebelum', 'menggunakan',
+        'peralatan', 'praktik', 'hasil', 'pengamatan',
     ];
 
     /**
