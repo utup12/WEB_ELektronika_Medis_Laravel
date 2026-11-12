@@ -115,8 +115,10 @@ class SearchJobsheetContent
     {
         $words = preg_split('/[^\\p{L}\\p{N}]+/u', mb_strtolower($question)) ?: [];
 
-        return array_values(array_unique(array_filter($words, fn (string $word): bool =>
-            mb_strlen($word) >= 3 && ! in_array($word, self::STOP_WORDS, true)
+        return array_values(array_unique(array_filter(
+            $words,
+            fn (string $word): bool => mb_strlen($word) >= 3
+                && ! in_array($word, self::STOP_WORDS, true),
         )));
     }
 
@@ -124,8 +126,12 @@ class SearchJobsheetContent
     {
         $content = mb_strtolower($content);
 
-        return count(array_filter($terms, fn (string $term): bool =>
-            preg_match('/(?<![\\p{L}\\p{N}])'.preg_quote($term, '/').'(?![\\p{L}\\p{N}])/u', $content) === 1
+        return count(array_filter(
+            $terms,
+            fn (string $term): bool => preg_match(
+                '/(?<![\\p{L}\\p{N}])'.preg_quote($term, '/').'(?![\\p{L}\\p{N}])/u',
+                $content,
+            ) === 1,
         ));
     }
 
