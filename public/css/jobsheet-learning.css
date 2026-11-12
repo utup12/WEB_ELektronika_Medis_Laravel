@@ -121,3 +121,141 @@
         box-shadow: 0 0 0 3px rgba(41, 107, 173, 0.12);
     }
 }
+
+.jobsheet-observations,
+.jobsheet-discussion {
+    margin: 2.5rem 0;
+}
+
+.jobsheet-observation-card,
+.jobsheet-discussion-item {
+    margin: 1rem 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid #d5e2ef;
+    border-radius: 16px;
+    background: #fff;
+}
+
+.jobsheet-observation-head {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.jobsheet-observation-head h3 {
+    margin: 0 0 0.5rem;
+    color: #183d68;
+}
+
+.jobsheet-observation-head p,
+.jobsheet-observation-note {
+    margin: 0.4rem 0;
+    color: #53677f;
+    font-size: 0.87rem;
+    line-height: 1.7;
+}
+
+.jobsheet-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dbe6f0;
+    border-radius: 10px;
+}
+
+.jobsheet-observation-table {
+    width: 100%;
+    min-width: 780px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.jobsheet-observation-table th,
+.jobsheet-observation-table td {
+    padding: 0.7rem;
+    border-bottom: 1px solid #dde7f1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.jobsheet-observation-table th {
+    background: #edf3fa;
+    color: #264462;
+    font-weight: 700;
+}
+
+.jobsheet-observation-table tbody tr:nth-child(even) {
+    background: #f8fbff;
+}
+
+.jobsheet-observation-table input {
+    width: 100px;
+    max-width: 100%;
+    padding: 0.45rem;
+    border: 1px solid #a9bbcf;
+    border-radius: 7px;
+    background: #fff;
+    color: #203248;
+    text-align: right;
+}
+
+.jobsheet-observation-table input:focus-visible,
+.jobsheet-discussion-item textarea:focus-visible {
+    outline: 2px solid #2865a5;
+    outline-offset: 2px;
+}
+
+.jobsheet-observation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.jobsheet-observation-actions button,
+.jobsheet-discussion > button {
+    padding: 0.65rem 1rem;
+    border: 1px solid #275e9a;
+    border-radius: 9px;
+    background: #194e85;
+    color: white;
+    cursor: pointer;
+}
+
+.jobsheet-observation-actions [data-reset-table] {
+    background: #fff;
+    color: #194e85;
+}
+
+.jobsheet-discussion-item label {
+    display: block;
+    line-height: 1.65;
+    color: #203956;
+}
+
+.jobsheet-discussion-item p {
+    font-size: 0.85rem;
+}
+
+.jobsheet-discussion-item textarea {
+    width: 100%;
+    min-height: 115px;
+    padding: 0.8rem;
+    border: 1px solid #b8cce0;
+    border-radius: 9px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.6;
+}
+
+.jobsheet-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
