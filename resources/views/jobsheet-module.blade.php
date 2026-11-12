@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{{ $module['title'] }} | Jobsheet Elektronika Medis</title><link rel="stylesheet" href="{{ asset('css/styles.css') }}"><link rel="stylesheet" href="{{ asset('css/identity.css') }}"><link rel="stylesheet" href="{{ asset('css/pages.css') }}"></head>
+<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{{ $module['title'] }} | Jobsheet Elektronika Medis</title><link rel="stylesheet" href="{{ asset('css/styles.css') }}"><link rel="stylesheet" href="{{ asset('css/identity.css') }}"><link rel="stylesheet" href="{{ asset('css/pages.css') }}"><link rel="stylesheet" href="{{ asset('css/jobsheet-learning.css') }}"></head>
 <body><header class="site-header"><div class="identity-bar"><a class="uny-seal" href="{{ route('home') }}"><span><img src="{{ asset('assets/logo-uny-reference.png') }}" alt="Lambang UNY"></span></a><div class="institution-name"><strong>Universitas Negeri Yogyakarta</strong><span>Fakultas Teknik · Program Studi Pendidikan Teknik Elektronika</span></div></div><div class="platform-bar"><a class="course-brand" href="{{ route('home') }}">Praktik Elektronika Medis</a><button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span></button><nav class="main-nav"><a href="{{ route('home') }}">Beranda</a><a href="{{ route('materi') }}">Materi</a><a class="active" href="{{ route('jobsheet') }}">Jobsheet</a><a href="{{ route('praktikum') }}">Praktikum</a><a href="{{ route('evaluasi') }}">Evaluasi</a><a href="{{ route('asisten-ai') }}">Asisten AI</a></nav></div></header>
 <main><section class="page-hero"><p class="eyebrow">{{ $edition['year'] }} · {{ $module['group'] }} · Jobsheet {{ $module['number'] ?? '—' }}</p><h1>{{ $module['title'] }}</h1><p>{{ $module['summary'] }}</p></section>
 <section class="page-content"><p><a href="{{ route('jobsheet') }}">← Kembali ke katalog jobsheet</a></p>
@@ -51,22 +51,41 @@
 </section>
 @endif
 @if(count($sections ?? []) > 0)
-<nav aria-label="Navigasi bagian jobsheet" style="margin-top:2rem;padding:1rem;border:1px solid #d9e3ef;border-radius:12px;background:#f8fbff">
+<section aria-labelledby="structured-heading" class="jobsheet-learning">
+<h2 id="structured-heading">Materi Praktikum per Bagian</h2>
+<p class="jobsheet-learning-intro">Disusun otomatis dari teks PDF sesuai urutan aslinya. Bagian yang belum dapat dikonversi, seperti tabel pengamatan, persamaan yang belum diverifikasi, dan gambar rangkaian, tetap harus dicek pada PDF sumber.</p>
+<nav aria-label="Navigasi bagian jobsheet" class="jobsheet-section-nav">
 <strong>Daftar bagian materi</strong>
-<p style="margin:.5rem 0">Pilih bagian untuk menuju halaman PDF terkait. Daftar ini dibuat otomatis dari penanda bagian pada teks jobsheet.</p>
-<ul style="display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:.5rem 0">
-@foreach(collect($sections)->unique('section') as $section)
-<li><a href="#halaman-{{ $section['pdf_page'] }}" style="display:inline-block;padding:.45rem .75rem;border:1px solid #bacfe2;border-radius:10px;background:#fff">{{ $section['section'] }} · hlm. {{ $section['pdf_page'] }}</a></li>
+<ul>
+@foreach($sections as $section)
+<li><a href="#bagian-{{ $loop->iteration }}">{{ $section['section'] }} <small>hlm. {{ $section['pdf_page'] }}</small></a></li>
 @endforeach
 </ul>
 </nav>
+@foreach($sections as $section)
+<article id="bagian-{{ $loop->iteration }}" class="jobsheet-learning-card">
+<div class="jobsheet-learning-heading">
+<div>
+<p class="jobsheet-section-overline">Bagian {{ $loop->iteration }} · {{ $module['title'] }}</p>
+<h3>{{ $section['section'] }}</h3>
+</div>
+<a href="#halaman-{{ $section['pdf_page'] }}" class="jobsheet-page-link">Sumber PDF hlm. {{ $section['pdf_page'] }}</a>
+</div>
+<div class="jobsheet-learning-text">{{ $section['text'] }}</div>
+@if(preg_match('/\\b(Tabel|Gambar|Rangkaian)\\s*\\d*\\b/iu', $section['text']) === 1)
+<p class="jobsheet-inline-note">Bagian ini merujuk tabel atau gambar. Tata letak dan elemen visual belum diverifikasi; lihat dokumen asli sebelum melakukan praktikum.</p>
+@endif
+</article>
+@endforeach
+</section>
 @endif
 @if(count($pages) > 0)
 <section aria-labelledby="source-text-heading" style="margin-top:2rem">
-<h2 id="source-text-heading">Isi Jobsheet dari Dokumen 2019</h2>
+<h2 id="source-text-heading">Arsip Teks PDF per Halaman</h2>
+<p>Arsip berikut menampilkan transkripsi lengkap lapisan teks sebagai pembanding materi terstruktur di atas.</p>
 <p>Materi berikut merupakan hasil ekstraksi lapisan teks PDF berdasarkan halaman sumber. Untuk memastikan bentuk rangkaian, rumus, diagram, dan tabel, tetap gunakan PDF asli; tata letaknya belum sepenuhnya dapat dipertahankan.</p>
 @foreach($pages as $page)
-<details id="halaman-{{ $page['pdf_page'] }}" style="margin:1rem 0;border:1px solid #d9e3ef;border-radius:12px;padding:1rem;background:#fff" {{ $loop->first ? 'open' : '' }}>
+<details id="halaman-{{ $page['pdf_page'] }}" style="margin:1rem 0;border:1px solid #d9e3ef;border-radius:12px;padding:1rem;background:#fff">
 <summary style="cursor:pointer;font-weight:700">Halaman PDF {{ $page['pdf_page'] }}</summary>
 <div style="white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;margin-top:1rem;font-family:inherit">{{ $page['text'] }}</div>
 </details>
