@@ -74,7 +74,7 @@
 @foreach($observationTable['rows'] as $observationRow)
 <tr>
 @foreach($observationTable['columns'] as $column)
-<td data-col="{{ $column['key'] }}" @if($column['type'] === 'fixed') data-raw="{{ $observationRow[$column['key']] ?? '' }}" @endif>
+<td data-col="{{ $column['key'] }}" data-raw="{{ $column['type'] === 'fixed' ? ($observationRow[$column['key']] ?? '') : '' }}">
 @if($column['type'] === 'fixed')
 {{ str_replace('.', ',', (string) ($observationRow[$column['key']] ?? '')) }}
 @elseif($column['type'] === 'input')
