@@ -36,3 +36,20 @@ test('profile button supports an in-page dialog across website pages', function 
             ->assertSee('/js/script.js');
     }
 });
+
+test('student profile appears above course title without relocating menu', function () {
+    $script = file_get_contents(public_path('js/student-profile.js'));
+    $styles = file_get_contents(public_path('css/student-profile.css'));
+
+    expect($script)->toContain("bar.querySelector('.header-tools')")
+        ->toContain("tools?.querySelector('.course-brand')")
+        ->toContain('stack.prepend(link)')
+        ->toContain('stack.append(brand)')
+        ->not->toContain('bar.append(link);\n        // Open the locally stored profile');
+
+    expect($styles)->toContain('.student-profile-course-stack')
+        ->toContain('align-items: flex-end')
+        ->toContain('flex-direction: column');
+
+    $this->get('/')->assertOk()->assertSee('class="nav-dropdown"', false);
+});
