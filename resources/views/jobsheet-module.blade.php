@@ -50,6 +50,17 @@
 @endforeach
 </section>
 @endif
+@if(count($sections ?? []) > 0)
+<nav aria-label="Navigasi bagian jobsheet" style="margin-top:2rem;padding:1rem;border:1px solid #d9e3ef;border-radius:12px;background:#f8fbff">
+<strong>Daftar bagian materi</strong>
+<p style="margin:.5rem 0">Pilih bagian untuk menuju halaman PDF terkait. Daftar ini dibuat otomatis dari penanda bagian pada teks jobsheet.</p>
+<ul style="display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:.5rem 0">
+@foreach(collect($sections)->unique('section') as $section)
+<li><a href="#halaman-{{ $section['pdf_page'] }}" style="display:inline-block;padding:.45rem .75rem;border:1px solid #bacfe2;border-radius:10px;background:#fff">{{ $section['section'] }} · hlm. {{ $section['pdf_page'] }}</a></li>
+@endforeach
+</ul>
+</nav>
+@endif
 @if(count($pages) > 0)
 <section aria-labelledby="source-text-heading" style="margin-top:2rem">
 <h2 id="source-text-heading">Isi Jobsheet dari Dokumen 2019</h2>
