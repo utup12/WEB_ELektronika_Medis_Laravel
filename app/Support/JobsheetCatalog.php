@@ -61,7 +61,32 @@ class JobsheetCatalog
 
             foreach ($edition['modules'] as $module) {
                 if ($module['slug'] === $slug) {
-                    return ['edition' => $edition, 'module' => $module];
+                    $moduleFile = resource_path('jobsheets/modules/'.$slug.'.json');
+                    $pages = [];
+
+                    if (File::isFile($moduleFile)) {
+                        try {
+                            $document = json_decode(File::get($moduleFile), true, 512, JSON_THROW_ON_ERROR);
+
+                            if (($document['edition'] ?? null) === $editionId
+                                && ($document['slug'] ?? null) === $slug
+                                && is_array($document['pages'] ?? null)) {
+                                $pages = array_values(array_filter(
+                                    $document['pages'],
+                                    fn (mixed $page): bool => is_array($page)
+                                        && is_int($page['pdf_page'] ?? null)
+                                        && is_string($page['text'] ?? null),
+                                ));
+                            }
+                        } catch (\JsonException $exception) {
+                            Log::warning('Cannot parse jobsheet module content', [
+                                'file' => basename($moduleFile),
+                                'error' => $exception->getMessage(),
+                            ]);
+                        }
+                    }
+
+                    return ['edition' => $edition, 'module' => $module, 'pages' => $pages];
                 }
             }
         }
