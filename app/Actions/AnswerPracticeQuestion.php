@@ -2,6 +2,7 @@
 
 namespace App\Actions;
 
+use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\File;
 
 class AnswerPracticeQuestion
@@ -58,6 +59,19 @@ class AnswerPracticeQuestion
                 'answer' => $greetingResponse,
                 'sources' => [],
             ];
+        }
+
+        $calculation = app(CalculateAd620::class)->answer($question);
+
+        if ($calculation !== null) {
+            return $calculation;
+        }
+
+        $jobsheetAnswer = app(SearchJobsheetContent::class)
+            ->answer($question, app(JobsheetCatalog::class));
+
+        if ($jobsheetAnswer !== null) {
+            return $jobsheetAnswer;
         }
 
         $terms = $this->searchTerms($question);

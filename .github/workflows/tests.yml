@@ -5,6 +5,11 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -36,3 +41,14 @@ jobs:
 
       - name: Run CI Checks
         run: composer ci:check
+
+      - name: Test pilot observation draft lifecycle
+        run: node --test tests/Browser/pilot-observations.test.cjs
+
+      - name: Validate browser observation controller syntax
+        run: |
+          node --check public/js/jobsheet-observations.js
+          node --check public/js/jobsheet-frequency-chart.js
+          node --check public/js/jobsheet-workspace.js
+          node --check public/js/jobsheet-data-quality.js
+          node --check public/js/student-profile.js

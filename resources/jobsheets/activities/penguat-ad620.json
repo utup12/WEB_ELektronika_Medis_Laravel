@@ -1,0 +1,112 @@
+{
+    "schema_version": 1,
+    "edition": "panduan-instrumentasi-elektronika-medis-2019",
+    "slug": "penguat-ad620",
+    "status": "table-structure-verified-against-pdf; observations-empty",
+    "tables": [
+        {
+            "id": "ad620-t3",
+            "number": 3,
+            "title": "Hasil Pengamatan Penguat AD620",
+            "pdf_page": 18,
+            "kind": "ad620",
+            "note": "Nilai R dan Input 1 diambil dari Tabel 3; Input 2 ditandai * pada dokumen sehingga harus diukur/diisi. Gain dan Vout hitung hanya nilai ideal.",
+            "columns": [
+                {
+                    "key": "rg",
+                    "label": "R (Ω)",
+                    "type": "fixed"
+                },
+                {
+                    "key": "vin1",
+                    "label": "Input 1 (V)",
+                    "type": "fixed"
+                },
+                {
+                    "key": "vin2",
+                    "label": "Input 2 (V) *",
+                    "type": "input"
+                },
+                {
+                    "key": "vin_diff",
+                    "label": "Vinput 1−2 (V)",
+                    "type": "derived"
+                },
+                {
+                    "key": "vout_calc",
+                    "label": "Vout Hitung (V)",
+                    "type": "derived"
+                },
+                {
+                    "key": "vout_measured",
+                    "label": "Vout Praktik (V)",
+                    "type": "input"
+                },
+                {
+                    "key": "gain_calc",
+                    "label": "Gain Hitung",
+                    "type": "derived"
+                },
+                {
+                    "key": "gain_measured",
+                    "label": "Gain Praktik",
+                    "type": "derived"
+                }
+            ],
+            "rows": [
+                {
+                    "rg": 47000,
+                    "vin1": 2
+                },
+                {
+                    "rg": 24000,
+                    "vin1": 2
+                },
+                {
+                    "rg": 16000,
+                    "vin1": 2
+                },
+                {
+                    "rg": 12000,
+                    "vin1": 2
+                },
+                {
+                    "rg": 9100,
+                    "vin1": 2
+                },
+                {
+                    "rg": 8200,
+                    "vin1": 1.5
+                },
+                {
+                    "rg": 7500,
+                    "vin1": 1.5
+                },
+                {
+                    "rg": 6800,
+                    "vin1": 1.5
+                },
+                {
+                    "rg": 5600,
+                    "vin1": 1.5
+                },
+                {
+                    "rg": 2700,
+                    "vin1": 1.5
+                }
+            ]
+        }
+    ],
+    "discussion": [
+        {
+            "pdf_page": 18,
+            "number": 1,
+            "text": "Sebutkan 5 kelebihan penggunaan AD620 dibanding dengan 3 op-amp?"
+        },
+        {
+            "pdf_page": 18,
+            "number": 2,
+            "text": "Buatlah rangkaian yang memiliki penguatan sebesar 90x?"
+        }
+    ]
+}
