@@ -289,12 +289,29 @@ const uploadStatus = document.querySelector('#upload-status');
 const dropzone = document.querySelector('.upload-dropzone');
 let selectedReportFile;
 
+const maxReportBytes = 10 * 1024 * 1024;
+
 function showSelectedFile(file) {
-    if (!file) return;
+    selectedReportFile = undefined;
+    if (!file) {
+        if (selectedFile) selectedFile.textContent = 'Belum ada berkas yang dipilih.';
+        return;
+    }
+    const isPdf = file.type === 'application/pdf' || /\\.pdf$/i.test(file.name);
+    if (!isPdf || file.size > maxReportBytes || file.size === 0) {
+        if (reportFile) reportFile.value = '';
+        if (selectedFile) selectedFile.textContent = 'Berkas belum diterima.';
+        if (uploadStatus)
+            uploadStatus.textContent = !isPdf
+                ? 'Pilih berkas PDF.'
+                : 'Ukuran PDF harus lebih dari 0 byte dan maksimal 10 MB.';
+        return;
+    }
     selectedReportFile = file;
     const sizeMb = (file.size / 1024 / 1024).toFixed(2);
-    selectedFile.textContent = `Berkas dipilih: ${file.name} (${sizeMb} MB)`;
-    uploadStatus.textContent = '';
+    if (selectedFile)
+        selectedFile.textContent = `Berkas dipilih: ${file.name} (${sizeMb} MB)`;
+    if (uploadStatus) uploadStatus.textContent = '';
 }
 
 if (reportFile)
@@ -315,20 +332,16 @@ if (reportFile)
         dropzone.addEventListener(eventName, (event) => {
             event.preventDefault();
             dropzone.classList.remove('dragover');
+            if (eventName === 'drop') showSelectedFile(event.dataTransfer?.files?.[0]);
         });
 });
-
-if (dropzone)
-    dropzone.addEventListener('drop', (event) =>
-        showSelectedFile(event.dataTransfer.files[0]),
-    );
 
 if (reportForm)
     reportForm.addEventListener('submit', (event) => {
         event.preventDefault();
         uploadStatus.textContent = selectedReportFile
-            ? 'Berkas telah disiapkan. Pengiriman ke sistem dosen akan tersedia pada tahap pengembangan berikutnya.'
-            : 'Silakan pilih berkas laporan terlebih dahulu.';
+            ? 'PDF valid dan siap disimpan secara manual. Belum dikirim ke dosen atau server; fitur pengumpulan daring belum tersedia.'
+            : 'Silakan pilih PDF yang valid (maksimal 10 MB) terlebih dahulu. Tidak ada berkas yang dikirim.';
     });
 
 const readinessQuiz = document.querySelector('#readiness-quiz');
