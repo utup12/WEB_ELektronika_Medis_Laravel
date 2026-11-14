@@ -1,0 +1,259 @@
+{
+    "version": "2026-11-14",
+    "status": "PROVISIONAL_CURRENT_WEBSITE_CORPUS_NOT_RPS_VALIDATED",
+    "description": "28 pertanyaan untuk menguji baseline retrieval lokal; tidak mewakili materi resmi sampai dosen memvalidasi.",
+    "cases": [
+        {
+            "id": "Q01",
+            "category": "retrieval",
+            "question": "Apa langkah pertama sebelum menggunakan peralatan praktikum?",
+            "expected_source": "Evaluasi Praktikum",
+            "expected_contains": "Memeriksa prosedur keselamatan",
+            "reference_path": "/evaluasi",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q02",
+            "category": "retrieval",
+            "question": "Apa format laporan yang disarankan?",
+            "expected_source": "Unggah Laporan",
+            "expected_contains": "PDF",
+            "reference_path": "/laporan",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q03",
+            "category": "retrieval",
+            "question": "Berapa batas maksimum ukuran PDF laporan praktikum?",
+            "expected_source": "Unggah Laporan",
+            "expected_contains": "10 MB",
+            "reference_path": "/laporan",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q04",
+            "category": "retrieval",
+            "question": "Apakah berkas laporan otomatis dikirim ke dosen?",
+            "expected_source": "Unggah Laporan",
+            "expected_contains": "belum tersedia",
+            "reference_path": "/laporan",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q05",
+            "category": "retrieval",
+            "question": "Layanan BLE apa yang diperlukan untuk membaca BPM nyata?",
+            "expected_source": "Monitor Trainer",
+            "expected_contains": "Heart Rate Service",
+            "reference_path": "/monitor-trainer",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q06",
+            "category": "retrieval",
+            "question": "Apakah data trainer digunakan untuk diagnosis medis?",
+            "expected_source": "Monitor Trainer",
+            "expected_contains": "bukan hasil diagnosis",
+            "reference_path": "/monitor-trainer",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q07",
+            "category": "retrieval",
+            "question": "Apa status awal sumber data Monitor Trainer saat tanpa sensor BLE?",
+            "expected_source": "Monitor Trainer",
+            "expected_contains": "simulasi",
+            "reference_path": "/monitor-trainer",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q08",
+            "category": "retrieval",
+            "question": "Apakah Monitor Trainer membaca gelombang PPG mentah?",
+            "expected_source": "Monitor Trainer",
+            "expected_contains": "PPG mentah",
+            "reference_path": "/monitor-trainer",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q09",
+            "category": "retrieval",
+            "question": "Bagaimana membuka monitor Heart Rate dari halaman praktikum?",
+            "expected_source": "Praktikum",
+            "expected_contains": "Monitor Heart Rate",
+            "reference_path": "/praktikum",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q10",
+            "category": "retrieval",
+            "question": "Bagaimana menuju pre-lab Heart Rate PPG?",
+            "expected_source": "Evaluasi Praktikum",
+            "expected_contains": "Pre-lab Heart Rate",
+            "reference_path": "/evaluasi",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q11",
+            "category": "retrieval",
+            "question": "Apakah jobsheet 2019 digunakan sebagai referensi sementara?",
+            "expected_source": "Jobsheet Praktikum",
+            "expected_contains": "2019",
+            "reference_path": "/jobsheet",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q12",
+            "category": "retrieval",
+            "question": "Apa yang bisa diakses dari katalog jobsheet?",
+            "expected_source": "Jobsheet Praktikum",
+            "expected_contains": "Jobsheet",
+            "reference_path": "/jobsheet",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q13",
+            "category": "retrieval",
+            "question": "Di mana materi pengantar Heart Rate PPG tersedia?",
+            "expected_source": "Materi Praktikum",
+            "expected_contains": "Heart Rate",
+            "reference_path": "/materi",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q14",
+            "category": "retrieval",
+            "question": "Bagaimana pengkondisian sinyal membantu sinyal sensor?",
+            "expected_source": "Evaluasi Praktikum",
+            "expected_contains": "Pengkondisian sinyal",
+            "reference_path": "/evaluasi",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q15",
+            "category": "retrieval",
+            "question": "Apa yang harus dibahas dalam laporan praktikum?",
+            "expected_source": "Unggah Laporan",
+            "expected_contains": "analisis teknis",
+            "reference_path": "/laporan",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q16",
+            "category": "retrieval",
+            "question": "Perangkat seperti apa yang diperlukan agar BPM nyata terbaca via BLE?",
+            "expected_source": "Monitor Trainer",
+            "expected_contains": "Heart Rate Service",
+            "reference_path": "/monitor-trainer",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q17",
+            "category": "retrieval",
+            "question": "Apa keterbatasan hasil tampilan training kit terhadap diagnosis?",
+            "expected_source": "Monitor Trainer",
+            "expected_contains": "diagnosis",
+            "reference_path": "/monitor-trainer",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q18",
+            "category": "calculation",
+            "question": "Hitung RG AD620 untuk gain 100 kali",
+            "expected_source": "Jobsheet Penguat AD620 · halaman PDF 16",
+            "expected_contains": "498,99",
+            "reference_path": "/jobsheet/panduan-instrumentasi-elektronika-medis-2019/penguat-ad620",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q19",
+            "category": "calculation",
+            "question": "Hitung RG AD620 untuk gain 50 kali",
+            "expected_source": "Jobsheet Penguat AD620 · halaman PDF 16",
+            "expected_contains": "1.008,16",
+            "reference_path": "/jobsheet/panduan-instrumentasi-elektronika-medis-2019/penguat-ad620",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q20",
+            "category": "calculation",
+            "question": "Hitung gain AD620 jika RG 1 kΩ",
+            "expected_source": "Jobsheet Penguat AD620 · halaman PDF 16",
+            "expected_contains": "50,40",
+            "reference_path": "/jobsheet/panduan-instrumentasi-elektronika-medis-2019/penguat-ad620",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q21",
+            "category": "calculation",
+            "question": "Hitung RG AD620 untuk gain 1 kali",
+            "expected_source": "Jobsheet Penguat AD620 · halaman PDF 16",
+            "expected_contains": "lebih besar dari 1",
+            "reference_path": "/jobsheet/panduan-instrumentasi-elektronika-medis-2019/penguat-ad620",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q22",
+            "category": "calculation",
+            "question": "Hitung gain AD620 jika RG 500",
+            "expected_source": "Jobsheet Penguat AD620 · halaman PDF 16",
+            "expected_contains": "Cantumkan satuan",
+            "reference_path": "/jobsheet/panduan-instrumentasi-elektronika-medis-2019/penguat-ad620",
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q23",
+            "category": "outside_scope",
+            "question": "Siapa presiden Indonesia saat ini?",
+            "expected_source": null,
+            "expected_contains": "Saya belum menemukan jawaban",
+            "reference_path": null,
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q24",
+            "category": "outside_scope",
+            "question": "Siapa pemenang liga sepak bola kemarin?",
+            "expected_source": null,
+            "expected_contains": "Saya belum menemukan jawaban",
+            "reference_path": null,
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q25",
+            "category": "outside_scope",
+            "question": "Berapa harga saham Tesla hari ini?",
+            "expected_source": null,
+            "expected_contains": "Saya belum menemukan jawaban",
+            "reference_path": null,
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q26",
+            "category": "outside_scope",
+            "question": "Apa ramalan cuaca Tokyo besok?",
+            "expected_source": null,
+            "expected_contains": "Saya belum menemukan jawaban",
+            "reference_path": null,
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q27",
+            "category": "greeting",
+            "question": "Halo",
+            "expected_source": null,
+            "expected_contains": "Halo!",
+            "reference_path": null,
+            "review_status": "pending_human_review"
+        },
+        {
+            "id": "Q28",
+            "category": "greeting",
+            "question": "Selamat siang!",
+            "expected_source": null,
+            "expected_contains": "Selamat siang!",
+            "reference_path": null,
+            "review_status": "pending_human_review"
+        }
+    ]
+}

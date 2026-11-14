@@ -24,6 +24,12 @@
 <main>
  <section class="page-hero"><p class="eyebrow">Referensi praktikum</p><h1>Katalog Jobsheet</h1><p>Telusuri topik menurut edisi panduan. Materi 2019 digunakan sebagai referensi sementara dan bukan pengganti arahan dosen pengampu.</p></section>
  <section class="page-content">
+ <section class="sheet-edition" aria-labelledby="pilot-ppg-heading">
+    <p class="sheet-meta">Kandidat pilot · materi latihan, belum jobsheet resmi</p>
+    <h2 id="pilot-ppg-heading">Heart Rate / PPG</h2>
+    <p>Pelajari prinsip PPG, kerjakan pre-lab, ikuti prosedur simulasi, dan catat pengamatan serta refleksi teknis. Gunakan jobsheet resmi dari dosen untuk kegiatan praktikum fisik.</p>
+    <a class="button primary" href="{{ route('pilot.heart-rate') }}#pilot-jobsheet">Buka jobsheet pilot PPG</a>
+  </section>
  @forelse ($editions as $edition)
   <section class="sheet-edition" aria-labelledby="edition-{{ $loop->index }}">
     <h2 id="edition-{{ $loop->index }}">{{ $edition['title'] }} ({{ $edition['year'] }})</h2>

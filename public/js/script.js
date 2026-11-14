@@ -25,7 +25,7 @@ const nav = document.querySelector('.main-nav');
 // Tautan panduan tersedia konsisten pada menu setiap halaman.
 if (nav && !nav.querySelector('a[href*="panduan-praktikum"]')) {
     const guideLink = document.createElement('a');
-    guideLink.href = new URL('panduan-praktikum', document.baseURI).href;
+    guideLink.href = '/panduan-praktikum';
     guideLink.textContent = 'Panduan Praktikum';
     if (window.location.pathname.endsWith('/panduan-praktikum'))
         guideLink.classList.add('active');
@@ -71,12 +71,26 @@ const applyTheme = (isDark) => {
     }
 };
 
-applyTheme(localStorage.getItem('pem-theme') === 'dark');
+let initialDarkMode = false;
+try {
+    initialDarkMode = localStorage.getItem('pem-theme') === 'dark';
+} catch {
+    // Keep the default theme when browser storage is unavailable.
+}
+applyTheme(initialDarkMode);
 
 themeToggle?.addEventListener('click', () => {
     const isDark = document.documentElement.dataset.theme !== 'dark';
-    localStorage.setItem('pem-theme', isDark ? 'dark' : 'light');
+    try {
+        localStorage.setItem('pem-theme', isDark ? 'dark' : 'light');
+    } catch {
+        // The theme still changes for the current page.
+    }
     applyTheme(isDark);
+});
+
+nav?.querySelectorAll('a.active').forEach((link) => {
+    link.setAttribute('aria-current', 'page');
 });
 
 const trainerHeader = document.querySelector('.trainer-screen-top');
@@ -142,6 +156,8 @@ if (trainerHeader) {
         const startSimulation = () => {
             window.clearInterval(simulationInterval);
             heartbeatStatus.textContent = 'SIM READY';
+            if (trainerHeaderLabel)
+                trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MODE SIMULASI';
             if (trainerStatus) trainerStatus.textContent = 'SIMULASI';
             connectButton.textContent = 'Connect Bluetooth';
             simulateHeartRate();
@@ -202,23 +218,38 @@ if (trainerHeader) {
                             return;
                         }
 
-                        window.clearInterval(simulationInterval);
-
                         const flags = value.getUint8(0);
-                        const heartRate =
-                            (flags & 0x01) === 0
-                                ? value.getUint8(1)
-                                : value.getUint16(1, true);
+                        const isSixteenBit = (flags & 0x01) !== 0;
+                        if (isSixteenBit && value.byteLength < 3) {
+                            connectMessage.textContent =
+                                'Paket BLE tidak lengkap; menunggu pembacaan berikutnya.';
+                            return;
+                        }
+                        const heartRate = isSixteenBit
+                            ? value.getUint16(1, true)
+                            : value.getUint8(1);
 
-                        if (heartRate > 0) {
+                        if (heartRate >= minHeartRate && heartRate <= maxHeartRate) {
                             setHeartRate(heartRate);
+                            heartbeatStatus.textContent = 'BLE LIVE';
+                            if (trainerStatus) trainerStatus.textContent = 'BLE DATA';
+                            if (trainerHeaderLabel)
+                                trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MODE BLE';
+                            connectMessage.textContent =
+                                'Data BPM diterima melalui BLE Heart Rate Service. Belum tervalidasi untuk penggunaan klinis.';
+                        } else {
+                            connectMessage.textContent =
+                                'Nilai BPM di luar rentang tampilan; data diabaikan.';
                         }
                     },
                 );
 
                 window.clearInterval(simulationInterval);
-                heartbeatStatus.textContent = 'BLE LIVE';
-                if (trainerStatus) trainerStatus.textContent = 'TERHUBUNG';
+                heartbeatValue.textContent = '—';
+                heartbeatStatus.textContent = 'BLE WAIT';
+                if (trainerHeaderLabel)
+                    trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MENUNGGU BLE';
+                if (trainerStatus) trainerStatus.textContent = 'MENUNGGU DATA';
                 connectButton.textContent = 'Disconnect';
                 connectMessage.textContent = `Terhubung ke ${selectedDevice.name || 'sensor'}. Menunggu data BPM…`;
             } catch (error) {
@@ -277,7 +308,8 @@ if (toggle && nav)
 
 document.querySelectorAll('.main-nav a').forEach((link) => {
     link.addEventListener('click', () => {
-        nav.classList.remove('open');
+        nav?.classList.remove('open');
+        link.closest('.nav-dropdown')?.removeAttribute('open');
         if (toggle) toggle.setAttribute('aria-expanded', 'false');
     });
 });
@@ -289,12 +321,29 @@ const uploadStatus = document.querySelector('#upload-status');
 const dropzone = document.querySelector('.upload-dropzone');
 let selectedReportFile;
 
+const maxReportBytes = 10 * 1024 * 1024;
+
 function showSelectedFile(file) {
-    if (!file) return;
+    selectedReportFile = undefined;
+    if (!file) {
+        if (selectedFile) selectedFile.textContent = 'Belum ada berkas yang dipilih.';
+        return;
+    }
+    const isPdf = file.type === 'application/pdf' || /\\.pdf$/i.test(file.name);
+    if (!isPdf || file.size > maxReportBytes || file.size === 0) {
+        if (reportFile) reportFile.value = '';
+        if (selectedFile) selectedFile.textContent = 'Berkas belum diterima.';
+        if (uploadStatus)
+            uploadStatus.textContent = !isPdf
+                ? 'Pilih berkas PDF.'
+                : 'Ukuran PDF harus lebih dari 0 byte dan maksimal 10 MB.';
+        return;
+    }
     selectedReportFile = file;
     const sizeMb = (file.size / 1024 / 1024).toFixed(2);
-    selectedFile.textContent = `Berkas dipilih: ${file.name} (${sizeMb} MB)`;
-    uploadStatus.textContent = '';
+    if (selectedFile)
+        selectedFile.textContent = `Berkas dipilih: ${file.name} (${sizeMb} MB)`;
+    if (uploadStatus) uploadStatus.textContent = '';
 }
 
 if (reportFile)
@@ -315,20 +364,16 @@ if (reportFile)
         dropzone.addEventListener(eventName, (event) => {
             event.preventDefault();
             dropzone.classList.remove('dragover');
+            if (eventName === 'drop') showSelectedFile(event.dataTransfer?.files?.[0]);
         });
 });
-
-if (dropzone)
-    dropzone.addEventListener('drop', (event) =>
-        showSelectedFile(event.dataTransfer.files[0]),
-    );
 
 if (reportForm)
     reportForm.addEventListener('submit', (event) => {
         event.preventDefault();
         uploadStatus.textContent = selectedReportFile
-            ? 'Berkas telah disiapkan. Pengiriman ke sistem dosen akan tersedia pada tahap pengembangan berikutnya.'
-            : 'Silakan pilih berkas laporan terlebih dahulu.';
+            ? 'Berkas PDF terpilih untuk pengumpulan manual. Belum dikirim ke dosen atau server; fitur pengumpulan daring belum tersedia.'
+            : 'Silakan pilih PDF yang valid (maksimal 10 MB) terlebih dahulu. Tidak ada berkas yang dikirim.';
     });
 
 const readinessQuiz = document.querySelector('#readiness-quiz');
@@ -344,6 +389,14 @@ if (readinessQuiz)
             `Hasil latihan: ${score}/3 jawaban tepat. Hasil ini hanya latihan awal dan belum disimpan.`;
     });
 
+
+document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    document.querySelectorAll('.nav-dropdown[open]').forEach((dropdown) => {
+        dropdown.removeAttribute('open');
+        dropdown.querySelector('summary')?.focus();
+    });
+});
 
 // Profil mahasiswa tersimpan hanya dalam localStorage pada origin saat ini.
 if (!document.querySelector('script[data-student-profile-loader]')) {

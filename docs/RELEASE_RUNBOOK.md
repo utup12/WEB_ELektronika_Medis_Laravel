@@ -1,3 +1,11 @@
+## Kebijakan branch dan deployment (14 November 2026)
+
+- Semua pengembangan, perbaikan, dan pengujian dilakukan di `main`.
+- `deployment/vercel` hanya diperbarui setelah pengguna menyetujui satu batch rilis.
+- Jangan menganggap `main` aman untuk rilis hanya karena build frontend berhasil; semua CI dan uji browser harus diperiksa.
+- **Penting:** Production Branch dan perilaku Preview Deployment adalah pengaturan Vercel, bukan dikendalikan oleh dokumen ini. Pastikan integrasi Git tidak otomatis men-deploy setiap commit `main` sebelum melanjutkan.
+- Saat rilis, dokumentasikan commit sumber, hasil CI, commit rilis, URL deployment, dan smoke test. Jangan menyalin file `.env` atau secret ke Git.
+
 # Panduan Rilis Terkendali — Elektronika Medis
 
 **Tujuan:** mencegah banyak deployment Vercel akibat commit berulang, dan memastikan kode sudah lulus CI sebelum rilis.
@@ -5,7 +13,7 @@
 ## Kondisi per 12 November 2026
 
 - Repository: `utup12/WEB_ELektronika_Medis_Laravel`.
-- Branch produksi: `main`.
+- Branch pengembangan: `main`; branch rilis yang dituju: `deployment/vercel`. Pengaturan Production Branch di Vercel harus diverifikasi sebelum rilis.
 - Hosting: Vercel, preset `framework: container`.
 - GitHub Actions berhasil, tetapi pemeriksaan Vercel memberi `build-rate-limit`.
 - Masalah pembatasan build tidak membuktikan bahwa PHP/Laravel atau JavaScript aplikasi rusak.
@@ -14,7 +22,7 @@
 
 ## Langkah uji sebelum rilis
 
-1. Periksa halaman GitHub Actions pada branch `main`.
+1. Periksa halaman GitHub Actions pada branch `main`; jangan rilis jika CI gagal.
 2. Jalankan workflow `tests` melalui tombol **Run workflow** bila ingin menguji tanpa commit baru.
 3. Pastikan pemeriksaan format, tipe, tes PHP, dan sintaks JavaScript lulus.
 4. Lakukan uji interaksi di browser setelah kode dapat di-deploy:
@@ -32,7 +40,7 @@
 1. Hentikan push berulang semata-mata untuk memicu Vercel; ulang tes di GitHub Actions menggunakan `workflow_dispatch`.
 2. Periksa proyek **Vercel Dashboard → Deployments**, dan **Usage** pada akun/team yang tepat.
 3. Dokumentasi Vercel Hobby menyebut 32 builds per jam dan 100 deployments per hari. Tidak semua kegagalan rate limit berarti batas tertentu pasti telah tercapai. Jangan menebak durasi pembatasan dari status GitHub saja.
-4. Setelah kuota memungkinkan, lakukan **satu** redeploy terhadap commit `main` terbaru yang lulus CI. Pastikan SHA yang dibangun sama dengan SHA terbaru di GitHub.
+4. Setelah kuota memungkinkan, promosikan commit `main` yang telah lulus CI ke `deployment/vercel` melalui rilis terkendali, lalu lakukan **satu** deployment. Pastikan SHA yang dibangun sesuai commit rilis yang dimaksud.
 5. Bila redeploy kembali ditolak bahkan ketika penggunaan sebenarnya masih rendah atau pembatasan telah melewati jendela resmi, simpan tangkapan layar/status dan hubungi dukungan Vercel atau forum Vercel dengan project/team ID dari dashboard, tanpa membagikan secret.
 
 ## Mengurangi build tak perlu
