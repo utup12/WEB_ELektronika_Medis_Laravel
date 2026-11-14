@@ -118,6 +118,16 @@
                     <li>Menghitung BPM dari interval antar-puncak dan menyebutkan sumber ketidakpastian.</li>
                     <li>Mencatat pengamatan, menginterpretasikan keterbatasan, dan menyusun refleksi teknis.</li>
                 </ol>
+                <h3>Prasyarat dan persiapan</h3>
+                <p><strong>Prasyarat:</strong> mahasiswa memahami konsep sensor optik, satuan waktu dalam detik, perhitungan frekuensi, dan perbedaan data simulasi dengan pengukuran fisik. Baca prosedur sebelum membuka trainer.</p>
+                <p><strong>Alat dan bahan tahap simulasi:</strong> perangkat dengan browser modern, halaman Monitor Trainer, kalkulator sederhana, dan catatan pengamatan. <strong>Opsional tahap BLE:</strong> smartwatch yang mengimplementasikan BLE Heart Rate Service (UUID 0x180D) serta browser yang mendukung Web Bluetooth. Koneksi BLE tidak sama dengan akuisisi gelombang PPG mentah.</p>
+                <h3>Keselamatan dan privasi (draf prosedur)</h3>
+                <ul>
+                    <li>Gunakan mode simulasi sebagai pilihan awal. Jangan menghubungkan rangkaian elektronik rakitan ke tubuh tanpa persetujuan dosen dan SOP K3.</li>
+                    <li>Periksa status sumber data setiap kali mencatat BPM: SIMULASI, BLE WAIT, atau BLE LIVE.</li>
+                    <li>Jangan memasukkan nama pasien, identitas subjek, atau data kesehatan pribadi pada catatan browser.</li>
+                    <li>Hasil smartwatch dipakai untuk demonstrasi protokol BLE, bukan diagnosis dan bukan bukti akurasi sensor.</li>
+                </ul>
                 <h3>Pre-lab: cek pemahaman mandiri</h3>
                 <form id="pilot-prelab">
                     <fieldset>
@@ -140,6 +150,7 @@
                     <p id="pilot-prelab-result" role="status" aria-live="polite"></p>
                 </form>
                 <h3 id="pilot-jobsheet">Jobsheet pilot · prosedur simulasi</h3>
+                <p><strong>Indikator keberhasilan tahap pilot:</strong> mahasiswa dapat mengidentifikasi sumber data dengan benar, menghitung contoh BPM dari interval, mendokumentasikan sedikitnya tiga pengamatan, dan menyampaikan keterbatasan hasil tanpa membuat klaim klinis.</p>
                 <p><strong>Alat:</strong> browser modern dan halaman Monitor Trainer. <strong>Keselamatan:</strong> gunakan mode simulasi; jangan menghubungkan rangkaian atau sensor fisik ke tubuh tanpa prosedur K3 dan persetujuan pengampu.</p>
                 <ol>
                     <li>Buka <a href="{{ route('monitor-trainer') }}">Monitor Trainer</a> dan identifikasi label sumber data yang sedang aktif.</li>
@@ -156,12 +167,53 @@
                     </table>
                 </div>
                 <p><strong>Evaluasi formatif:</strong> jelaskan mengapa angka BPM pada mode simulasi tidak dapat digunakan untuk menyimpulkan kondisi kesehatan seseorang. <strong>Refleksi:</strong> tuliskan satu keterbatasan metode dan satu usulan perbaikan prosedur.</p>
+                <h3>Rubrik penilaian formatif sementara</h3>
+                <p>Rubrik berikut merupakan <strong>rancangan untuk direview dosen</strong>, bukan nilai akhir mahasiswa. Berikan skor 0 = tidak tampak, 1 = sebagian tepat, atau 2 = tepat disertai alasan/bukti, untuk setiap kriteria.</p>
+                <div style="overflow-x:auto">
+                    <table style="width:100%;border-collapse:collapse" aria-label="Rubrik formatif pilot PPG">
+                        <thead><tr><th scope="col">Kriteria</th><th scope="col">Bukti minimal</th><th scope="col">Skor</th></tr></thead>
+                        <tbody>
+                            <tr><td>Prinsip dan sumber data</td><td>Membedakan simulasi, BLE, dan sinyal PPG mentah</td><td>0–2</td></tr>
+                            <tr><td>Perhitungan BPM</td><td>Menunjukkan rumus 60/interval beserta satuan</td><td>0–2</td></tr>
+                            <tr><td>Pengamatan dan K3</td><td>Tiga catatan dengan sumber, nilai, kendala, dan batas keselamatan</td><td>0–2</td></tr>
+                            <tr><td>Interpretasi dan refleksi</td><td>Menyebutkan keterbatasan serta satu perbaikan yang masuk akal</td><td>0–2</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Rentang skor latihan:</strong> 0–8, tanpa batas kelulusan otomatis sampai dosen mengesahkan kriteria.</p>
             </section>
 
             <section class="content-card" aria-labelledby="pilot-reflection-heading" style="margin-top:1.5rem">
                 <h2 id="pilot-reflection-heading">Catatan interpretasi dan refleksi pilot</h2>
                 <p>Catat hasil uji simulasi atau perangkat secara mandiri. Isian ini bukan diagnosis, penilaian otomatis, atau bukti validasi hardware. Jangan masukkan data pasien maupun identitas subjek pengukuran.</p>
                 <form id="pilot-reflection-form">
+                    <h3>Catat tiga pengamatan secara mandiri</h3>
+                    <p>Nilai berikut diisi oleh pengguna, tidak diambil otomatis dari sensor maupun dari data simulasi. Pilih sumber yang benar sebelum mencatat.</p>
+                    <div style="overflow-x:auto">
+                        <table id="pilot-observation-table" style="width:100%;border-collapse:collapse;min-width:650px" aria-label="Tabel input pengamatan pilot">
+                            <thead><tr><th scope="col">No.</th><th scope="col">Sumber data</th><th scope="col">BPM tampil</th><th scope="col">Catatan/kendala</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><label for="pilot-source-1">Sumber 1</label><select id="pilot-source-1" style="display:block;width:100%;padding:.5rem"><option value="">Pilih sumber</option><option value="Simulasi">Simulasi</option><option value="BLE smartwatch">BLE smartwatch</option></select></td>
+                                    <td><label for="pilot-bpm-1">BPM 1</label><input id="pilot-bpm-1" type="number" min="30" max="240" step="1" inputmode="numeric" style="display:block;width:100%;padding:.5rem" placeholder="30–240"></td>
+                                    <td><label for="pilot-note-1">Catatan 1</label><input id="pilot-note-1" type="text" maxlength="240" style="display:block;width:100%;padding:.5rem" placeholder="Gerakan, sinyal, waktu, atau keterbatasan"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td><label for="pilot-source-2">Sumber 2</label><select id="pilot-source-2" style="display:block;width:100%;padding:.5rem"><option value="">Pilih sumber</option><option value="Simulasi">Simulasi</option><option value="BLE smartwatch">BLE smartwatch</option></select></td>
+                                    <td><label for="pilot-bpm-2">BPM 2</label><input id="pilot-bpm-2" type="number" min="30" max="240" step="1" inputmode="numeric" style="display:block;width:100%;padding:.5rem" placeholder="30–240"></td>
+                                    <td><label for="pilot-note-2">Catatan 2</label><input id="pilot-note-2" type="text" maxlength="240" style="display:block;width:100%;padding:.5rem" placeholder="Gerakan, sinyal, waktu, atau keterbatasan"></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td><label for="pilot-source-3">Sumber 3</label><select id="pilot-source-3" style="display:block;width:100%;padding:.5rem"><option value="">Pilih sumber</option><option value="Simulasi">Simulasi</option><option value="BLE smartwatch">BLE smartwatch</option></select></td>
+                                    <td><label for="pilot-bpm-3">BPM 3</label><input id="pilot-bpm-3" type="number" min="30" max="240" step="1" inputmode="numeric" style="display:block;width:100%;padding:.5rem" placeholder="30–240"></td>
+                                    <td><label for="pilot-note-3">Catatan 3</label><input id="pilot-note-3" type="text" maxlength="240" style="display:block;width:100%;padding:.5rem" placeholder="Gerakan, sinyal, waktu, atau keterbatasan"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div style="display:grid;gap:1rem">
                         <label for="pilot-mode">Mode pengujian
                             <select id="pilot-mode" style="display:block;width:100%;padding:.7rem" required>
@@ -213,14 +265,17 @@
                 document.getElementById('pilot-prelab-result').textContent = '';
             });
             const key = 'pilot-heart-rate-reflection-v1';
-            const fields = ['pilot-mode', 'pilot-observation', 'pilot-interpretation', 'pilot-reflection'];
+            const fields = ['pilot-mode', 'pilot-observation', 'pilot-interpretation', 'pilot-reflection',
+                ...[1, 2, 3].flatMap(i => ['pilot-source-' + i, 'pilot-bpm-' + i, 'pilot-note-' + i])
+            ];
             const status = document.getElementById('pilot-status');
             const getData = () => Object.fromEntries(fields.map(id => [id, document.getElementById(id).value]));
             const setData = data => {
                 const safeData = data && typeof data === 'object' && !Array.isArray(data) ? data : {};
                 fields.forEach(id => {
-                    document.getElementById(id).value =
-                        typeof safeData[id] === 'string' ? safeData[id].slice(0, 3000) : '';
+                    const element = document.getElementById(id);
+                    const value = typeof safeData[id] === 'string' ? safeData[id] : '';
+                    element.value = value.slice(0, element.maxLength > 0 ? element.maxLength : 3000);
                 });
             };
             try {
@@ -246,7 +301,12 @@
                     'pilot-mode': 'Mode pengujian',
                     'pilot-observation': 'Pengamatan teknis',
                     'pilot-interpretation': 'Interpretasi dan keterbatasan',
-                    'pilot-reflection': 'Refleksi dan rencana perbaikan'
+                    'pilot-reflection': 'Refleksi dan rencana perbaikan',
+                    ...Object.fromEntries([1, 2, 3].flatMap(i => [
+                        ['pilot-source-' + i, 'Sumber data pengamatan ' + i],
+                        ['pilot-bpm-' + i, 'Nilai BPM pengamatan ' + i],
+                        ['pilot-note-' + i, 'Kendala pengamatan ' + i]
+                    ]))
                 };
                 const content = ['CATATAN PILOT HEART RATE / PPG', 'Status: catatan mandiri, bukan validasi hardware atau diagnosis', '',
                     ...fields.flatMap(id => [labels[id] + ':', data[id] || '(belum diisi)', ''])].join('\n');

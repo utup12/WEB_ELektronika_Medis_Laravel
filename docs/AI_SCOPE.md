@@ -117,3 +117,16 @@ terpisah terhadap akurasi konten, fungsi antarmuka, dan kepraktisan.
 Simpan data observasi/feedback terpisah dari data kesehatan atau
 identitas pasien. Hasil pengujian belum tersedia; tidak ada klaim
 kelayakan, kepraktisan, atau efektivitas dari kode saja.
+
+## Paket tindak lanjut evaluasi PR #2 (14 November 2026)
+
+Korpus **28 pertanyaan** pada `resources/ai-evaluation/baseline-cases.json`
+mengevaluasi retrieval situs, kalkulator AD620, pertanyaan di luar lingkup,
+dan sapaan. Script `php scripts/evaluate_ai_baseline.php` menghasilkan hasil
+mentah CSV/JSON melalui workflow CI. Pemeriksaan kesesuaian sumber dan frasa
+tidak sama dengan penilaian kebenaran semantik.
+
+Rubrik review manual terperinci tersedia pada
+`docs/AI_BASELINE_EVALUATION_PROTOCOL.md`. Kerangka bounded RAG
+tertulis di `docs/BOUNDED_RAG_NEXT_STAGE.md` sebagai **rancangan**
+yang belum mengaktifkan model generatif atau integrasi API eksternal.

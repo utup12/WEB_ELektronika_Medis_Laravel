@@ -48,7 +48,7 @@ Definition of Done:
 - tidak ada halaman buntu pada alur pilot;
 - konten telah divalidasi oleh pihak yang berwenang.
 
-Status: NOT STARTED secara end-to-end.
+Status: DRAF ALUR TERIMPLEMENTASI. Materi, pre-lab, jobsheet simulasi, pengamatan digital, penilaian formatif draf, interpretasi/refleksi, dan ekspor lokal tersedia. Belum lulus uji browser manual dan validasi akademik.
 
 ### M3 - PPG/Heart-Rate dan BLE
 
@@ -60,7 +60,7 @@ Definition of Done:
 - hasil uji mencatat perangkat, browser, durasi, error, dan bukti;
 - jika penyimpanan data menjadi bagian tesis, timestamp dan data pengukuran tersimpan serta dapat diekspor.
 
-Status: EARLY PROTOTYPE. Mode simulasi tersedia; validasi hardware fisik belum menjadi bukti selesai.
+Status: PROTOTIPE DENGAN LAPORAN BLE FISIK. Pengguna melaporkan keberhasilan pengujian Advan S2A melalui nRF Connect/Brave pada September 2026; bukti dan keterbatasan tercatat di `docs/BLE_SMARTWATCH_TEST_LOG.md`. Uji ulang aplikasi Laravel terbaru, metadata sesi, dan validasi terhadap alat rujukan belum lengkap.
 
 ### M4 - Assessment dan Scaffolding
 
@@ -70,7 +70,7 @@ Definition of Done:
 - feedback/hint dan interpretasi hasil dapat ditelusuri;
 - data perkembangan mahasiswa dapat digunakan untuk evaluasi penelitian.
 
-Status: NOT STARTED.
+Status: DRAF FORMATIF. Pre-lab tiga soal dan umpan balik tersedia; rubrik formatif 0–8 masih perlu validasi dosen. Belum ada desain penelitian efektivitas atau data hasil belajar.
 
 ### M5 - Lecturer Dashboard dan Research Logging
 

@@ -2,10 +2,16 @@
 
 Status: draf pembelajaran, **bukan modul resmi** dan **bukan alat diagnosis**.
 
+## Bukti konektivitas wearable yang sudah dilaporkan
+
+Riwayat pengujian perangkat **Advan S2A** melalui nRF Connect dan Brave berhasil membaca BPM pada sesi historis. Rincian, kekosongan metadata, dan protokol uji ulang ada di `docs/BLE_SMARTWATCH_TEST_LOG.md`. Ini **bukan** bukti akurasi klinis atau uji browser Laravel versi terakhir.
+
 ## Bukti otomatis (CI)
 - [ ] GitHub Actions pada commit `main` terakhir berstatus sukses.
 - [ ] Tes `HeartRatePilotFlowTest` memastikan rute publik, tautan Materi, Evaluasi, Jobsheet, Praktikum, dan Laporan.
 - [ ] Pemeriksaan PHP, frontend, dan JavaScript selesai tanpa kegagalan.
+- [ ] Node DOM mock menguji kuis benar/salah, reset, simpan, ekspor dan hapus draf.
+- [ ] Evaluator AI 28 kasus menghasilkan CSV/JSON artifact; lakukan review manusia sebelum mengklaim kualitas jawaban.
 
 ## Uji browser manual (belum boleh diklaim lulus tanpa pelaksanaan)
 - [ ] Buka `/materi`, pilih pilot PPG, pastikan bagian `#pilot-learning` terlihat.
@@ -13,7 +19,7 @@ Status: draf pembelajaran, **bukan modul resmi** dan **bukan alat diagnosis**.
 - [ ] Buka `/evaluasi` dan `/jobsheet`, ikuti tautan pilot.
 - [ ] Pre-lab: jawaban benar seluruhnya menampilkan 3/3; jawaban keliru memberi umpan balik; tanpa pilihan, formulir menahan submit.
 - [ ] Buka `/monitor-trainer`, pastikan label mode SIMULASI jelas dan grafik dapat berjalan; jangan menganggapnya data sensor.
-- [ ] Isi mode, pengamatan, interpretasi, refleksi; klik Simpan draf lokal; muat ulang dan pastikan isian kembali.
+- [ ] Isi tiga baris pengamatan (sumber/BPM/kendala), mode, interpretasi, refleksi; klik Simpan draf lokal; muat ulang dan pastikan seluruh isian kembali.
 - [ ] Edit catatan, pastikan indikator belum tersimpan muncul; ekspor TXT dan periksa isi berkas; hapus draf dan pastikan isian kosong.
 - [ ] Buka `/laporan`, pastikan informasi penyimpanan lokal tidak disalahartikan sebagai pengiriman ke dosen.
 - [ ] Pilih PDF valid, berkas selain PDF, berkas 0 byte, dan PDF di atas 10 MB; pastikan pesan status jujur dan tidak ada upload server.

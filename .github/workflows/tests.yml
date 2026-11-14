@@ -42,6 +42,20 @@ jobs:
       - name: Run CI Checks
         run: composer ci:check
 
+      - name: Validate pilot interactive JavaScript with a headless DOM mock
+        run: node scripts/test_pilot_client.mjs
+
+      - name: Run 28-case AI baseline evaluation (non-gating quality benchmark)
+        run: php scripts/evaluate_ai_baseline.php
+
+      - name: Save raw AI evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-baseline-evaluation
+          path: build/ai-evaluation/
+          if-no-files-found: warn
+
       - name: Validate browser observation controller syntax
         run: |
           node --check public/js/jobsheet-observations.js
