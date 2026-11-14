@@ -36,3 +36,29 @@ test('praktikum page exposes the candidate pilot entry point', function () {
     $response->assertSee('Candidate pilot');
     $response->assertSee(route('pilot.heart-rate'), false);
 });
+
+test('pilot includes a complete preliminary learning and simulation workflow', function () {
+    $response = $this->get(route('pilot.heart-rate'));
+
+    $response->assertOk();
+    $response->assertSee('Dasar PPG dan pengukuran heart rate');
+    $response->assertSee('Pre-lab: cek pemahaman mandiri');
+    $response->assertSee('id="pilot-prelab"', false);
+    $response->assertSee('id="pilot-prelab-result"', false);
+    $response->assertSee('Jobsheet pilot');
+    $response->assertSee('Format pengamatan');
+    $response->assertSee('Evaluasi formatif');
+    $response->assertSee('pilot-heart-rate-reflection-v1');
+    $response->assertSee('belum modul resmi');
+});
+
+test('main learning pages and pilot route respond successfully', function () {
+    foreach ([
+        'home', 'materi', 'jobsheet', 'praktikum',
+        'panduan-praktikum', 'evaluasi', 'laporan',
+        'monitor-trainer', 'profil-mahasiswa', 'profil-dosen',
+        'tentang', 'pilot.heart-rate',
+    ] as $name) {
+        $this->get(route($name))->assertOk();
+    }
+});
