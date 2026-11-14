@@ -62,3 +62,21 @@ test('main learning pages and pilot route respond successfully', function () {
         $this->get(route($name))->assertOk();
     }
 });
+
+test('materi and evaluasi link directly to the PPG learning section', function () {
+    foreach (['materi', 'evaluasi'] as $page) {
+        $this->get(route($page))
+            ->assertOk()
+            ->assertSee(route('pilot.heart-rate').'#pilot-learning', false);
+    }
+});
+
+test('pilot provides local-only draft controls and no automatic clinical claims', function () {
+    $this->get(route('pilot.heart-rate'))
+        ->assertOk()
+        ->assertSee('Simulasi')
+        ->assertSee('pilot-save')
+        ->assertSee('pilot-export')
+        ->assertSee('pilot-clear')
+        ->assertSee('bukan pengukuran pasien');
+});
