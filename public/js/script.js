@@ -205,13 +205,23 @@ if (trainerHeader) {
                         window.clearInterval(simulationInterval);
 
                         const flags = value.getUint8(0);
-                        const heartRate =
-                            (flags & 0x01) === 0
-                                ? value.getUint8(1)
-                                : value.getUint16(1, true);
+                        const isSixteenBit = (flags & 0x01) !== 0;
+                        if (isSixteenBit && value.byteLength < 3) {
+                            connectMessage.textContent =
+                                'Paket BLE tidak lengkap; menunggu pembacaan berikutnya.';
+                            return;
+                        }
+                        const heartRate = isSixteenBit
+                            ? value.getUint16(1, true)
+                            : value.getUint8(1);
 
-                        if (heartRate > 0) {
+                        if (heartRate >= minHeartRate && heartRate <= maxHeartRate) {
                             setHeartRate(heartRate);
+                            connectMessage.textContent =
+                                'Data BPM diterima melalui BLE Heart Rate Service. Belum tervalidasi untuk penggunaan klinis.';
+                        } else {
+                            connectMessage.textContent =
+                                'Nilai BPM di luar rentang tampilan; data diabaikan.';
                         }
                     },
                 );
