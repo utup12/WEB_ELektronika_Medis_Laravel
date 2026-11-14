@@ -42,7 +42,7 @@
             <section class="page-hero">
                 <p class="eyebrow">Praktikum · tampilan trainer</p>
                 <h1>Monitor LCD &amp; Training Kit</h1>
-                <p>Monitor pembelajaran ini menggunakan data simulasi secara bawaan. Mode BLE hanya aktif jika perangkat mendukung Heart Rate Service dan mengirim data BPM; tampilan tidak membaca gelombang PPG mentah.</p>
+                <p>Monitor pembelajaran ini bukan hasil diagnosis medis. Tampilan menggunakan data simulasi secara bawaan. Mode BLE hanya aktif jika perangkat mendukung Heart Rate Service dan mengirim data BPM; tampilan tidak membaca gelombang PPG mentah.</p>
             </section>
             <section class="page-content">
                 <div class="trainer-screen">
