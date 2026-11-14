@@ -70,3 +70,18 @@ test('assistant report FAQs answer from documented report page instead of unrela
         expect($response->json('answer'))->toContain($requiredFragment);
     }
 });
+
+test('AI benchmark exposes all six human scoring dimensions', function () {
+    $evaluator = file_get_contents(base_path('scripts/evaluate_ai_baseline.php'));
+
+    foreach ([
+        'human_source_accuracy_0_2',
+        'human_relevance_0_2',
+        'human_groundedness_0_2',
+        'human_unsupported_claim_0_2',
+        'human_fallback_correctness_0_2',
+        'human_completeness_0_2',
+    ] as $dimension) {
+        expect($evaluator)->toContain($dimension);
+    }
+});

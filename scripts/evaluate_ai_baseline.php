@@ -39,9 +39,11 @@ foreach ($cases as $case) {
         'source_hit' => $sourceHit,
         'text_hit' => $textHit,
         'answer' => $answer['answer'],
+        'human_source_accuracy_0_2' => null,
         'human_relevance_0_2' => null,
         'human_groundedness_0_2' => null,
         'human_unsupported_claim_0_2' => null,
+        'human_fallback_correctness_0_2' => null,
         'human_completeness_0_2' => null,
         'human_notes' => '',
     ];
@@ -63,15 +65,16 @@ file_put_contents(
 $csv = fopen($directory.'/results.csv', 'wb');
 fputcsv($csv, [
     'id', 'category', 'question', 'expected_source', 'actual_sources', 'source_hit',
-    'expected_contains', 'text_hit', 'answer', 'relevance_0_2', 'groundedness_0_2',
-    'unsupported_claim_0_2', 'completeness_0_2', 'human_notes',
+    'expected_contains', 'text_hit', 'answer', 'source_accuracy_0_2',
+    'relevance_0_2', 'groundedness_0_2', 'unsupported_claim_0_2',
+    'fallback_correctness_0_2', 'completeness_0_2', 'human_notes',
 ]);
 foreach ($results as $row) {
     fputcsv($csv, [
         $row['id'], $row['category'], $row['question'], $row['expected_source'] ?? '',
         implode(' | ', $row['actual_sources']), $row['source_hit'] ? '1' : '0',
         $row['expected_contains'], $row['text_hit'] ? '1' : '0',
-        $row['answer'], '', '', '', '', '',
+        $row['answer'], '', '', '', '', '', '', '',
     ]);
 }
 fclose($csv);
