@@ -159,3 +159,9 @@ test('BLE connected state waits for valid heart rate notifications', function ()
         ->toContain("heartbeatValue.textContent = '—'")
         ->toContain("trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MODE BLE'");
 });
+
+test('shared practical guide link uses a root absolute path on nested pages', function () {
+    $script = file_get_contents(public_path('js/script.js'));
+
+    expect($script)->toContain("guideLink.href = '/panduan-praktikum';");
+});

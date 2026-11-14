@@ -25,7 +25,7 @@ const nav = document.querySelector('.main-nav');
 // Tautan panduan tersedia konsisten pada menu setiap halaman.
 if (nav && !nav.querySelector('a[href*="panduan-praktikum"]')) {
     const guideLink = document.createElement('a');
-    guideLink.href = new URL('panduan-praktikum', document.baseURI).href;
+    guideLink.href = '/panduan-praktikum';
     guideLink.textContent = 'Panduan Praktikum';
     if (window.location.pathname.endsWith('/panduan-praktikum'))
         guideLink.classList.add('active');
