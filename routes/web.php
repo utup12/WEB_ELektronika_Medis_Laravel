@@ -4,6 +4,7 @@
 use App\Http\Controllers\AiAssistantController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Middleware\EnsureTeamMembership;
+use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +23,29 @@ Route::get('/', function () {
 |--------------------------------------------------------------------------
 */
 
+Route::get('/profil-mahasiswa', function () {
+    return view('profil-mahasiswa');
+})->name('profil-mahasiswa');
+
 Route::get('/materi', function () {
     return view('materi');
 })->name('materi');
 
-Route::get('/jobsheet', function () {
-    return view('jobsheet');
+Route::get('/jobsheet', function (JobsheetCatalog $catalog) {
+    return view('jobsheet', ['editions' => $catalog->editions()]);
 })->name('jobsheet');
+
+Route::get('/jobsheet/{edition}/{module}', function (
+    string $edition,
+    string $module,
+    JobsheetCatalog $catalog
+) {
+    $found = $catalog->module($edition, $module);
+
+    abort_if($found === null, 404);
+
+    return view('jobsheet-module', $found);
+})->where(['edition' => '[a-z0-9-]+', 'module' => '[a-z0-9-]+'])->name('jobsheet.module');
 
 Route::get('/laporan', function () {
     return view('laporan');

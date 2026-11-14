@@ -343,3 +343,17 @@ if (readinessQuiz)
         document.querySelector('#quiz-result').textContent =
             `Hasil latihan: ${score}/3 jawaban tepat. Hasil ini hanya latihan awal dan belum disimpan.`;
     });
+
+
+// Profil mahasiswa tersimpan hanya dalam localStorage pada origin saat ini.
+if (!document.querySelector('script[data-student-profile-loader]')) {
+    const stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = '/css/student-profile.css';
+    document.head.appendChild(stylesheet);
+    const profileScript = document.createElement('script');
+    profileScript.src = '/js/student-profile.js';
+    profileScript.defer = true;
+    profileScript.dataset.studentProfileLoader = '';
+    document.body.appendChild(profileScript);
+}

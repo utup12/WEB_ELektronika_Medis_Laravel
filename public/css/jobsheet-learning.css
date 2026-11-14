@@ -1,0 +1,488 @@
+.jobsheet-learning {
+    max-width: 1060px;
+    margin: 2.5rem auto;
+}
+
+.jobsheet-learning-intro {
+    max-width: 78ch;
+    line-height: 1.75;
+    color: #41536b;
+}
+
+.jobsheet-section-nav {
+    padding: 1.25rem;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid #d7e3f0;
+    border-radius: 16px;
+    background: #f6f9fd;
+}
+
+.jobsheet-section-nav strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: #213a57;
+}
+
+.jobsheet-section-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jobsheet-section-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #c7d7e7;
+    border-radius: 10px;
+    background: #fff;
+    color: #153e6c;
+    text-decoration: none;
+}
+
+.jobsheet-section-nav a:hover,
+.jobsheet-section-nav a:focus-visible {
+    border-color: #2865a5;
+    outline-offset: 3px;
+    background: #edf5ff;
+}
+
+.jobsheet-section-nav small {
+    color: #5e6e82;
+    font-size: 0.75rem;
+}
+
+.jobsheet-learning-card {
+    margin: 1.1rem 0;
+    padding: clamp(1rem, 2.8vw, 1.75rem);
+    border: 1px solid #d5e2ef;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(24, 48, 82, 0.05);
+    scroll-margin-top: 1.5rem;
+}
+
+.jobsheet-learning-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid #e5edf5;
+}
+
+.jobsheet-learning-heading h3 {
+    margin: 0.25rem 0;
+    color: #183d68;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+.jobsheet-section-overline {
+    margin: 0;
+    color: #62748a;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+}
+
+.jobsheet-page-link {
+    color: #205b94;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.jobsheet-learning-text {
+    max-width: 95ch;
+    color: #26364b;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.jobsheet-inline-note {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid #bf852b;
+    border-radius: 0 8px 8px 0;
+    background: #fff8ec;
+    color: #664d25;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .jobsheet-learning-card:target {
+        box-shadow: 0 0 0 3px rgba(41, 107, 173, 0.12);
+    }
+}
+
+.jobsheet-observations,
+.jobsheet-discussion {
+    margin: 2.5rem 0;
+}
+
+.jobsheet-observation-card,
+.jobsheet-discussion-item {
+    margin: 1rem 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid #d5e2ef;
+    border-radius: 16px;
+    background: #fff;
+}
+
+.jobsheet-observation-head {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.jobsheet-observation-head h3 {
+    margin: 0 0 0.5rem;
+    color: #183d68;
+}
+
+.jobsheet-observation-head p,
+.jobsheet-observation-note {
+    margin: 0.4rem 0;
+    color: #53677f;
+    font-size: 0.87rem;
+    line-height: 1.7;
+}
+
+.jobsheet-table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dbe6f0;
+    border-radius: 10px;
+}
+
+.jobsheet-observation-table {
+    width: 100%;
+    min-width: 780px;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.jobsheet-observation-table th,
+.jobsheet-observation-table td {
+    padding: 0.7rem;
+    border-bottom: 1px solid #dde7f1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.jobsheet-observation-table th {
+    background: #edf3fa;
+    color: #264462;
+    font-weight: 700;
+}
+
+.jobsheet-observation-table tbody tr:nth-child(even) {
+    background: #f8fbff;
+}
+
+.jobsheet-observation-table input {
+    width: 100px;
+    max-width: 100%;
+    padding: 0.45rem;
+    border: 1px solid #a9bbcf;
+    border-radius: 7px;
+    background: #fff;
+    color: #203248;
+    text-align: right;
+}
+
+.jobsheet-observation-table input:focus-visible,
+.jobsheet-discussion-item textarea:focus-visible {
+    outline: 2px solid #2865a5;
+    outline-offset: 2px;
+}
+
+.jobsheet-observation-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.jobsheet-observation-actions button,
+.jobsheet-discussion > button {
+    padding: 0.65rem 1rem;
+    border: 1px solid #275e9a;
+    border-radius: 9px;
+    background: #194e85;
+    color: white;
+    cursor: pointer;
+}
+
+.jobsheet-observation-actions [data-reset-table] {
+    background: #fff;
+    color: #194e85;
+}
+
+.jobsheet-discussion-item label {
+    display: block;
+    line-height: 1.65;
+    color: #203956;
+}
+
+.jobsheet-discussion-item p {
+    font-size: 0.85rem;
+}
+
+.jobsheet-discussion-item textarea {
+    width: 100%;
+    min-height: 115px;
+    padding: 0.8rem;
+    border: 1px solid #b8cce0;
+    border-radius: 9px;
+    resize: vertical;
+    font: inherit;
+    line-height: 1.6;
+}
+
+.jobsheet-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.jobsheet-frequency-chart {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    border: 1px solid #d9e5f0;
+    border-radius: 12px;
+    background: #f8fbff;
+}
+
+.jobsheet-frequency-chart h4 {
+    margin: 0 0 0.5rem;
+    color: #1e456b;
+}
+
+.jobsheet-frequency-chart p {
+    line-height: 1.65;
+}
+
+.jobsheet-chart-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dae4ee;
+    border-radius: 10px;
+    background: white;
+}
+
+.jobsheet-chart-scroll svg {
+    display: block;
+    width: 100%;
+    min-width: 520px;
+    height: auto;
+}
+
+.jobsheet-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: #344e68;
+}
+
+.jobsheet-chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.jobsheet-chart-legend i {
+    display: inline-block;
+    width: 1.4rem;
+    height: 3px;
+}
+
+.jobsheet-legend-theory {
+    background: #2361a0;
+}
+
+.jobsheet-legend-measured {
+    background: #c15b2d;
+}
+
+.jobsheet-frequency-chart button {
+    padding: 0.6rem 1rem;
+    border: 1px solid #285d90;
+    border-radius: 8px;
+    background: #285d90;
+    color: white;
+    cursor: pointer;
+}
+
+.jobsheet-workspace {
+    margin: 2rem 0;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid #bdd1e5;
+    border-radius: 16px;
+    background: #f3f8fe;
+}
+
+.jobsheet-workspace h2 {
+    margin-top: 0;
+    color: #183d68;
+}
+
+.jobsheet-workspace-identity {
+    display: grid;
+    max-width: 420px;
+    gap: 0.4rem;
+    margin: 1rem 0;
+    font-weight: 600;
+}
+
+.jobsheet-workspace-identity input {
+    padding: 0.7rem;
+    border: 1px solid #a3bed9;
+    border-radius: 9px;
+    font: inherit;
+}
+
+.jobsheet-workspace progress {
+    display: block;
+    width: min(100%, 550px);
+    height: 1rem;
+    margin-top: 0.5rem;
+    accent-color: #2361a0;
+}
+
+.jobsheet-workspace-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1rem 0;
+}
+
+.jobsheet-workspace-actions button {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #2c6099;
+    border-radius: 9px;
+    background: white;
+    color: #164b82;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.jobsheet-workspace-actions button:first-child,
+.jobsheet-workspace-actions [data-print-worksheet] {
+    background: #235b93;
+    color: white;
+}
+
+.jobsheet-workspace [data-draft-status] {
+    color: #3c5673;
+    line-height: 1.6;
+}
+
+.jobsheet-print-report {
+    display: none;
+}
+
+@media print {
+    body > header,
+    .page-hero,
+    .page-content > :not(.jobsheet-print-report) {
+        display: none !important;
+    }
+
+    .jobsheet-print-report {
+        display: block !important;
+        color: black;
+        font: 11pt/1.5 Arial, sans-serif;
+    }
+
+    .jobsheet-print-report h1 {
+        font-size: 19pt;
+    }
+
+    .jobsheet-print-report h2 {
+        margin-top: 1.5rem;
+        font-size: 13pt;
+        break-after: avoid;
+    }
+
+    .jobsheet-print-report table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0.8rem 0 1.5rem;
+        font-size: 8.5pt;
+    }
+
+    .jobsheet-print-report td,
+    .jobsheet-print-report th {
+        border: 1px solid #666;
+        padding: 0.3rem;
+        overflow-wrap: anywhere;
+    }
+
+    .jobsheet-print-report tr {
+        break-inside: avoid;
+    }
+
+    @page {
+        size: A4 landscape;
+        margin: 12mm;
+    }
+}
+
+.jobsheet-readiness {
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid #b8cee3;
+    border-radius: 12px;
+    background: white;
+}
+
+.jobsheet-readiness h3 {
+    margin-top: 0;
+    color: #193d66;
+}
+
+.jobsheet-readiness-items {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.jobsheet-readiness-items label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    line-height: 1.65;
+}
+
+.jobsheet-readiness-items input {
+    margin-top: 0.35rem;
+    flex-shrink: 0;
+}
+
+.jobsheet-data-quality {
+    padding: 0.75rem 0.9rem;
+    border-radius: 9px;
+    background: #eef4fb;
+    color: #274968;
+    line-height: 1.6;
+}
+
+.jobsheet-observation-table .jobsheet-row-warning {
+    background: #fff1d9 !important;
+}
