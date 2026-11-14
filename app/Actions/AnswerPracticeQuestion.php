@@ -119,7 +119,6 @@ class AnswerPracticeQuestion
         ];
     }
 
-
     /**
      * Resolve limited report FAQs against explicit information in the report page.
      * This is a deterministic, source-bound response, not generated text.

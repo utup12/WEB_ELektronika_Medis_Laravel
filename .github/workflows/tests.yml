@@ -39,11 +39,6 @@ jobs:
       - name: Setup Application
         run: composer setup
 
-      - name: Inspect assistant PHP formatter diff
-        run: |
-          vendor/bin/pint app/Actions/AnswerPracticeQuestion.php
-          git --no-pager diff -- app/Actions/AnswerPracticeQuestion.php
-
       - name: Run CI Checks
         run: composer ci:check
 
