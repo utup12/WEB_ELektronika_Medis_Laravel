@@ -1,8 +1,7 @@
 name: Publish Laravel public pages as GitHub Pages static snapshot
 
+# Archived: Laravel main is the development target; no automatic Pages deployment.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
