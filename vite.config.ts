@@ -76,6 +76,8 @@ export default defineConfig({
             'public/js/script.js',
             'public/css/student-profile.css',
             'public/css/jobsheet-learning.css',
+            // Legacy GitHub Pages prototype; Laravel is the active target.
+            'pilot-heart-rate/index.html',
             'docs/AI_SCOPE.md',
             'docs/UJI_COBA_MEDIA_PRAKTIKUM.md',
             'docs/RELEASE_RUNBOOK.md',
