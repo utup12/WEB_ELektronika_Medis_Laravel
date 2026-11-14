@@ -110,3 +110,11 @@ test('browser script contains report PDF validation and honest local-only status
         ->toContain("file.type === 'application/pdf'")
         ->toContain('Belum dikirim ke dosen atau server');
 });
+
+test('trainer BLE notifications guard incomplete 16-bit readings and invalid BPM', function () {
+    $script = file_get_contents(public_path('js/script.js'));
+
+    expect($script)->toContain('isSixteenBit && value.byteLength < 3')
+        ->toContain('heartRate >= minHeartRate && heartRate <= maxHeartRate')
+        ->toContain('Belum tervalidasi untuk penggunaan klinis.');
+});
