@@ -94,3 +94,19 @@ test('report page clearly distinguishes local pilot notes from server upload', f
         ->assertSee('tidak mengirim berkas ke dosen atau server')
         ->assertSee(route('pilot.heart-rate').'#pilot-reflection-form', false);
 });
+
+test('report interface explicitly states PDF limits and does not claim upload', function () {
+    $this->get(route('laporan'))
+        ->assertOk()
+        ->assertSee('Maksimum 10 MB')
+        ->assertSee('Siapkan Pengumpulan')
+        ->assertSee('tidak mengirim berkas ke dosen atau server');
+});
+
+test('browser script contains report PDF validation and honest local-only status', function () {
+    $script = file_get_contents(public_path('js/script.js'));
+
+    expect($script)->toContain('maxReportBytes = 10 * 1024 * 1024')
+        ->toContain("file.type === 'application/pdf'")
+        ->toContain('Belum dikirim ke dosen atau server');
+});
