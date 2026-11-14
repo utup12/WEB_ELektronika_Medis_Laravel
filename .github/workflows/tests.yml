@@ -42,6 +42,9 @@ jobs:
       - name: Run CI Checks
         run: composer ci:check
 
+      - name: Test pilot observation draft lifecycle
+        run: node --test tests/Browser/pilot-observations.test.cjs
+
       - name: Validate browser observation controller syntax
         run: |
           node --check public/js/jobsheet-observations.js
