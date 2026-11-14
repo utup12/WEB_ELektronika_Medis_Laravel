@@ -54,7 +54,7 @@ const storage = {
     setItem: (key, value) => stored.set(key, value),
     removeItem: (key) => stored.delete(key),
 };
-const URL = {
+const mockURL = {
     createObjectURL(blob) {
         exportedText = blob.parts.join('');
         return 'blob:test';
@@ -79,7 +79,7 @@ runInNewContext(inline, {
     localStorage: storage,
     FormData,
     Blob,
-    URL,
+    URL: mockURL,
     confirm: () => true,
     setTimeout: (fn) => fn(),
 }, { timeout: 3000 });

@@ -39,11 +39,6 @@ jobs:
       - name: Setup Application
         run: composer setup
 
-      - name: Diagnose PHP formatter changes
-        run: |
-          vendor/bin/pint scripts/evaluate_ai_baseline.php
-          git --no-pager diff -- scripts/evaluate_ai_baseline.php
-
       - name: Run CI Checks
         run: composer ci:check
 
