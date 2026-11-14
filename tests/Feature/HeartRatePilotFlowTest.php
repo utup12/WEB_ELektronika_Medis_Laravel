@@ -80,3 +80,17 @@ test('pilot provides local-only draft controls and no automatic clinical claims'
         ->assertSee('pilot-clear')
         ->assertSee('bukan pengukuran pasien');
 });
+
+test('jobsheet catalog links to the PPG pilot procedure', function () {
+    $this->get(route('jobsheet'))
+        ->assertOk()
+        ->assertSee('Kandidat pilot')
+        ->assertSee(route('pilot.heart-rate').'#pilot-learning', false);
+});
+
+test('report page clearly distinguishes local pilot notes from server upload', function () {
+    $this->get(route('laporan'))
+        ->assertOk()
+        ->assertSee('tidak mengirim berkas ke dosen atau server')
+        ->assertSee(route('pilot.heart-rate').'#pilot-reflection-form', false);
+});
