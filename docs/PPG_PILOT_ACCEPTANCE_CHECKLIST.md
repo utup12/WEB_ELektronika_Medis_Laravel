@@ -9,12 +9,15 @@ Status: draf pembelajaran, **bukan modul resmi** dan **bukan alat diagnosis**.
 
 ## Uji browser manual (belum boleh diklaim lulus tanpa pelaksanaan)
 - [ ] Buka `/materi`, pilih pilot PPG, pastikan bagian `#pilot-learning` terlihat.
+- [ ] Dari `/evaluasi` dan `/jobsheet`, pastikan tautan menuju `#pilot-prelab` dan `#pilot-jobsheet` yang sesuai.
 - [ ] Buka `/evaluasi` dan `/jobsheet`, ikuti tautan pilot.
 - [ ] Pre-lab: jawaban benar seluruhnya menampilkan 3/3; jawaban keliru memberi umpan balik; tanpa pilihan, formulir menahan submit.
 - [ ] Buka `/monitor-trainer`, pastikan label mode SIMULASI jelas dan grafik dapat berjalan; jangan menganggapnya data sensor.
 - [ ] Isi mode, pengamatan, interpretasi, refleksi; klik Simpan draf lokal; muat ulang dan pastikan isian kembali.
-- [ ] Ekspor TXT dan periksa isi berkas; hapus draf dan pastikan isian kosong.
+- [ ] Edit catatan, pastikan indikator belum tersimpan muncul; ekspor TXT dan periksa isi berkas; hapus draf dan pastikan isian kosong.
 - [ ] Buka `/laporan`, pastikan informasi penyimpanan lokal tidak disalahartikan sebagai pengiriman ke dosen.
+- [ ] Pilih PDF valid, berkas selain PDF, berkas 0 byte, dan PDF di atas 10 MB; pastikan pesan status jujur dan tidak ada upload server.
+- [ ] Pada Monitor Trainer, lihat perbedaan label SIMULASI, BLE WAIT, dan BLE LIVE; mode BLE LIVE hanya setelah notifikasi BPM diterima.
 - [ ] Uji layar sempit (ponsel), keyboard, dan menu navigasi.
 - [ ] Periksa console dan Network browser untuk error JavaScript, HTTP 404, dan aset gagal muat.
 - [ ] Periksa bahwa tidak ada data pasien atau identitas subjek dimasukkan ke catatan.

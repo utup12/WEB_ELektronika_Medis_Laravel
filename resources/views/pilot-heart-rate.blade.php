@@ -54,21 +54,21 @@
                     <span>01</span>
                     <h2>Materi</h2>
                     <p>Pengantar prinsip PPG dan perhitungan BPM tersedia di halaman ini; materi resmi tetap menunggu validasi.</p>
-                    <a class="button text-button" href="{{ route('materi') }}">Buka Materi <span>→</span></a>
+                    <a class="button text-button" href="#pilot-learning">Pelajari PPG <span>→</span></a>
                 </article>
 
                 <article class="content-card">
                     <span>02</span>
                     <h2>Pre-lab</h2>
                     <p>Tiga pertanyaan pre-lab mandiri tersedia di bawah; soal resmi tetap menunggu validasi.</p>
-                    <a class="button text-button" href="{{ route('evaluasi') }}">Buka Pre-lab <span>→</span></a>
+                    <a class="button text-button" href="#pilot-prelab">Kerjakan Pre-lab <span>→</span></a>
                 </article>
 
                 <article class="content-card">
                     <span>03</span>
                     <h2>Jobsheet</h2>
                     <p>Prosedur simulasi dan format pengamatan awal tersedia di bawah; bukan pengganti jobsheet resmi.</p>
-                    <a class="button text-button" href="{{ route('jobsheet') }}">Buka Jobsheet <span>→</span></a>
+                    <a class="button text-button" href="#pilot-jobsheet">Lihat Prosedur <span>→</span></a>
                 </article>
 
                 <article class="content-card">
@@ -89,12 +89,14 @@
                     <span>06</span>
                     <h2>Interpretasi</h2>
                     <p>Kerangka analisis hasil. Batas normal, aturan interpretasi, dan indikator keberhasilan belum ditetapkan pada tahap ini.</p>
+                    <a class="button text-button" href="#pilot-reflection-form">Tulis interpretasi <span>→</span></a>
                 </article>
 
                 <article class="content-card" id="refleksi">
                     <span>07</span>
                     <h2>Refleksi</h2>
                     <p>Kerangka refleksi untuk membandingkan tujuan, proses, hasil, kendala, dan perbaikan praktikum.</p>
+                    <a class="button text-button" href="#pilot-reflection-form">Tulis refleksi <span>→</span></a>
                 </article>
 
                 <article class="content-card">
@@ -134,9 +136,10 @@
                         <label><input type="radio" name="artifact" value="guarantee"> Menjamin akurasi pembacaan</label>
                     </fieldset>
                     <button class="button primary" type="submit">Periksa pre-lab</button>
+                    <button class="button" type="reset">Ulangi pre-lab</button>
                     <p id="pilot-prelab-result" role="status" aria-live="polite"></p>
                 </form>
-                <h3>Jobsheet pilot · prosedur simulasi</h3>
+                <h3 id="pilot-jobsheet">Jobsheet pilot · prosedur simulasi</h3>
                 <p><strong>Alat:</strong> browser modern dan halaman Monitor Trainer. <strong>Keselamatan:</strong> gunakan mode simulasi; jangan menghubungkan rangkaian atau sensor fisik ke tubuh tanpa prosedur K3 dan persetujuan pengampu.</p>
                 <ol>
                     <li>Buka <a href="{{ route('monitor-trainer') }}">Monitor Trainer</a> dan identifikasi label sumber data yang sedang aktif.</li>
@@ -193,26 +196,42 @@
             document.getElementById('pilot-prelab').addEventListener('submit', event => {
                 event.preventDefault();
                 const form = new FormData(event.currentTarget);
-                const correct = [form.get('source') === 'simulation', form.get('bpm') === '60', form.get('artifact') === 'distort'];
-                const score = correct.filter(Boolean).length;
+                const questions = [
+                    ['source', 'simulation', 'Soal 1: data simulasi dibuat perangkat lunak, bukan sensor tubuh.'],
+                    ['bpm', '60', 'Soal 2: BPM = 60/interval (detik), jadi 1 detik setara 60 BPM.'],
+                    ['artifact', 'distort', 'Soal 3: gerakan jari dapat menimbulkan artefak pada PPG.'],
+                ];
+                const incorrect = questions.filter(([name, answer]) => form.get(name) !== answer);
+                const score = questions.length - incorrect.length;
                 document.getElementById('pilot-prelab-result').textContent =
                     'Skor latihan: ' + score + '/3. ' +
-                    (score === 3 ? 'Semua jawaban tepat. Lanjutkan ke prosedur simulasi.' :
-                    'Tinjau kembali: simulasi bukan sensor tubuh, BPM = 60/interval (detik), dan gerakan dapat menimbulkan artefak.');
+                    (incorrect.length === 0
+                        ? 'Semua jawaban tepat. Lanjutkan ke prosedur simulasi.'
+                        : incorrect.map(([, , explanation]) => explanation).join(' '));
+            });
+            document.getElementById('pilot-prelab').addEventListener('reset', () => {
+                document.getElementById('pilot-prelab-result').textContent = '';
             });
             const key = 'pilot-heart-rate-reflection-v1';
             const fields = ['pilot-mode', 'pilot-observation', 'pilot-interpretation', 'pilot-reflection'];
             const status = document.getElementById('pilot-status');
             const getData = () => Object.fromEntries(fields.map(id => [id, document.getElementById(id).value]));
-            const setData = data => fields.forEach(id => {
-                document.getElementById(id).value = typeof data[id] === 'string' ? data[id].slice(0, 3000) : '';
-            });
+            const setData = data => {
+                const safeData = data && typeof data === 'object' && !Array.isArray(data) ? data : {};
+                fields.forEach(id => {
+                    document.getElementById(id).value =
+                        typeof safeData[id] === 'string' ? safeData[id].slice(0, 3000) : '';
+                });
+            };
             try {
                 const saved = localStorage.getItem(key);
                 if (saved) setData(JSON.parse(saved));
             } catch {
                 status.textContent = 'Penyimpanan lokal tidak tersedia atau draf tidak dapat dibaca.';
             }
+            document.getElementById('pilot-reflection-form').addEventListener('input', () => {
+                status.textContent = 'Ada perubahan yang belum disimpan. Klik Simpan draf lokal atau Ekspor TXT.';
+            });
             document.getElementById('pilot-save').addEventListener('click', () => {
                 try {
                     localStorage.setItem(key, JSON.stringify(getData()));

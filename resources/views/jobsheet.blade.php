@@ -28,7 +28,7 @@
     <p class="sheet-meta">Kandidat pilot · materi latihan, belum jobsheet resmi</p>
     <h2 id="pilot-ppg-heading">Heart Rate / PPG</h2>
     <p>Pelajari prinsip PPG, kerjakan pre-lab, ikuti prosedur simulasi, dan catat pengamatan serta refleksi teknis. Gunakan jobsheet resmi dari dosen untuk kegiatan praktikum fisik.</p>
-    <a class="button primary" href="{{ route('pilot.heart-rate') }}#pilot-learning">Buka jobsheet pilot PPG</a>
+    <a class="button primary" href="{{ route('pilot.heart-rate') }}#pilot-jobsheet">Buka jobsheet pilot PPG</a>
   </section>
  @forelse ($editions as $edition)
   <section class="sheet-edition" aria-labelledby="edition-{{ $loop->index }}">

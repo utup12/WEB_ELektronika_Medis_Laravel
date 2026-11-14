@@ -49,3 +49,4 @@ jobs:
           node --check public/js/jobsheet-workspace.js
           node --check public/js/jobsheet-data-quality.js
           node --check public/js/student-profile.js
+          node --check public/js/script.js

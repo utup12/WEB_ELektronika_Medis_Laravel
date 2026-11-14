@@ -64,7 +64,7 @@ test('main learning pages and pilot route respond successfully', function () {
 });
 
 test('materi and evaluasi link directly to the PPG learning section', function () {
-    foreach (['materi', 'evaluasi'] as $page) {
+    foreach (['materi'] as $page) {
         $this->get(route($page))
             ->assertOk()
             ->assertSee(route('pilot.heart-rate').'#pilot-learning', false);
@@ -85,7 +85,7 @@ test('jobsheet catalog links to the PPG pilot procedure', function () {
     $this->get(route('jobsheet'))
         ->assertOk()
         ->assertSee('Kandidat pilot')
-        ->assertSee(route('pilot.heart-rate').'#pilot-learning', false);
+        ->assertSee(route('pilot.heart-rate').'#pilot-jobsheet', false);
 });
 
 test('report page clearly distinguishes local pilot notes from server upload', function () {
@@ -117,4 +117,45 @@ test('trainer BLE notifications guard incomplete 16-bit readings and invalid BPM
     expect($script)->toContain('isSixteenBit && value.byteLength < 3')
         ->toContain('heartRate >= minHeartRate && heartRate <= maxHeartRate')
         ->toContain('Belum tervalidasi untuk penggunaan klinis.');
+});
+
+test('pilot navigation uses real anchor targets', function () {
+    $this->get(route('pilot.heart-rate'))
+        ->assertOk()
+        ->assertSee('href="#pilot-learning"', false)
+        ->assertSee('href="#pilot-prelab"', false)
+        ->assertSee('id="pilot-jobsheet"', false)
+        ->assertSee('href="#pilot-jobsheet"', false)
+        ->assertSee('href="#pilot-reflection-form"', false);
+});
+
+test('PPG prelab offers detailed feedback and reset', function () {
+    $this->get(route('pilot.heart-rate'))
+        ->assertOk()
+        ->assertSee('Ulangi pre-lab')
+        ->assertSee('Soal 1: data simulasi dibuat perangkat lunak')
+        ->assertSee('Soal 2: BPM = 60/interval')
+        ->assertSee('Soal 3: gerakan jari dapat menimbulkan artefak');
+});
+
+test('evaluasi page links to actual PPG prelab', function () {
+    $this->get(route('evaluasi'))
+        ->assertOk()
+        ->assertSee(route('pilot.heart-rate').'#pilot-prelab', false);
+});
+
+test('report is honest about lack of server submission', function () {
+    $this->get(route('laporan'))
+        ->assertOk()
+        ->assertSee('Persiapan Laporan Praktikum')
+        ->assertSee('Pengiriman ke dosen atau server belum tersedia.')
+        ->assertSee('tidak dikirim maupun disimpan oleh website');
+});
+
+test('BLE connected state waits for valid heart rate notifications', function () {
+    $script = file_get_contents(public_path('js/script.js'));
+
+    expect($script)->toContain("heartbeatStatus.textContent = 'BLE WAIT'")
+        ->toContain("heartbeatValue.textContent = '—'")
+        ->toContain("trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MODE BLE'");
 });
