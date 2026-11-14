@@ -44,3 +44,29 @@ test('AI baseline evaluator has no external AI dependency and produces reproduci
         ->toContain('results.json')
         ->toContain('requires_human_review');
 });
+
+test('assistant report FAQs answer from documented report page instead of unrelated snippets', function () {
+    $cases = [
+        ['Berapa batas maksimum ukuran PDF laporan praktikum?', '10 MB'],
+        ['Apakah berkas laporan otomatis dikirim ke dosen?', 'belum tersedia'],
+        ['Apa yang harus dibahas dalam laporan praktikum?', 'analisis teknis'],
+    ];
+
+    $this->get(route('laporan'))
+        ->assertOk()
+        ->assertSee('Maksimum 10 MB')
+        ->assertSee('Pengiriman ke dosen atau server belum tersedia.')
+        ->assertSee('analisis teknis');
+
+    foreach ($cases as [$question, $requiredFragment]) {
+        $response = $this->postJson(route('asisten-ai.chat'), [
+            'message' => $question,
+        ]);
+
+        $response->assertOk();
+        $response->assertJsonPath('sources.0.title', 'Unggah Laporan');
+        $response->assertJsonPath('sources.0.url', route('laporan'));
+
+        expect($response->json('answer'))->toContain($requiredFragment);
+    }
+});

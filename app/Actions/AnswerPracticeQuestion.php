@@ -74,6 +74,12 @@ class AnswerPracticeQuestion
             return $jobsheetAnswer;
         }
 
+        $reportAnswer = $this->answerReportHelp($question);
+
+        if ($reportAnswer !== null) {
+            return $reportAnswer;
+        }
+
         $terms = $this->searchTerms($question);
 
         $sources = collect(self::SOURCES)
@@ -110,6 +116,38 @@ class AnswerPracticeQuestion
                     'url' => route($source['route']),
                 ])
                 ->all(),
+        ];
+    }
+
+
+    /**
+     * Resolve limited report FAQs against explicit information in the report page.
+     * This is a deterministic, source-bound response, not generated text.
+     *
+     * @return array{answer: string, sources: array<int, array{title: string, url: string}>}|null
+     */
+    private function answerReportHelp(string $question): ?array
+    {
+        $text = mb_strtolower($question);
+        $answer = null;
+
+        if (preg_match('/(?:maksimum|batas|ukuran).*(?:pdf|laporan|berkas)|(?:pdf|laporan|berkas).*(?:maksimum|batas|ukuran)/u', $text) === 1) {
+            $answer = 'Halaman Unggah Laporan menyarankan berkas PDF dengan ukuran maksimum 10 MB. Berkas hanya disiapkan secara lokal, bukan diunggah ke dosen atau server.';
+        } elseif (preg_match('/(?:dikirim|terkirim|pengiriman|upload|unggah|server|dosen).*(?:laporan|berkas)|(?:laporan|berkas).*(?:dikirim|terkirim|pengiriman|upload|unggah|server|dosen)/u', $text) === 1) {
+            $answer = 'Pengiriman laporan ke dosen atau server belum tersedia. Formulir hanya memeriksa pilihan berkas PDF untuk persiapan pengumpulan manual.';
+        } elseif (preg_match('/(?:dibahas|memuat|isi|dicantumkan|komponen|disertakan).*(?:laporan)|(?:laporan).*(?:dibahas|memuat|isi|dicantumkan|komponen|disertakan)/u', $text) === 1) {
+            $answer = 'Laporan PDF disarankan memuat identitas mahasiswa, data pengukuran, analisis teknis, dan kesimpulan.';
+        }
+
+        if ($answer === null) {
+            return null;
+        }
+
+        return [
+            'answer' => $answer,
+            'sources' => [
+                ['title' => 'Unggah Laporan', 'url' => route('laporan')],
+            ],
         ];
     }
 
