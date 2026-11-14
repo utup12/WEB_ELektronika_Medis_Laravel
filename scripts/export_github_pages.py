@@ -63,7 +63,7 @@ def main():
         print("Exported", route or "/")
     # Override Laravel candidate page with standalone JS simulation for Pages.
     source = Path("pilot-heart-rate/index.html")
-    shutil.copy2(source, OUT / "pilot/heart-rate/index.html")
+    (OUT / "pilot/heart-rate/index.html").write_text(\n        source.read_text(encoding="utf-8").replace(\'href="../"\', \'href="../../"\'),\n        encoding="utf-8",\n    )
     # Legacy static pilot path remains usable.
     legacy = OUT / "pilot-heart-rate" / "index.html"
     legacy.parent.mkdir(parents=True, exist_ok=True)
