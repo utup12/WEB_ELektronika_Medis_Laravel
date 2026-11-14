@@ -1,75 +1,221 @@
+/* Shared layouts for course subpages.
+   Uses existing design tokens and does not alter application logic. */
 .page-hero {
-    padding: 72px max(7vw, 48px) 50px;
-    background: linear-gradient(135deg, #f8fbfb, #e4f3f3);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(3.25rem, 6vw, 5.5rem) max(5vw, 32px)
+        clamp(2.75rem, 5vw, 4.25rem);
+    background: linear-gradient(130deg, #f7fbfc 0%, #e8f4f6 56%, #e0f3ed 100%);
+}
+.page-hero::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: -7rem;
+    top: -12rem;
+    width: min(38vw, 31rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3rem solid rgba(31, 203, 185, 0.09);
+    pointer-events: none;
 }
 .page-hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4.3rem);
+    max-width: 900px;
+    margin: 0 0 1.25rem;
+    font-size: clamp(2.3rem, 4.6vw, 4.3rem);
+    line-height: 1.12;
+    letter-spacing: -0.055em;
+    overflow-wrap: break-word;
 }
-.page-hero p {
-    max-width: 680px;
-    color: var(--muted);
-    font-size: 1rem;
+.page-hero p:not(.eyebrow) {
+    max-width: 740px;
+    margin: 0;
+    color: #496274;
+    font-size: clamp(0.96rem, 1.4vw, 1.065rem);
+    line-height: 1.8;
 }
 .page-content {
-    padding: 65px max(7vw, 48px) 100px;
+    padding: clamp(3rem, 5vw, 5rem) max(5vw, 32px) clamp(4rem, 7vw, 6.25rem);
     background: #fff;
+    min-height: 45vh;
 }
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.4rem);
+    align-items: stretch;
 }
 .content-card {
-    padding: 25px;
-    border: 1px solid var(--line);
-    background: #fbfdfd;
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: clamp(1.35rem, 2.4vw, 2rem);
+    border: 1px solid #d8e6e9;
+    border-radius: 16px;
+    background: #fbfefe;
+    box-shadow: 0 4px 20px rgba(16, 46, 68, 0.035);
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+.content-card > span:first-child {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    justify-content: center;
+    min-width: 2.3rem;
+    min-height: 2.3rem;
+    padding: 0.25rem 0.45rem;
+    border-radius: 10px;
+    background: #e7f5f4;
+    color: #096e6b;
+    font:
+        700 0.8rem/1 'DM Mono',
+        monospace;
 }
 .content-card h2 {
-    margin: 16px 0 8px;
-    font-size: 1.15rem;
-    line-height: 1.3;
+    margin: 0.55rem 0 0.25rem;
+    color: #14364d;
+    font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+    line-height: 1.35;
 }
 .content-card p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 0.87rem;
+    margin: 0 0 0.8rem;
+    color: #516b79;
+    font-size: 0.91rem;
+    line-height: 1.75;
+}
+.content-card .button,
+.content-card .inline-link {
+    align-self: flex-start;
+    margin-top: auto;
 }
 .page-list {
     margin: 0;
     padding: 0;
     list-style: none;
-    border-top: 1px solid var(--line);
+    border-top: 1px solid #d8e6e9;
 }
 .page-list li {
     display: flex;
-    gap: 20px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--line);
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid #d8e6e9;
 }
 .page-list span {
-    min-width: 70px;
-    color: #168885;
+    min-width: 4rem;
+    color: #087e7a;
     font:
-        500 0.75rem 'DM Mono',
+        600 0.78rem/1.7 'DM Mono',
         monospace;
 }
 .page-list strong {
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
 }
 .page-list p {
     margin: 0;
-    color: var(--muted);
-    font-size: 0.87rem;
+    color: #516b79;
+    font-size: 0.91rem;
+}
+.page-content :is(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid #14a7a1;
+    outline-offset: 3px;
+}
+@media (hover: hover) and (pointer: fine) {
+    .content-card:hover {
+        transform: translateY(-3px);
+        border-color: #9fd4d0;
+        box-shadow: 0 14px 32px rgba(16, 46, 68, 0.09);
+    }
+}
+@media (max-width: 1020px) {
+    .content-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 @media (max-width: 680px) {
     .page-hero {
-        padding: 52px 24px 38px;
+        padding: 3.1rem 1.5rem 2.65rem;
+    }
+    .page-hero::after {
+        right: -10rem;
+        width: 18rem;
     }
     .page-content {
-        padding: 48px 24px 66px;
+        padding: 2.75rem 1.5rem 4rem;
     }
     .content-grid {
         grid-template-columns: 1fr;
     }
+    .content-card {
+        border-radius: 14px;
+    }
+    .page-list li {
+        gap: 0.85rem;
+    }
+    .page-list span {
+        min-width: 3rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .content-card {
+        transition: none;
+    }
+    .content-card:hover {
+        transform: none;
+    }
+}
+/* Both current theme activation conventions are supported. */
+html[data-theme='dark'] .page-hero,
+body.dark-mode .page-hero {
+    background: linear-gradient(130deg, #0c2738, #123647);
+}
+html[data-theme='dark'] .page-hero h1,
+body.dark-mode .page-hero h1 {
+    color: #f0f8fb;
+}
+html[data-theme='dark'] .page-hero p:not(.eyebrow),
+body.dark-mode .page-hero p:not(.eyebrow) {
+    color: #c1d4dc;
+}
+html[data-theme='dark'] .page-content,
+body.dark-mode .page-content {
+    background: #0b202d;
+    color: #e9f3f6;
+}
+html[data-theme='dark'] .content-card,
+body.dark-mode .content-card {
+    background: #12303f;
+    border-color: #315365;
+    box-shadow: none;
+}
+html[data-theme='dark'] .content-card h2,
+body.dark-mode .content-card h2 {
+    color: #eff7fa;
+}
+html[data-theme='dark'] .content-card p,
+body.dark-mode .content-card p,
+html[data-theme='dark'] .page-list p,
+body.dark-mode .page-list p {
+    color: #bfd2da;
+}
+html[data-theme='dark'] .content-card > span:first-child,
+body.dark-mode .content-card > span:first-child {
+    background: #164c50;
+    color: #91ede0;
+}
+html[data-theme='dark'] .page-list,
+html[data-theme='dark'] .page-list li,
+body.dark-mode .page-list,
+body.dark-mode .page-list li {
+    border-color: #315365;
+}
+html[data-theme='dark'] .page-list span,
+body.dark-mode .page-list span {
+    color: #81ded2;
 }
