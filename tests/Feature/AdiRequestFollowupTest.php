@@ -40,7 +40,7 @@ test('assistant evaluation corpus contains 28 unique and categorised questions',
 test('AI baseline evaluator has no external AI dependency and produces reproducible raw artifacts', function () {
     $evaluator = file_get_contents(base_path('scripts/evaluate_ai_baseline.php'));
     expect($evaluator)->toContain('AnswerPracticeQuestion::class')
-        ->toContain("results.csv")
-        ->toContain("results.json")
+        ->toContain('results.csv')
+        ->toContain('results.json')
         ->toContain('requires_human_review');
 });

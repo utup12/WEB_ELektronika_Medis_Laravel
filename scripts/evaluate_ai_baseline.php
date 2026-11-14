@@ -6,7 +6,7 @@ declare(strict_types=1);
 require dirname(__DIR__).'/vendor/autoload.php';
 
 $app = require dirname(__DIR__).'/bootstrap/app.php';
-$app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 $file = dirname(__DIR__).'/resources/ai-evaluation/baseline-cases.json';
 $dataset = json_decode(file_get_contents($file), true, 512, JSON_THROW_ON_ERROR);
@@ -16,7 +16,7 @@ if (count($cases) < 20 || count($cases) > 30) {
     exit(1);
 }
 
-$answerer = app(\App\Actions\AnswerPracticeQuestion::class);
+$answerer = app(App\Actions\AnswerPracticeQuestion::class);
 $results = [];
 foreach ($cases as $case) {
     $answer = $answerer->handle($case['question']);
@@ -45,7 +45,7 @@ foreach ($cases as $case) {
 }
 
 $directory = dirname(__DIR__).'/build/ai-evaluation';
-if (! is_dir($directory) && ! mkdir($directory, 0775, true) && ! is_dir($directory)) {
+if (!is_dir($directory) && !mkdir($directory, 0775, true) && !is_dir($directory)) {
     fwrite(STDERR, "Cannot create evaluation directory.\n");
     exit(1);
 }
