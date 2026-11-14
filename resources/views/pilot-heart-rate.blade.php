@@ -53,21 +53,21 @@
                 <article class="content-card">
                     <span>01</span>
                     <h2>Materi</h2>
-                    <p>Placeholder untuk materi resmi, konsep sensor, pengkondisian sinyal, dan konteks pengukuran.</p>
+                    <p>Pengantar prinsip PPG dan perhitungan BPM tersedia di halaman ini; materi resmi tetap menunggu validasi.</p>
                     <a class="button text-button" href="{{ route('materi') }}">Buka Materi <span>→</span></a>
                 </article>
 
                 <article class="content-card">
                     <span>02</span>
                     <h2>Pre-lab</h2>
-                    <p>Gunakan evaluasi kesiapan sebagai kerangka awal. Soal final harus disesuaikan dengan modul resmi.</p>
+                    <p>Tiga pertanyaan pre-lab mandiri tersedia di bawah; soal resmi tetap menunggu validasi.</p>
                     <a class="button text-button" href="{{ route('evaluasi') }}">Buka Pre-lab <span>→</span></a>
                 </article>
 
                 <article class="content-card">
                     <span>03</span>
                     <h2>Jobsheet</h2>
-                    <p>Placeholder untuk tujuan, alat-bahan, keselamatan, langkah kerja, tabel data, dan kriteria penilaian.</p>
+                    <p>Prosedur simulasi dan format pengamatan awal tersedia di bawah; bukan pengganti jobsheet resmi.</p>
                     <a class="button text-button" href="{{ route('jobsheet') }}">Buka Jobsheet <span>→</span></a>
                 </article>
 
@@ -105,6 +105,56 @@
                 </article>
             </div>
 
+            <section class="content-card" id="pilot-learning" aria-labelledby="pilot-learning-heading" style="margin-top:1.5rem">
+                <p class="eyebrow">Materi pengantar · draf untuk validasi dosen</p>
+                <h2 id="pilot-learning-heading">Dasar PPG dan pengukuran heart rate</h2>
+                <p>Photoplethysmography (PPG) mengamati perubahan intensitas cahaya yang diterima sensor akibat perubahan volume darah pada jaringan. Puncak gelombang PPG dapat digunakan untuk memperkirakan frekuensi denyut, tetapi kualitas sinyal dipengaruhi gerakan, tekanan kontak sensor, cahaya sekitar, dan kondisi pengukuran.</p>
+                <p>Heart rate (BPM) adalah jumlah denyut per menit. Pada interval antar-denyut yang konsisten, perkiraan BPM = 60 / interval (detik). Contoh: interval 0,8 detik menghasilkan sekitar 75 BPM. Ini contoh perhitungan, bukan pengukuran pasien.</p>
+                <h3>Tujuan pembelajaran sementara</h3>
+                <ol>
+                    <li>Menjelaskan prinsip optik PPG dan membedakan data simulasi dengan data sensor fisik.</li>
+                    <li>Menghitung BPM dari interval antar-puncak dan menyebutkan sumber ketidakpastian.</li>
+                    <li>Mencatat pengamatan, menginterpretasikan keterbatasan, dan menyusun refleksi teknis.</li>
+                </ol>
+                <h3>Pre-lab: cek pemahaman mandiri</h3>
+                <form id="pilot-prelab">
+                    <fieldset>
+                        <legend>1. Pada simulasi BPM, angka yang tampil berasal dari...</legend>
+                        <label><input type="radio" name="source" value="sensor" required> Pembacaan sensor tubuh langsung</label>
+                        <label><input type="radio" name="source" value="simulation"> Data buatan perangkat lunak</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>2. Interval antar-denyut 1 detik setara dengan...</legend>
+                        <label><input type="radio" name="bpm" value="60" required> 60 BPM</label>
+                        <label><input type="radio" name="bpm" value="120"> 120 BPM</label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>3. Gerakan jari saat pengukuran PPG dapat...</legend>
+                        <label><input type="radio" name="artifact" value="distort" required> Menimbulkan artefak sinyal</label>
+                        <label><input type="radio" name="artifact" value="guarantee"> Menjamin akurasi pembacaan</label>
+                    </fieldset>
+                    <button class="button primary" type="submit">Periksa pre-lab</button>
+                    <p id="pilot-prelab-result" role="status" aria-live="polite"></p>
+                </form>
+                <h3>Jobsheet pilot · prosedur simulasi</h3>
+                <p><strong>Alat:</strong> browser modern dan halaman Monitor Trainer. <strong>Keselamatan:</strong> gunakan mode simulasi; jangan menghubungkan rangkaian atau sensor fisik ke tubuh tanpa prosedur K3 dan persetujuan pengampu.</p>
+                <ol>
+                    <li>Buka <a href="{{ route('monitor-trainer') }}">Monitor Trainer</a> dan identifikasi label sumber data yang sedang aktif.</li>
+                    <li>Amati perubahan BPM dan bentuk tren pada mode simulasi; jangan menyebutnya sebagai data fisiologis nyata.</li>
+                    <li>Catat sedikitnya tiga kondisi pengamatan beserta sumber data, nilai tampilan, dan keterbatasannya.</li>
+                    <li>Bandingkan hasil simulasi dengan rumus BPM = 60 / interval untuk contoh interval yang dipilih.</li>
+                    <li>Isi interpretasi dan refleksi di bawah, simpan draf lokal, lalu ekspor TXT untuk dokumentasi.</li>
+                </ol>
+                <div style="overflow-x:auto">
+                    <table style="width:100%;border-collapse:collapse" aria-label="Contoh format tabel pengamatan">
+                        <caption>Format pengamatan (contoh; isi nilai aktual pada catatan refleksi)</caption>
+                        <thead><tr><th scope="col">Percobaan</th><th scope="col">Sumber data</th><th scope="col">BPM tampil</th><th scope="col">Kendala / artefak</th></tr></thead>
+                        <tbody><tr><td>1</td><td>Simulasi / perangkat</td><td>Diisi saat praktik</td><td>Diisi saat praktik</td></tr><tr><td>2</td><td>Simulasi / perangkat</td><td>Diisi saat praktik</td><td>Diisi saat praktik</td></tr><tr><td>3</td><td>Simulasi / perangkat</td><td>Diisi saat praktik</td><td>Diisi saat praktik</td></tr></tbody>
+                    </table>
+                </div>
+                <p><strong>Evaluasi formatif:</strong> jelaskan mengapa angka BPM pada mode simulasi tidak dapat digunakan untuk menyimpulkan kondisi kesehatan seseorang. <strong>Refleksi:</strong> tuliskan satu keterbatasan metode dan satu usulan perbaikan prosedur.</p>
+            </section>
+
             <section class="content-card" aria-labelledby="pilot-reflection-heading" style="margin-top:1.5rem">
                 <h2 id="pilot-reflection-heading">Catatan interpretasi dan refleksi pilot</h2>
                 <p>Catat hasil uji simulasi atau perangkat secara mandiri. Isian ini bukan diagnosis, penilaian otomatis, atau bukti validasi hardware. Jangan masukkan data pasien maupun identitas subjek pengukuran.</p>
@@ -140,6 +190,16 @@
 
     <script>
         (() => {
+            document.getElementById('pilot-prelab').addEventListener('submit', event => {
+                event.preventDefault();
+                const form = new FormData(event.currentTarget);
+                const correct = [form.get('source') === 'simulation', form.get('bpm') === '60', form.get('artifact') === 'distort'];
+                const score = correct.filter(Boolean).length;
+                document.getElementById('pilot-prelab-result').textContent =
+                    'Skor latihan: ' + score + '/3. ' +
+                    (score === 3 ? 'Semua jawaban tepat. Lanjutkan ke prosedur simulasi.' :
+                    'Tinjau kembali: simulasi bukan sensor tubuh, BPM = 60/interval (detik), dan gerakan dapat menimbulkan artefak.');
+            });
             const key = 'pilot-heart-rate-reflection-v1';
             const fields = ['pilot-mode', 'pilot-observation', 'pilot-interpretation', 'pilot-reflection'];
             const status = document.getElementById('pilot-status');
