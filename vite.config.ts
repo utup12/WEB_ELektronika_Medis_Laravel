@@ -81,6 +81,7 @@ export default defineConfig({
             'docs/AI_SCOPE.md',
             'docs/UJI_COBA_MEDIA_PRAKTIKUM.md',
             'docs/RELEASE_RUNBOOK.md',
+            'docs/PPG_PILOT_ACCEPTANCE_CHECKLIST.md',
         ],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],
