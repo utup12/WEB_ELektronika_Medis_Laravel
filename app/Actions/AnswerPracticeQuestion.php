@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class AnswerPracticeQuestion
 {
@@ -43,6 +44,11 @@ class AnswerPracticeQuestion
         'selamat siang' => 'Selamat siang! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
         'selamat sore' => 'Selamat sore! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
         'selamat malam' => 'Selamat malam! Saya Asisten Praktik Elektronika Medis. Ada yang bisa saya bantu terkait praktikum?',
+        'apa kabar' => 'Baik, terima kasih. Saya siap membantu pertanyaan sederhana maupun materi Praktik Elektronika Medis.',
+        'terima kasih' => 'Sama-sama. Semoga praktikumnya lancar!',
+        'makasih' => 'Sama-sama. Semoga praktikumnya lancar!',
+        'siapa kamu' => 'Saya Asisten Praktik Elektronika Medis. Saya menjawab berdasarkan materi dan jobsheet yang tersedia di website ini.',
+        'tolong' => 'Tentu. Tulis pertanyaan Anda, misalnya tentang keselamatan praktikum, jobsheet, atau laporan.',
     ];
 
     /**
@@ -50,8 +56,17 @@ class AnswerPracticeQuestion
      *
      * @return array{answer: string, sources: array<int, array{title: string, url: string}>}
      */
-    public function handle(string $question): array
+    public function handle(string $question, bool $canUpdateMemory = false, ?int $userId = null): array
     {
+        $normalized = trim(mb_strtolower($question));
+        if ($normalized === 'update memory') return $canUpdateMemory ? ['answer' => 'Pertanyaan: \nJawaban: \n\nIsi formulir yang muncul untuk menyimpan memori baru.', 'sources' => [], 'memoryForm' => true] : ['answer' => 'Fitur Update memory hanya tersedia bagi dosen.', 'sources' => []];
+        if (preg_match('/^pertanyaan\s*:\s*(.+?)\s*jawaban\s*:\s*(.+)$/si', $question, $memory) === 1) {
+            if (! $canUpdateMemory || $userId === null) return ['answer' => 'Hanya dosen yang dapat menyimpan memori AI.', 'sources' => []];
+            DB::table('ai_memories')->updateOrInsert(['question' => trim($memory[1])], ['answer' => trim($memory[2]), 'user_id' => $userId, 'updated_at' => now(), 'created_at' => now()]);
+            return ['answer' => 'Memori berhasil diperbarui dan dapat digunakan semua mahasiswa.', 'sources' => []];
+        }
+        $saved = DB::table('ai_memories')->whereRaw('LOWER(question) = ?', [$normalized])->first();
+        if ($saved !== null) return ['answer' => $saved->answer, 'sources' => []];
         $greetingResponse = $this->greetingResponse($question);
 
         if ($greetingResponse !== null) {
@@ -131,9 +146,9 @@ class AnswerPracticeQuestion
         $answer = null;
 
         if (preg_match('/(?:maksimum|batas|ukuran).*(?:pdf|laporan|berkas)|(?:pdf|laporan|berkas).*(?:maksimum|batas|ukuran)/u', $text) === 1) {
-            $answer = 'Halaman Unggah Laporan menyarankan berkas PDF dengan ukuran maksimum 10 MB. Berkas hanya disiapkan secara lokal, bukan diunggah ke dosen atau server.';
+            $answer = 'Laporan dikirim sebagai PDF dengan ukuran maksimum 10 MB. Setelah masuk, status dan umpan balik dosen dapat dilihat pada halaman Unggah Laporan.';
         } elseif (preg_match('/(?:dikirim|terkirim|pengiriman|upload|unggah|server|dosen).*(?:laporan|berkas)|(?:laporan|berkas).*(?:dikirim|terkirim|pengiriman|upload|unggah|server|dosen)/u', $text) === 1) {
-            $answer = 'Pengiriman laporan ke dosen atau server belum tersedia. Formulir hanya memeriksa pilihan berkas PDF untuk persiapan pengumpulan manual.';
+            $answer = 'Mahasiswa dapat mengunggah laporan PDF melalui halaman Unggah Laporan setelah masuk akun. Dosen memeriksa berkas melalui Dashboard Dosen.';
         } elseif (preg_match('/(?:dibahas|memuat|isi|dicantumkan|komponen|disertakan).*(?:laporan)|(?:laporan).*(?:dibahas|memuat|isi|dicantumkan|komponen|disertakan)/u', $text) === 1) {
             $answer = 'Laporan PDF disarankan memuat identitas mahasiswa, data pengukuran, analisis teknis, dan kesimpulan.';
         }

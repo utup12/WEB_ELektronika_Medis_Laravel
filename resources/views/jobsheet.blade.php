@@ -7,13 +7,15 @@
   <link rel="stylesheet" href="{{ asset('css/identity.css') }}">
   <link rel="stylesheet" href="{{ asset('css/pages.css') }}">
   <style>
-    .sheet-edition{margin:1.5rem 0 2rem;padding:1.25rem;border:1px solid #d9e3ef;border-radius:14px;background:#fff}
+    .sheet-edition{margin:1.5rem 0 2rem;padding:1.35rem;border:1px solid #d9e3ef;border-radius:18px;background:#fff;box-shadow:0 12px 30px rgba(0,54,104,.06)}
     .sheet-meta{color:#586779;font-size:.94rem}.sheet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1rem;margin-top:1rem}
-    .sheet-card{display:block;padding:1.1rem;border:1px solid #d6e2f0;border-radius:12px;text-decoration:none;color:inherit;background:#f8fbff}
-    .sheet-card:hover,.sheet-card:focus-visible{border-color:#2866aa;box-shadow:0 4px 18px #1234}
+    .sheet-card{display:block;position:relative;overflow:hidden;padding:1.1rem;border:1px solid #d6e2f0;border-radius:15px;text-decoration:none;color:inherit;background:linear-gradient(145deg,#fff,#f2f8ff);transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+    .sheet-card:before{content:'';position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,#004b93,#00a4a4,#f7c948);opacity:.85}.sheet-card:hover,.sheet-card:focus-visible{transform:translateY(-5px);border-color:#2866aa;box-shadow:0 15px 27px rgba(0,54,104,.16)}
     .sheet-card strong{display:block;margin:.25rem 0}.sheet-card small{color:#4c6782}
     .sheet-card p{margin:.6rem 0 0;line-height:1.6}
     .sheet-note{border-left:4px solid #b87b16;padding:.8rem 1rem;background:#fff8e8;margin-top:1rem}
+    .sheet-card-head{display:flex;align-items:center;gap:.75rem;margin:.1rem 0 .55rem}.sheet-card-head small{flex:1}.sheet-card-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:linear-gradient(135deg,#e4f1ff,#fff4c7);color:#004b93;border:1px solid #d3e5f7;font-size:1.35rem;font-weight:800;box-shadow:inset 0 1px #fff}.sheet-card:hover .sheet-card-icon{background:linear-gradient(135deg,#004b93,#006db8);color:#fff}.sheet-edition h3{display:flex;align-items:center;gap:.55rem;margin-top:1.4rem}.sheet-edition h3:before{content:'⌁';display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#e7f2fd;color:#004b93;font-weight:800}
+    html[data-theme='dark'] .sheet-card-icon{background:#173f60;color:#f7d766;border-color:#45708e}html[data-theme='dark'] .sheet-edition h3:before{background:#173f60;color:#f7d766}
   </style>
 </head>
 <body>
@@ -40,7 +42,8 @@
       <div class="sheet-grid">
         @foreach ($modules as $module)
           <a class="sheet-card" href="{{ route('jobsheet.module', ['edition' => $edition['id'], 'module' => $module['slug']]) }}">
-            <small>Jobsheet {{ $module['number'] ?? $loop->iteration }} · Halaman PDF {{ $module['pdf_page'] ?? '—' }}</small>
+            @php($visuals = ['∿', 'Ω', '⏚', '⌁', '◌', '⟲'])
+            <div class="sheet-card-head"><span class="sheet-card-icon" aria-hidden="true">{{ $visuals[($loop->iteration - 1) % count($visuals)] }}</span><small>Jobsheet {{ $module['number'] ?? $loop->iteration }} · Halaman PDF {{ $module['pdf_page'] ?? '—' }}</small></div>
             <strong>{{ $module['title'] }}</strong>
             <p>{{ $module['summary'] }}</p>
           </a>

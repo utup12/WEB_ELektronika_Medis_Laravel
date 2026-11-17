@@ -22,7 +22,7 @@ class AiAssistantController extends Controller
         $validated = $request->validated();
 
         return response()->json(
-            $answerPracticeQuestion->handle($validated['message']),
+            $answerPracticeQuestion->handle($validated['message'], (bool) $request->user()?->isLecturer(), $request->user()?->id),
         );
     }
 }

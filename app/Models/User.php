@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -31,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Membership> $teamMemberships
  * @property-read Collection<int, Team> $teams
  */
-#[Fillable(['name', 'email', 'password', 'current_team_id'])]
+#[Fillable(['name', 'email', 'password', 'current_team_id', 'role'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -50,4 +51,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function isLecturer(): bool
+    {
+        return $this->role === 'lecturer';
+    }
+
+    public function reports(): HasMany { return $this->hasMany(Report::class); }
+    public function quizAttempts(): HasMany { return $this->hasMany(QuizAttempt::class); }
+    public function moduleProgress(): HasMany { return $this->hasMany(ModuleProgress::class); }
 }
