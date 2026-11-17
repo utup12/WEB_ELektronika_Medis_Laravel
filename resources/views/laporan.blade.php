@@ -14,7 +14,7 @@
                 <a class="button primary" href="{{ $driveFolderUrl }}" target="_blank" rel="noopener">Buka Folder Google Drive Dosen <span>↗</span></a>
             </p>
         @else
-            <p style="margin-top:8px;color:#6b5216">Tautan folder Google Drive belum diatur oleh dosen pengampu. Hubungi dosen atau gunakan unggah PDF langsung bila tersedia.</p>
+            <p style="margin-top:8px;color:#6b5216">Tautan folder Google Drive belum diatur oleh dosen pengampu. Silakan hubungi dosen untuk mendapatkan tautan folder pengumpulan.</p>
         @endif
     </section>
 
@@ -23,7 +23,7 @@
             <form class="learning-panel" action="{{ route('laporan.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="confirm_drive" value="1">
-                <h2>1. Catat Pengumpulan ke Google Drive Dosen</h2>
+                <h2>Catat Pengumpulan ke Google Drive Dosen</h2>
                 <p style="margin:0;color:var(--muted);font-size:.9rem">Unggah file PDF Anda ke folder Google Drive dosen di atas terlebih dahulu, lalu catat modul dan nama berkasnya di bawah ini agar masuk ke antrean koreksi dosen.</p>
                 @if(session('success'))
                     <p class="notice success">{{ session('success') }}</p>
@@ -47,37 +47,6 @@
                     <p class="notice error">{{ $message }}</p>
                 @enderror
                 <button class="button primary" type="submit" @disabled(empty($driveFolderUrl))>Catat Pengumpulan Laporan <span>→</span></button>
-            </form>
-
-            <form
-                class="learning-panel"
-                action="{{ route('laporan.store') }}"
-                method="POST"
-                enctype="multipart/form-data"
-                data-r2-upload-form
-                data-r2-enabled="{{ ($r2Configured ?? false) ? '1' : '0' }}"
-                data-presign-url="{{ route('laporan.presign') }}"
-                data-store-url="{{ route('laporan.store') }}"
-            >
-                @csrf
-                <h2>2. Unggah Berkas PDF Langsung (Alternatif)</h2>
-                <p data-r2-status role="status" aria-live="polite" hidden></p>
-                <label>Modul praktikum
-                    <select name="module" required>
-                        <option value="">Pilih modul</option>
-                        @for($i = 1; $i <= 14; $i++)
-                            <option value="Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}">Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}</option>
-                        @endfor
-                        <option value="Simulasi Heart Rate Smartwatch">Simulasi Heart Rate Smartwatch (PPG)</option>
-                    </select>
-                </label>
-                <label>Berkas PDF
-                    <input type="file" name="report" accept="application/pdf" required>
-                </label>
-                @error('report')
-                    <p class="notice error">{{ $message }}</p>
-                @enderror
-                <button class="button outline" type="submit">Unggah PDF Langsung <span>→</span></button>
             </form>
         </div>
 
@@ -114,5 +83,4 @@
         </table>
     </section>
 </section>
-<script defer src="{{ asset('js/report-upload-r2.js') }}"></script>
 </x-layouts.platform>
