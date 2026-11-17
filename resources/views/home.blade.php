@@ -145,6 +145,12 @@
 
             </details>
 
+            @auth
+                <form class="logout-form" method="POST" action="{{ route('keluar') }}">
+                    @csrf
+                    <button type="submit">Keluar</button>
+                </form>
+            @endauth
 
             <div class="header-tools">
 
