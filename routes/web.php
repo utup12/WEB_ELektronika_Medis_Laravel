@@ -99,12 +99,12 @@ Route::post('/asisten-ai/chat', [
 
 /*
 |--------------------------------------------------------------------------
-| PANDUAN DAN PRAKTIKUM
+| PRAKTIKUM DAN PANDUAN
 |--------------------------------------------------------------------------
 */
 
 Route::get('/panduan-praktikum', function () {
-    return view('panduan-praktikum');
+    return redirect()->to(route('praktikum', [], false).'#panduan-praktikum');
 })->name('panduan-praktikum');
 
 Route::get('/praktikum', function () {

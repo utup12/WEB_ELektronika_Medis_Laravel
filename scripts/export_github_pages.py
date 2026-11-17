@@ -10,7 +10,7 @@ import urllib.request
 BASE = "http://127.0.0.1:8000"
 OUT = Path("dist")
 ROUTES = [
-    "", "materi", "jobsheet", "praktikum", "panduan-praktikum",
+    "", "materi", "jobsheet", "praktikum",
     "evaluasi", "laporan", "monitor-trainer", "asisten-ai",
     "profil-dosen", "profil-mahasiswa", "tentang", "pilot/heart-rate",
 ]
