@@ -111,11 +111,6 @@
                         Materi
                     </a>
 
-                    <a href="{{ route('jobsheet', [], false) }}">
-                        Jobsheet
-                    </a>
-
-                    <!-- route praktikum akan kita buat setelah ini -->
                     <a href="{{ route('praktikum', [], false) }}">
                         Praktikum
                     </a>
@@ -543,7 +538,7 @@
 
 
                 <a
-                    href="{{ route('jobsheet', [], false) }}"
+                    href="{{ route('praktikum', [], false) }}#jobsheet"
                     class="inline-link"
                 >
                     Lihat semua jobsheet

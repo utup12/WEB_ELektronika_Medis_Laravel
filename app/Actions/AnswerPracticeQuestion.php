@@ -15,8 +15,7 @@ class AnswerPracticeQuestion
     private const SOURCES = [
         ['title' => 'Beranda', 'route' => 'home', 'view' => 'home'],
         ['title' => 'Materi Praktikum', 'route' => 'materi', 'view' => 'materi'],
-        ['title' => 'Jobsheet Praktikum', 'route' => 'jobsheet', 'view' => 'jobsheet'],
-        ['title' => 'Praktikum', 'route' => 'praktikum', 'view' => 'praktikum'],
+        ['title' => 'Praktikum & Jobsheet', 'route' => 'praktikum', 'view' => 'praktikum'],
         ['title' => 'Monitor Trainer', 'route' => 'monitor-trainer', 'view' => 'monitor-trainer'],
         ['title' => 'Evaluasi Praktikum', 'route' => 'evaluasi', 'view' => 'evaluasi'],
         ['title' => 'Unggah Laporan', 'route' => 'laporan', 'view' => 'laporan'],

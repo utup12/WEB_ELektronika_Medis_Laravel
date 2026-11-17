@@ -27,7 +27,6 @@
             <nav class="main-nav" aria-label="Navigasi utama">
                 <a href="{{ route('home', [], false) }}">Beranda</a>
                 <a href="{{ route('materi', [], false) }}">Materi</a>
-                <a href="{{ route('jobsheet', [], false) }}">Jobsheet</a>
                 <a href="{{ route('praktikum', [], false) }}">Praktikum</a>
                 <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
                 <a href="{{ route('laporan', [], false) }}">Unggah Laporan</a>
@@ -55,8 +54,7 @@
             <div class="ai-source-scope" aria-label="Sumber pengetahuan asisten">
                 <span>Menjawab dari:</span>
                 <a href="{{ route('materi', [], false) }}">Materi</a>
-                <a href="{{ route('jobsheet', [], false) }}">Jobsheet</a>
-                <a href="{{ route('praktikum', [], false) }}">Praktikum</a>
+                <a href="{{ route('praktikum', [], false) }}">Praktikum &amp; Jobsheet</a>
                 <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
                 <a href="{{ route('laporan', [], false) }}">Laporan</a>
             </div>

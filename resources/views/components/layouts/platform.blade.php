@@ -7,7 +7,7 @@
 </head>
 <body>
 <header class="site-header"><div class="identity-bar"><a class="uny-seal" href="{{ route('home') }}"><span><img src="{{ asset('assets/logo-uny-reference.png') }}" alt="Lambang UNY"></span></a><div class="institution-name"><strong>Universitas Negeri Yogyakarta</strong><span>Fakultas Teknik · Program Studi Pendidikan Teknik Elektronika</span></div></div>
-<div class="platform-bar"><a class="course-brand" href="{{ route('home') }}">Praktik Elektronika Medis</a><nav class="main-nav" aria-label="Navigasi utama"><a href="{{ route('home') }}">Beranda</a><a href="{{ route('materi') }}">Materi</a><a href="{{ route('jobsheet') }}">Jobsheet</a>
+<div class="platform-bar"><a class="course-brand" href="{{ route('home') }}">Praktik Elektronika Medis</a><button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span></button><nav class="main-nav" aria-label="Navigasi utama"><a href="{{ route('home') }}">Beranda</a><a href="{{ route('materi') }}">Materi</a><a href="{{ route('praktikum') }}">Praktikum</a><a href="{{ route('evaluasi') }}">Evaluasi</a><a href="{{ route('laporan') }}">Unggah Laporan</a><a href="{{ route('asisten-ai') }}">Asisten AI</a><a href="{{ route('profil-dosen') }}">Profil Dosen</a><a href="{{ route('tentang') }}">Tentang</a>
 @auth
     @if(auth()->user()->isLecturer())
         <a href="{{ route('dosen.dashboard') }}">Dashboard Dosen</a>

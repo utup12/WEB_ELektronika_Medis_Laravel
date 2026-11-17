@@ -1,0 +1,1799 @@
+{
+    "schema_version": 1,
+    "edition": "panduan-instrumentasi-elektronika-medis-2019",
+    "description": "Bank soal latihan mandiri pilihan ganda per jobsheet (14 jobsheet x 10 soal). Hanya untuk latihan mandiri dan tidak masuk nilai resmi.",
+    "modules": [
+        {
+            "slug": "penguat-instrumentasi",
+            "number": 1,
+            "title": "Penguat Instrumentasi",
+            "group": "Penguat Sinyal",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Berapakah rentang amplitudo umum sinyal biopotensial dari tubuh manusia yang menjadi alasan perlunya rangkaian penguat awal?",
+                    "options": {
+                        "a": "Megavolt (MV)",
+                        "b": "Kilovolt (kV)",
+                        "c": "Milivolt (mV)",
+                        "d": "Puluhan volt (10–50 V)"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada Jobsheet 1 halaman PDF 10 disebutkan bahwa sinyal tubuh umumnya memiliki amplitudo dalam jangkauan milivolt (mV) sehingga memerlukan penguat biopotensial."
+                },
+                {
+                    "id": 2,
+                    "question": "Konfigurasi dasar penguat instrumentasi pada Jobsheet 1 dibentuk dari kombinasi rangkaian op-amp berupa...",
+                    "options": {
+                        "a": "Satu penguat diferensial dan dua penyearah",
+                        "b": "Dua penguat non-inverting dan satu penguat diferensial",
+                        "c": "Satu integrator dan dua komparator",
+                        "d": "Tiga penguat inverting yang disusun seri"
+                    },
+                    "answer": "b",
+                    "explanation": "Jobsheet 1 menyatakan rangkaian penguat instrumentasi dibentuk dari dua penguat non-inverting pada tahap masukan dan satu penguat diferensial pada tahap keluaran."
+                },
+                {
+                    "id": 3,
+                    "question": "Syarat minimum impedansi masukan diferensial dan common-mode yang dibutuhkan rangkaian penguat biopotensial pada Jobsheet 1 adalah...",
+                    "options": {
+                        "a": "Diferensial > 2,5 kΩ dan common-mode > 10 kΩ",
+                        "b": "Diferensial = 50 Ω dan common-mode = 50 Ω",
+                        "c": "Diferensial < 100 Ω dan common-mode < 1 kΩ",
+                        "d": "Diferensial > 2,5 MΩ dan common-mode > 100 MΩ"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada halaman PDF 10 tercantum syarat impedansi input tinggi: diferensial > 2,5 MΩ dan common-mode > 100 MΩ agar sinyal tidak terbebani impedansi sumber sebelumnya."
+                },
+                {
+                    "id": 4,
+                    "question": "Mengapa penguat instrumentasi harus memiliki CMRR (Common Mode Rejection Ratio) yang tinggi?",
+                    "options": {
+                        "a": "Agar frekuensi cut-off filter otomatis bergeser ke 1 kHz",
+                        "b": "Agar mampu menapis interferensi bersama (common-mode) seperti noise jala-jala listrik 50 Hz",
+                        "c": "Agar baterai tidak cepat habis saat praktikum",
+                        "d": "Agar dapat menaikkan tegangan DC dari baterai 1,5 V"
+                    },
+                    "answer": "b",
+                    "explanation": "CMRR tinggi berarti penguat mampu menolak sinyal common-mode yang muncul bersamaan pada kedua input, misalnya interferensi jala-jala listrik 50 Hz."
+                },
+                {
+                    "id": 5,
+                    "question": "Rumus penguatan tegangan penguat instrumentasi pada Jobsheet 1 yang diturunkan menggunakan Hukum Tegangan Kirchhoff adalah...",
+                    "options": {
+                        "a": "Vo/(Va - Vb) = (1 + Ra/Rb) × (Rc/Rd)",
+                        "b": "Vo/(Va - Vb) = 49,4 kΩ / RG",
+                        "c": "Vo/(Va - Vb) = -Rb / Ra",
+                        "d": "Vo/(Va - Vb) = [1 + (2Rb / Ra)] × [Rd / Rc]"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada halaman PDF 11 tertulis persamaan penguatan penguat instrumentasi: Vo/(Va − Vb) = [1 + 2Rb/Ra][Rd/Rc]."
+                },
+                {
+                    "id": 6,
+                    "question": "Mengapa penguatan tahap awal (pre-amp) pada penguat instrumentasi tidak boleh dibuat terlalu besar?",
+                    "options": {
+                        "a": "Agar sinyal AC berubah menjadi sinyal searah secara otomatis",
+                        "b": "Karena osiloskop tidak mampu menampilkan tegangan di atas 1 mV",
+                        "c": "Untuk menghindari arus offset yang memicu polarisasi elektroda dan tegangan offset DC besar pada input op-amp",
+                        "d": "Karena resistor 3,3 kΩ akan terbakar jika gain di atas 2"
+                    },
+                    "answer": "c",
+                    "explanation": "Gain awal terlalu besar berisiko menimbulkan arus offset yang menyebabkan overpotensial polarisasi elektroda dan tegangan offset DC besar di input op-amp."
+                },
+                {
+                    "id": 7,
+                    "question": "Berapakah batas toleransi nilai resistor yang disarankan untuk menjaga simetri penguat biopotensial pada Jobsheet 1?",
+                    "options": {
+                        "a": "1%",
+                        "b": "25%",
+                        "c": "20%",
+                        "d": "10%"
+                    },
+                    "answer": "a",
+                    "explanation": "Syarat ke-5 pada halaman PDF 10 menyebutkan perlunya komponen dengan toleransi rendah sebesar 1%."
+                },
+                {
+                    "id": 8,
+                    "question": "Jika nilai Ra = 1 kΩ, Rb = 3,3 kΩ, dan Rd/Rc = 1, berapakah penguatan teoritis penguat instrumentasi menurut persamaan Jobsheet 1?",
+                    "options": {
+                        "a": "6,6 kali",
+                        "b": "7,6 kali",
+                        "c": "4,3 kali",
+                        "d": "11,2 kali"
+                    },
+                    "answer": "b",
+                    "explanation": "Dengan persamaan [1 + 2Rb/Ra][Rd/Rc] = [1 + 2(3,3 kΩ)/1 kΩ] × 1 = 1 + 6,6 = 7,6 kali."
+                },
+                {
+                    "id": 9,
+                    "question": "Berdasarkan prosedur Keselamatan Kerja (K3) dan langkah percobaan Jobsheet 1, apa yang wajib dilakukan setiap kali mengubah nilai resistor atau sambungan rangkaian?",
+                    "options": {
+                        "a": "Mematikan power supply terlebih dahulu",
+                        "b": "Langsung melepas IC op-amp saat catu daya menyala",
+                        "c": "Menaikkan batas ukur multimeter ke paling kecil terlebih dahulu",
+                        "d": "Menghubungkan kedua input langsung ke ground AC"
+                    },
+                    "answer": "a",
+                    "explanation": "Langkah 6 pada halaman PDF 12 menegaskan: setiap perubahan rangkaian mohon matikan power supply, dan hubungi dosen pendamping sebelum menyalakan catu daya."
+                },
+                {
+                    "id": 10,
+                    "question": "Saat menggunakan multimeter kumparan putar dalam kegiatan K3 praktikum, pengukuran harus dimulai dari...",
+                    "options": {
+                        "a": "Batas ukur yang besar lalu diturunkan bila simpangan terlalu kecil",
+                        "b": "Mode ohmmeter walaupun rangkaian masih bertegangan",
+                        "c": "Batas ukur yang paling kecil agar jarum cepat bergerak",
+                        "d": "Mode arus bolak-balik tanpa memperhatikan polaritas"
+                    },
+                    "answer": "a",
+                    "explanation": "Butir K3 nomor 7 menyatakan: mulailah dari batas ukur yang besar, lalu turunkan bila simpangan masih terlalu kecil di bawah batas ukur lebih rendah."
+                }
+            ]
+        },
+        {
+            "slug": "penguat-ad620",
+            "number": 2,
+            "title": "Penguat AD620",
+            "group": "Penguat Sinyal",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apa keunggulan utama IC AD620 dibandingkan merakit penguat instrumentasi dari tiga op-amp diskrit?",
+                    "options": {
+                        "a": "Hanya bisa bekerja untuk suhu badan di atas 50 °C",
+                        "b": "Menggantikan fungsi osiloskop secara langsung",
+                        "c": "Penguatannya dapat diatur mudah hanya dengan satu resistor eksternal RG",
+                        "d": "Tidak memerlukan catu daya DC sama sekali"
+                    },
+                    "answer": "c",
+                    "explanation": "AD620 mengintegrasikan penguat instrumentasi 3 op-amp ke dalam satu IC dan penguatannya diatur cukup dengan satu resistor eksternal RG."
+                },
+                {
+                    "id": 2,
+                    "question": "Berapakah besar impedansi masukan diferensial dan common-mode pada IC AD620 menurut Jobsheet 2?",
+                    "options": {
+                        "a": "10 GΩ",
+                        "b": "100 Ω",
+                        "c": "10 MΩ",
+                        "d": "10 kΩ"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 15 mencantumkan bahwa AD620 memiliki impedansi input sangat tinggi yaitu 10 GΩ baik untuk diferensial maupun common-mode."
+                },
+                {
+                    "id": 3,
+                    "question": "Rentang nilai CMRR (Common Mode Rejection Ratio) IC AD620 yang tercantum pada Jobsheet 2 adalah...",
+                    "options": {
+                        "a": "1–5 dB",
+                        "b": "10–20 dB",
+                        "c": "30–40 dB",
+                        "d": "73–130 dB"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada halaman PDF 15 tercantum nilai CMRR AD620 berkisar 73–130 dB."
+                },
+                {
+                    "id": 4,
+                    "question": "Persamaan penguatan G IC AD620 berdasarkan Jobsheet 2 halaman PDF 16 adalah...",
+                    "options": {
+                        "a": "G = (24,7 kΩ / RG) − 1",
+                        "b": "G = (49,4 kΩ / RG) + 1",
+                        "c": "G = 2 · R5 / R2",
+                        "d": "G = 1 / (2π · RG · C)"
+                    },
+                    "answer": "b",
+                    "explanation": "Karena dua resistor internal R1 dan R2 masing-masing bernilai tetap 24,7 kΩ, jumlahnya 49,4 kΩ sehingga G = (49,4 kΩ / RG) + 1."
+                },
+                {
+                    "id": 5,
+                    "question": "Jika diinginkan penguatan G = 100 kali pada IC AD620, berapakah nilai resistor eksternal RG yang dibutuhkan?",
+                    "options": {
+                        "a": "4,94 kΩ",
+                        "b": "498,99 Ω",
+                        "c": "49,40 kΩ",
+                        "d": "494,00 Ω"
+                    },
+                    "answer": "b",
+                    "explanation": "RG = 49.400 Ω / (G − 1) = 49.400 / 99 ≈ 498,99 Ω."
+                },
+                {
+                    "id": 6,
+                    "question": "Apabila resistor eksternal RG dipasang sebesar 49,4 kΩ pada AD620, berapakah penguatan G yang dihasilkan?",
+                    "options": {
+                        "a": "2 kali",
+                        "b": "10 kali",
+                        "c": "1 kali",
+                        "d": "50,4 kali"
+                    },
+                    "answer": "a",
+                    "explanation": "G = (49,4 kΩ / 49,4 kΩ) + 1 = 1 + 1 = 2 kali."
+                },
+                {
+                    "id": 7,
+                    "question": "Berapakah nilai masing-masing resistor internal R1 dan R2 di dalam IC AD620?",
+                    "options": {
+                        "a": "10 kΩ",
+                        "b": "100 kΩ",
+                        "c": "24,7 kΩ",
+                        "d": "49,4 kΩ"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 16 dijelaskan bahwa resistor penguat internal R1 dan R2 bernilai tetap 24,7 kΩ sehingga R1 + R2 = 49,4 kΩ."
+                },
+                {
+                    "id": 8,
+                    "question": "Ketika AD620 memperkuat sumber masukan yang 'mengambang' (seperti transformator atau sumber AC-CT), apa yang wajib disediakan pada setiap input?",
+                    "options": {
+                        "a": "Jalur DC (grounding path) dari setiap input ke ground untuk arus bias input",
+                        "b": "Potensiometer penggeser fasa di pin REF",
+                        "c": "Penyearah gelombang penuh di kaki catu daya",
+                        "d": "Kapasitor elektrolit berkapasitas besar seri ke output"
+                    },
+                    "answer": "a",
+                    "explanation": "Jobsheet 2 (PDF hlm. 15) menekankan bahwa arus bias input memerlukan jalur DC kembali ke ground saat sumber masukan mengambang."
+                },
+                {
+                    "id": 9,
+                    "question": "Berapakah karakteristik kerapatan derau tegangan input (input voltage noise) IC AD620 yang disebutkan pada Jobsheet 2?",
+                    "options": {
+                        "a": "9 mV/√Hz",
+                        "b": "9 nV/√Hz",
+                        "c": "0,9 µV/°C",
+                        "d": "90 V/√Hz"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 16 menyebutkan derau tegangan input AD620 berkurang terhadap frekuensi sebesar 9 nV/√Hz."
+                },
+                {
+                    "id": 10,
+                    "question": "Pada tahap keluaran internal AD620 terdapat substractor A3 dengan penguatan G = 1. Apa peran utama tahap A3 tersebut?",
+                    "options": {
+                        "a": "Memberikan tegangan bias DC +5 V secara tetap",
+                        "b": "Menyaring hanya frekuensi di atas 10 kHz",
+                        "c": "Mengubah sinyal analog menjadi sinyal digital 10-bit",
+                        "d": "Menghilangkan derau mode-bersama (common-mode noise)"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 16 menjelaskan bahwa A3 adalah subtractor dengan G = 1 yang berfungsi menghilangkan derau mode-bersama."
+                }
+            ]
+        },
+        {
+            "slug": "rangkaian-adder-summing",
+            "number": 3,
+            "title": "Rangkaian Adder / Summing",
+            "group": "Penguat Sinyal",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apa tujuan utama penggunaan rangkaian adder (summing amplifier) dalam pengolahan sinyal biopotensial seperti ECG?",
+                    "options": {
+                        "a": "Mengubah arus bolak-balik menjadi gelombang kotak",
+                        "b": "Menghapus gelombang P dan T pada rekaman jantung",
+                        "c": "Menurunkan tegangan baterai 12 V menjadi 1,5 V",
+                        "d": "Menaikkan level tegangan DC sinyal AC agar tidak ada bagian sinyal yang bernilai negatif"
+                    },
+                    "answer": "d",
+                    "explanation": "Jobsheet 3 menjelaskan rangkaian adder menaikkan level tegangan sinyal AC dengan menambahkan VDC sehingga bagian negatif naik menjadi positif seluruhnya."
+                },
+                {
+                    "id": 2,
+                    "question": "Mengapa sinyal AC biopotensial perlu dinaikkan level DC-nya sebelum masuk ke ADC internal mikrokontroler?",
+                    "options": {
+                        "a": "Karena mikrokontroler hanya bisa membaca sinyal berfrekuensi di atas 1 MHz",
+                        "b": "Karena sinyal negatif mempercepat kerusakan LDR",
+                        "c": "Karena ADC internal mikrokontroler tidak dapat mengambil sampling tegangan negatif",
+                        "d": "Karena resistor 10 kΩ akan putus jika dialiri sinyal AC"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 19 dijelaskan secara eksplisit bahwa ADC internal mikrokontroler tidak dapat melakukan sampling tegangan negatif sehingga butuh rangkaian adder."
+                },
+                {
+                    "id": 3,
+                    "question": "Jika pada rangkaian adder nilai resistor R3 = R4, persamaan tegangan keluarannya adalah...",
+                    "options": {
+                        "a": "Vout = (49,4 kΩ / RG) + Vin",
+                        "b": "Vout = Vin + VDC",
+                        "c": "Vout = Vin × VDC",
+                        "d": "Vout = Vin − VDC"
+                    },
+                    "answer": "b",
+                    "explanation": "Jobsheet 3 halaman PDF 19 menyatakan: dengan R3 = R4 maka keluaran rangkaian adder memenuhi Vout = Vin + VDC."
+                },
+                {
+                    "id": 4,
+                    "question": "Bagaimana cara mengatur besar tegangan DC (VDC) untuk menaikkan level sinyal ECG pada praktikum Jobsheet 3?",
+                    "options": {
+                        "a": "Mengatur resistansi variabel (potensiometer) RV1 secara perlahan",
+                        "b": "Membalik polaritas catu daya simetris",
+                        "c": "Mengubah frekuensi signal generator menjadi 50 Hz",
+                        "d": "Mengganti IC OP07C dengan LM35 setiap kali uji coba"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 20 menjelaskan VDC diperoleh dengan mengatur resistansi variabel RV1 dan dinaikkan perlahan hingga tidak ada sinyal AC bernilai negatif."
+                },
+                {
+                    "id": 5,
+                    "question": "IC op-amp dan nilai resistor utama yang digunakan pada daftar alat dan bahan Jobsheet 3 adalah...",
+                    "options": {
+                        "a": "IC OP07C dan 4 buah resistor 10 kΩ",
+                        "b": "Arduino Uno dan 1 buah LDR",
+                        "c": "IC AD620 dan 1 buah R 49,4 kΩ",
+                        "d": "IC LM35 dan 2 buah kapasitor 33 nF"
+                    },
+                    "answer": "a",
+                    "explanation": "Bagian Alat Bahan Jobsheet 3 (PDF hlm. 20) mencantumkan IC OP07C (1 buah) dan R 10k (4 buah)."
+                },
+                {
+                    "id": 6,
+                    "question": "Pada langkah awal percobaan Jobsheet 3 (langkah 4), potensiometer RV1 harus diatur pada posisi...",
+                    "options": {
+                        "a": "Minimal sehingga tegangan di titik A sama dengan 0 Volt",
+                        "b": "Tengah agar output langsung terpotong",
+                        "c": "Maksimal agar VDC langsung 5 V",
+                        "d": "Terbuka tanpa sambungan ke titik A"
+                    },
+                    "answer": "a",
+                    "explanation": "Langkah 4 pada halaman PDF 21 menginstruksikan: atur RV1 pada posisi minimal (tegangan di titik A = 0 Volt)."
+                },
+                {
+                    "id": 7,
+                    "question": "Jika sinyal sinus masukan beramplitudo 1 Vp-p (berayun dari −0,5 V sampai +0,5 V) masuk ke rangkaian adder Vout = Vin + VDC, berapa minimal VDC agar seluruh sinyal output tidak lagi negatif?",
+                    "options": {
+                        "a": "0,25 V",
+                        "b": "0,5 V",
+                        "c": "0 V",
+                        "d": "5,0 V"
+                    },
+                    "answer": "b",
+                    "explanation": "Nilai lembah minimum sinyal 1 Vp-p (simetris terhadap 0 V) adalah −0,5 V, sehingga menambahkan VDC minimal +0,5 V membuat titik terendah tepat 0 V."
+                },
+                {
+                    "id": 8,
+                    "question": "Jika input DC diberikan −1,5 V dan tegangan di titik A (VDC) diatur sebesar 2,5 V pada adder ideal Vout = Vin + VDC, berapakah Vout teoritisnya?",
+                    "options": {
+                        "a": "−4,0 V",
+                        "b": "+1,0 V",
+                        "c": "0 V",
+                        "d": "+4,0 V"
+                    },
+                    "answer": "b",
+                    "explanation": "Dengan Vout = Vin + VDC = −1,5 V + 2,5 V = +1,0 V."
+                },
+                {
+                    "id": 9,
+                    "question": "Pada langkah 7–9 percobaan sinyal sinus (1 Vp-p, 100 Hz) dengan menaikkan tegangan titik A hingga 4,0 V, apa yang diamati mahasiswa pada langkah ke-9?",
+                    "options": {
+                        "a": "Perubahan resistansi dalam baterai 1,5 V",
+                        "b": "Frekuensi resonansi antena radio terdekat",
+                        "c": "Berapa suhu maksimum IC OP07C dalam derajat Celsius",
+                        "d": "Pada tegangan berapakah sinyal output mulai mengalami cacat/kliping"
+                    },
+                    "answer": "d",
+                    "explanation": "Langkah 9 halaman PDF 22 menanyakan secara khusus: 'Mulai di tegangan berapakah output-nya cacat?' akibat batas ayunan catu daya op-amp."
+                },
+                {
+                    "id": 10,
+                    "question": "Berapakah tegangan catu daya yang disyaratkan pada daftar alat bahan rangkaian adder Jobsheet 3?",
+                    "options": {
+                        "a": "Baterai 9 V tunggal tanpa ground",
+                        "b": "Tegangan jala-jala 220 V AC langsung",
+                        "c": "Power supply 5 V DC simetris",
+                        "d": "Power supply 24 V DC tunggal"
+                    },
+                    "answer": "c",
+                    "explanation": "Daftar Alat Bahan Jobsheet 3 (PDF hlm. 20) mencantumkan Power supply 5 V DC Simetris (1 buah)."
+                }
+            ]
+        },
+        {
+            "slug": "low-pass-orde-pertama",
+            "number": 4,
+            "title": "Filter Aktif Low Pass Orde Pertama",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Secara prinsip kerja, rangkaian Filter Aktif Low Pass (LPF) orde pertama berfungsi untuk...",
+                    "options": {
+                        "a": "Menolak hanya tepat satu frekuensi 50 Hz saja",
+                        "b": "Mengubah sinyal DC menjadi sinyal sinus 1 kHz",
+                        "c": "Meloloskan sinyal frekuensi rendah di bawah fc dan meredam frekuensi tinggi di atas fc",
+                        "d": "Meloloskan sinyal frekuensi tinggi di atas fc dan meredam frekuensi rendah"
+                    },
+                    "answer": "c",
+                    "explanation": "Filter lolos rendah (low pass) meloloskan frekuensi di bawah frekuensi cut-off (fc) dan meredam frekuensi yang lebih tinggi."
+                },
+                {
+                    "id": 2,
+                    "question": "Pada Jobsheet 4, rangkaian dasar filter aktif low pass orde pertama tersusun atas...",
+                    "options": {
+                        "a": "Transformator step-up dengan dioda zener",
+                        "b": "Kombinasi rangkaian RC pasif dengan penguat non-inverting",
+                        "c": "Sensor LED-LDR yang dihubungkan ke pin A0",
+                        "d": "Jaringan Twin-T dengan penguat diferensial"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 24 menyatakan rangkaian terdiri dari kombinasi rangkaian RC yang membentuk filter pasif dengan penguat non-inverting."
+                },
+                {
+                    "id": 3,
+                    "question": "Persamaan frekuensi cut-off (fc) pada filter aktif low pass orde pertama adalah...",
+                    "options": {
+                        "a": "fc = 1 / (2π · R2 · C2)",
+                        "b": "fc = √(R2 · C2)",
+                        "c": "fc = R2 / C2",
+                        "d": "fc = 2π · R2 · C2"
+                    },
+                    "answer": "a",
+                    "explanation": "Pada halaman PDF 24 dan 25 dituliskan persamaan dasar perancangan: fc = 1 / [2π(R2·C2)]."
+                },
+                {
+                    "id": 4,
+                    "question": "Untuk filter ternormalisasi dengan R = 1 Ω dan C = 1 F, berapakah nilai frekuensi sudut (ωc) dan frekuensi cut-off (fc)?",
+                    "options": {
+                        "a": "ωc = 100 rad/detik dan fc ≈ 15,9 Hz",
+                        "b": "ωc = 10 rad/detik dan fc ≈ 1,59 Hz",
+                        "c": "ωc = 2π rad/detik dan fc = 1 Hz",
+                        "d": "ωc = 1 rad/detik dan fc ≈ 0,159 Hz"
+                    },
+                    "answer": "d",
+                    "explanation": "Dengan R = 1 Ω dan C = 1 F, ωc = 1/(RC) = 1 rad/detik dan fc = 1/(2π) ≈ 0,159 Hz."
+                },
+                {
+                    "id": 5,
+                    "question": "Pada Tabel 6 Jobsheet 4, berapakah besar penguatan teoritis (dB) pada frekuensi cut-off 1000 Hz untuk LPF orde pertama unity gain?",
+                    "options": {
+                        "a": "-6,99 dB",
+                        "b": "-20,0 dB",
+                        "c": "-3,01 dB",
+                        "d": "0 dB"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada Tabel 6 (PDF hlm. 27), tepat pada f = fc = 1000 Hz tercatat penguatan teoritis −3,01 dB."
+                },
+                {
+                    "id": 6,
+                    "question": "Berapakah perkiraan frekuensi cut-off bila R = 4,7 kΩ dan C = 33 nF seperti pada daftar komponen Jobsheet 4?",
+                    "options": {
+                        "a": "Sekitar 1,03 kHz (1026 Hz)",
+                        "b": "Sekitar 50 Hz",
+                        "c": "Sekitar 10,3 kHz",
+                        "d": "Sekitar 102 Hz"
+                    },
+                    "answer": "a",
+                    "explanation": "fc = 1 / (2π × 4700 × 33×10⁻⁹) ≈ 1026 Hz atau sekitar 1,03 kHz, sesuai tabel pengamatan hingga 1000 Hz sebagai fc."
+                },
+                {
+                    "id": 7,
+                    "question": "Pada frekuensi 10 kali lebih besar dari frekuensi cut-off (f = 10.000 Hz pada Tabel 6 dengan fc = 1000 Hz), berapakah redaman teoritis LPF orde pertama?",
+                    "options": {
+                        "a": "-3,01 dB",
+                        "b": "-12,3 dB",
+                        "c": "-6,99 dB",
+                        "d": "-20,0 dB"
+                    },
+                    "answer": "d",
+                    "explanation": "Filter orde pertama memiliki kemiringan redaman −20 dB/dekade; pada 10.000 Hz Tabel 6 mencatat nilai teoritis −20,0 dB."
+                },
+                {
+                    "id": 8,
+                    "question": "Pada percobaan penguatan positif (Gambar 10 Jobsheet 4), penguatan passband (G) ditentukan oleh...",
+                    "options": {
+                        "a": "Tegangan baterai 1,5 V pada input pembalik",
+                        "b": "Perbandingan resistor umpan balik pada penguat non-inverting",
+                        "c": "Panjang gelombang cahaya LED",
+                        "d": "Diameter kabel probe osiloskop"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 24–25 menjelaskan penguatan passband ditentukan berdasarkan resistansi umpan balik (G − 1) pada op-amp non-inverting."
+                },
+                {
+                    "id": 9,
+                    "question": "Sinyal masukan dari signal generator saat memulai percobaan LPF orde pertama pada langkah 5 diatur sebesar...",
+                    "options": {
+                        "a": "12 Vp-p dan frekuensi 50 Hz",
+                        "b": "1 Vp-p dan frekuensi 100 Hz",
+                        "c": "0,01 Vp-p dan frekuensi 10 kHz",
+                        "d": "5 V DC murni tanpa frekuensi"
+                    },
+                    "answer": "b",
+                    "explanation": "Langkah 5 (PDF hlm. 26) mengarahkan untuk mengaktifkan catu daya serta mengatur sinyal masukan menjadi 1 Vp-p dan 100 Hz."
+                },
+                {
+                    "id": 10,
+                    "question": "Pada soal diskusi Jobsheet 4, mahasiswa diminta merancang LPF yang meloloskan sinyal di bawah 100–105 Hz. Dalam instrumentasi medis, rentang frekuensi tersebut paling erat kaitannya dengan batas atas sinyal...",
+                    "options": {
+                        "a": "Sinyal elektrokardiogram (ECG)",
+                        "b": "Gelombang ultrasonik 2 MHz",
+                        "c": "Sinyal radio FM",
+                        "d": "Sinyal clock prosesor GHz"
+                    },
+                    "answer": "a",
+                    "explanation": "Pada modul ECG (Jobsheet 13) sinyal ECG memiliki bandwidth 0,05 Hz – 100 Hz, sehingga LPF ~100 Hz umum dipakai menyaring derau frekuensi tinggi ECG."
+                }
+            ]
+        },
+        {
+            "slug": "high-pass-orde-pertama",
+            "number": 5,
+            "title": "Filter Aktif High Pass Orde Pertama",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apakah perbedaan mendasar fungsi Filter Aktif High Pass (HPF) dibandingkan Low Pass Filter?",
+                    "options": {
+                        "a": "HPF hanya menolak sinyal tepat di 50 Hz",
+                        "b": "HPF meloloskan frekuensi tinggi di atas fc dan meredam frekuensi rendah di bawah fc",
+                        "c": "HPF menaikkan tegangan DC offset sinyal masukan",
+                        "d": "HPF meloloskan semua frekuensi termasuk DC 0 Hz tanpa redaman"
+                    },
+                    "answer": "b",
+                    "explanation": "High pass filter bekerja berlawanan dengan low pass filter: ia meloloskan frekuensi di atas frekuensi cut-off (fc) dan meredam frekuensi rendah di bawah fc."
+                },
+                {
+                    "id": 2,
+                    "question": "Pada rangkaian dasar HPF aktif orde pertama (Jobsheet 5), bagaimana susunan komponennya?",
+                    "options": {
+                        "a": "Kombinasi jaringan pasif RC (C seri sinyal masuk, R ke ground) diikuti penguat non-inverting",
+                        "b": "Resistor seri sinyal masuk dan kapasitor paralel ke ground diikuti komparator",
+                        "c": "Sensor LM35 yang terhubung ke potensiometer 50 kΩ",
+                        "d": "Dua buah induktor murni tanpa op-amp"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 30 menyatakan rangkaian dasar terdiri dari kombinasi rangkaian RC yang membentuk filter pasif lolos tinggi dengan penguat non-inverting."
+                },
+                {
+                    "id": 3,
+                    "question": "Persamaan frekuensi cut-off (fc) filter aktif high pass orde pertama pada Jobsheet 5 adalah...",
+                    "options": {
+                        "a": "fc = C2 / (2π · R2)",
+                        "b": "fc = 2π(R2 · C2)",
+                        "c": "fc = R2 / (2π · C2)",
+                        "d": "fc = 1 / [2π(R2 · C2)]"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada halaman PDF 30 tertulis persamaan frekuensi cut-off: fc = 1 / [2π(R2·C2)]."
+                },
+                {
+                    "id": 4,
+                    "question": "Persamaan tanggapan amplitudo (dalam dB) HPF orde pertama saat penguatan bandpass unitas (0 dB) adalah...",
+                    "options": {
+                        "a": "dB = 20 log10 [ ω / √(ω² + 1) ]",
+                        "b": "dB = 20 log10 [ 1 / √(ω² + 1) ]",
+                        "c": "dB = 20 log10 (ω⁴ + 1)",
+                        "d": "dB = 49,4 / RG + 1"
+                    },
+                    "answer": "a",
+                    "explanation": "Pada halaman PDF 30–31, saat penguatan unitas (20 log10 G = 0), tanggapan amplitudo HPF adalah dB = 20 log10(ω / √(ω² + 1))."
+                },
+                {
+                    "id": 5,
+                    "question": "Berdasarkan Tabel 8 Jobsheet 5, rentang frekuensi yang diuji saat pengamatan HPF orde pertama adalah...",
+                    "options": {
+                        "a": "100 Hz sampai 10.000 Hz",
+                        "b": "0 Hz (DC) saja",
+                        "c": "10 kHz sampai 10 MHz",
+                        "d": "1 Hz sampai 50 Hz"
+                    },
+                    "answer": "a",
+                    "explanation": "Tabel 8 (PDF hlm. 33) mencantumkan titik frekuensi pengukuran mulai 100 Hz, 200, 300, ... hingga 10.000 Hz."
+                },
+                {
+                    "id": 6,
+                    "question": "Nilai komponen R dan C yang digunakan pada alat dan bahan percobaan HPF orde pertama (Jobsheet 5) adalah...",
+                    "options": {
+                        "a": "R = 68 kΩ dan C = 10 nF",
+                        "b": "R = 10 kΩ dan C = 22 nF",
+                        "c": "R = 4,7 kΩ dan C = 33 nF",
+                        "d": "R = 220 kΩ dan C = 4700 nF"
+                    },
+                    "answer": "c",
+                    "explanation": "Daftar Alat Bahan (PDF hlm. 32) mencantumkan IC OP07C/LM358N, R 4k7 (1 buah), dan Kapasitor non polar 33 nF (1 buah)."
+                },
+                {
+                    "id": 7,
+                    "question": "Dengan R = 4,7 kΩ dan C = 33 nF pada langkah 5, apabila frekuensi sinyal masukan jauh di bawah fc (misalnya 100 Hz vs fc ≈ 1026 Hz), bagaimanakah tegangan output Vo dibanding masukan Vi?",
+                    "options": {
+                        "a": "Vo jauh lebih besar tak terhingga daripada Vi",
+                        "b": "Vo tidak terpengaruh sama sekali oleh perubahan frekuensi",
+                        "c": "Vo selalu sama persis dengan catu daya +5 V DC",
+                        "d": "Vo jauh lebih kecil daripada Vi karena mengalami redaman"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada HPF, sinyal dengan frekuensi di bawah cut-off (f < fc) akan diredam sehingga Vo/Vi < 0,707 (bernilai dB negatif)."
+                },
+                {
+                    "id": 8,
+                    "question": "Pada soal diskusi nomor 1 Jobsheet 5, mahasiswa diminta merancang HPF untuk kasus EKG yang meloloskan frekuensi di atas...",
+                    "options": {
+                        "a": "10.000 Hz",
+                        "b": "20 Hz",
+                        "c": "0,05 Hz",
+                        "d": "500 Hz"
+                    },
+                    "answer": "c",
+                    "explanation": "Bagian Diskusi (PDF hlm. 33) meminta rangkaian yang meloloskan sinyal di atas 0,05 Hz untuk kasus EKG (menghilangkan baseline wander/DC)."
+                },
+                {
+                    "id": 9,
+                    "question": "Sementara itu, pada soal diskusi nomor 2 Jobsheet 5 untuk kasus EMG, frekuensi cut-off HPF yang dirancang meloloskan sinyal di atas...",
+                    "options": {
+                        "a": "5 Hz",
+                        "b": "20 Hz",
+                        "c": "0,05 Hz",
+                        "d": "5 kHz"
+                    },
+                    "answer": "b",
+                    "explanation": "Bagian Diskusi nomor 2 meminta rangkaian HPF yang meloloskan sinyal frekuensi di atas 20 Hz untuk kasus sinyal otot EMG."
+                },
+                {
+                    "id": 10,
+                    "question": "Langkah 7 pada Jobsheet 5 mengarahkan mahasiswa menggunakan software perancangan rangkaian elektronik setelah merakit hardware dengan tujuan untuk...",
+                    "options": {
+                        "a": "Mengunggah PDF laporan langsung ke perangkat Arduino",
+                        "b": "Pembuktian hasil praktik hardware dan pembuktian bahan diskusi",
+                        "c": "Menggantikan kebutuhan catu daya di laboratorium",
+                        "d": "Mengukur suhu tubuh tanpa sensor LM35"
+                    },
+                    "answer": "b",
+                    "explanation": "Langkah 7 berbunyi: 'Pergunakan software perancangan rangkaian elektronik untuk pembuktian hasil praktik hardware dan pembuktian bahan diskusi.'"
+                }
+            ]
+        },
+        {
+            "slug": "butterworth-low-pass-orde-dua",
+            "number": 6,
+            "title": "Filter Butterworth Low Pass Orde Dua",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Topologi rangkaian filter aktif Butterworth low pass orde dua yang dipraktikkan pada Jobsheet 6 dikenal juga dengan nama...",
+                    "options": {
+                        "a": "Rangkaian Summing Inverting",
+                        "b": "VCVS (Sallen and Key) dengan penguatan unitas",
+                        "c": "Twin-T Notch Filter",
+                        "d": "Jembatan Wheatstone"
+                    },
+                    "answer": "b",
+                    "explanation": "Tujuan Jobsheet 6 (PDF hlm. 35) secara khusus menyebut rangkaian Filter Butterworth lolos rendah VCVS (Sallen and Key) orde kedua dengan penguatan unitas."
+                },
+                {
+                    "id": 2,
+                    "question": "Rumus frekuensi cut-off (fc) untuk rangkaian VCVS Sallen-Key orde kedua pada Jobsheet 6 adalah...",
+                    "options": {
+                        "a": "fc = (R1 · R2) / (C1 · C2)",
+                        "b": "fc = 1 / [2π · (R1 + R2) · (C1 + C2)]",
+                        "c": "fc = 1 / [2π · √(R1 · R2 · C1 · C2)]",
+                        "d": "fc = 2π · √(R1 · R2 · C1 · C2)"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 35 tercantum persamaan: fc = 1 / [2π · √(R1·R2·C1·C2)]."
+                },
+                {
+                    "id": 3,
+                    "question": "Berapakah nilai faktor redaman (a) standar untuk tanggapan filter Butterworth orde kedua pada Jobsheet 6?",
+                    "options": {
+                        "a": "a = 3,0",
+                        "b": "a = 1,0",
+                        "c": "a = 0,5",
+                        "d": "a = 1,414"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 35 menuliskan: untuk tanggapan Butterworth orde kedua digunakan nilai a = 1,414 (√2) sehingga suku (a² − 2)ω² menjadi nol."
+                },
+                {
+                    "id": 4,
+                    "question": "Dengan memasukkan nilai faktor redaman Butterworth a = 1,414, persamaan tanggapan amplitudo orde kedua pada Jobsheet 6 menjadi...",
+                    "options": {
+                        "a": "dB = 20 log10 G − 20 log10 [ω⁴ + 1]^(1/2)",
+                        "b": "dB = 20 log10 G − 20 log10 [ω² + 1]^(1/2)",
+                        "c": "dB = 20 log10 G + 10 log10 [ω + 1]",
+                        "d": "dB = 20 log10 (49,4 / RG)"
+                    },
+                    "answer": "a",
+                    "explanation": "Karena a² − 2 = (1,414)² − 2 = 0, persamaan menyederhana menjadi dB = 20 log10 G − 20 log10 [ω⁴ + 1]^(1/2)."
+                },
+                {
+                    "id": 5,
+                    "question": "Apa fungsi parameter faktor redaman (α / a) pada persamaan filter orde kedua?",
+                    "options": {
+                        "a": "Mengubah mode inverting menjadi komparator",
+                        "b": "Menentukan tegangan catu daya maksimal op-amp",
+                        "c": "Menentukan besar arus bias elektroda EMG",
+                        "d": "Mengatur pola atau bentuk lengkungan tanggapan amplitudo di sekitar frekuensi cut-off"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 35 menjelaskan bahwa α merupakan faktor redaman yang mengatur pola atau bentuk dari tanggapan amplitudo."
+                },
+                {
+                    "id": 6,
+                    "question": "Apa keunggulan karakteristik tanggapan frekuensi filter Butterworth dibandingkan respon lainnya seperti Chebyshev?",
+                    "options": {
+                        "a": "Memiliki riak sangat tajam pada passband",
+                        "b": "Memiliki daerah passband yang datar maksimal (tanpa riak/ripple) sehingga menjadi pilihan dasar yang baik",
+                        "c": "Tidak memiliki frekuensi cut-off sama sekali",
+                        "d": "Menolak frekuensi DC secara penuh"
+                    },
+                    "answer": "b",
+                    "explanation": "Tanggapan Butterworth dipilih karena datar di passband dan mudah dianalisis (a² − 2 = 0 pada orde 2)."
+                },
+                {
+                    "id": 7,
+                    "question": "Komponen pasif R dan C yang tercatat pada Alat Bahan Jobsheet 6 (PDF hlm. 37) untuk merakit VCVS orde dua adalah...",
+                    "options": {
+                        "a": "R 10k (4 buah) dan baterai 1,5 V",
+                        "b": "R 220k (2 buah) dan LM35",
+                        "c": "R 3k3 (2 buah) dan kapasitor non polar 33 nF (3 buah)",
+                        "d": "R 68k (1 buah) dan kapasitor 1 nF (1 buah)"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 37 Alat Bahan meliputi IC OP07C/LM358N, R 3k3 (2 buah), dan kapasitor non polar 33nF (3 buah)."
+                },
+                {
+                    "id": 8,
+                    "question": "Bagaimana perbandingan kemiringan kurva cut-off filter orde 4 dibandingkan filter orde 2 (pertanyaan diskusi nomor 3 Jobsheet 6)?",
+                    "options": {
+                        "a": "Kurva orde 4 lebih landai (−10 dB/dekade) dibanding orde 2",
+                        "b": "Kurva orde 4 lebih curam/tajam (−80 dB/dekade) dibanding orde 2 (−40 dB/dekade) pada daerah stopband",
+                        "c": "Orde 4 tidak bisa meredam frekuensi tinggi",
+                        "d": "Kurva orde 4 dan orde 2 identik tepat sama di semua frekuensi"
+                    },
+                    "answer": "b",
+                    "explanation": "Semakin tinggi orde filter, semakin curam penurunan tanggapan amplitudo setelah melewati fc (orde 2 sekitar −40 dB/dekade, orde 4 sekitar −80 dB/dekade)."
+                },
+                {
+                    "id": 9,
+                    "question": "Pada Tabel 9 Jobsheet 6, penyederhanaan nilai teoretis filter VCVS menggunakan frekuensi cut-off acuan sebesar...",
+                    "options": {
+                        "a": "1 kHz (1000 Hz)",
+                        "b": "100 Hz",
+                        "c": "50 Hz",
+                        "d": "10 kHz"
+                    },
+                    "answer": "a",
+                    "explanation": "Catatan kaki di bawah Tabel 9 (PDF hlm. 38) berbunyi: '*berdasar pada frekuensi cut off 1 kHz untuk penyederhanaan'."
+                },
+                {
+                    "id": 10,
+                    "question": "Pada langkah percobaan Jobsheet 6 sebelum menyalakan catu daya 5 V DC simetris, hal wajib dalam K3 yang harus dilakukan mahasiswa adalah...",
+                    "options": {
+                        "a": "Mengalibrasi alat ukur serta meminta dosen pendamping mengecek kebenaran rangkaian",
+                        "b": "Melepas semua kapasitor 33 nF terlebih dahulu",
+                        "c": "Menghubungkan langsung keluaran op-amp ke ground",
+                        "d": "Mengatur signal generator ke tegangan puncak maksimum 20 Vp-p"
+                    },
+                    "answer": "a",
+                    "explanation": "Butir K3 nomor 5 dan 6 mewajibkan kalibrasi alat ukur terlebih dahulu dan menghubungi dosen pendamping untuk mengecek kebenaran rangkaian sebelum catu daya dihidupkan."
+                }
+            ]
+        },
+        {
+            "slug": "low-pass-orde-kedua",
+            "number": 7,
+            "title": "Filter Low Pass Orde Kedua",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apa dua perbedaan utama filter low pass orde kedua ragam umpan balik (Jobsheet 7) dibandingkan filter VCVS (Jobsheet 6)?",
+                    "options": {
+                        "a": "Tidak menggunakan kapasitor dan hanya memakai resistor",
+                        "b": "Menggunakan LED dan LDR sebagai pengganti op-amp",
+                        "c": "Adanya tambahan jalur umpan balik dan op-amp dihubungkan dalam mode inverting",
+                        "d": "Memakai 3 IC op-amp dan catu daya baterai 1,5 V"
+                    },
+                    "answer": "c",
+                    "explanation": "Halaman PDF 39 menyebutkan dua perbedaan: (1) adanya tambahan umpan balik, dan (2) penguat operasional dihubungkan dalam mode inverting."
+                },
+                {
+                    "id": 2,
+                    "question": "Rumus frekuensi cut-off (fc) untuk filter lolos rendah ragam umpan balik pada Jobsheet 7 adalah...",
+                    "options": {
+                        "a": "fc = 2π · √(R1 · R3)",
+                        "b": "fc = 1 / [2π · √(R2 · R3 · C1 · C2)]",
+                        "c": "fc = R3 / R1",
+                        "d": "fc = 1 / [2π · R1 · C1]"
+                    },
+                    "answer": "b",
+                    "explanation": "Pada halaman PDF 39 tertulis: fc = 1 / [2π · √(R2 · R3 · C1 · C2)]."
+                },
+                {
+                    "id": 3,
+                    "question": "Untuk tanggapan Butterworth orde kedua ragam umpan balik pada Jobsheet 7, penguatan tegangan bandpass (G) pada LPF ditentukan oleh...",
+                    "options": {
+                        "a": "G = 1 + R3 / R1",
+                        "b": "G = 49,4 kΩ / RG",
+                        "c": "G = R3 / R1",
+                        "d": "G = C1 / C3"
+                    },
+                    "answer": "c",
+                    "explanation": "Halaman PDF 39 menyatakan: untuk tanggap Butterworth orde kedua LPF ragam umpan balik, penguatan tegangan bandpass G = R3 / R1."
+                },
+                {
+                    "id": 4,
+                    "question": "Bagaimana cara mengubah rangkaian filter low pass ragam umpan balik menjadi high pass filter ragam umpan balik menurut Jobsheet 7?",
+                    "options": {
+                        "a": "Menghubungkan pin V+ dan V− ke ground secara bersamaan",
+                        "b": "Mengganti catu daya DC menjadi AC 220 V",
+                        "c": "Mengganti op-amp dengan transistor NPN",
+                        "d": "Menukar urutan penempatan komponen kapasitor dan resistornya"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 40 menjelaskan filter lolos tinggi ragam umpan balik memiliki rangkaian yang sama dengan filter lolos rendah dengan menukar urutan komponen kapasitor dan resistornya."
+                },
+                {
+                    "id": 5,
+                    "question": "Pada filter lolos tinggi ragam umpan balik (Gambar 21 Jobsheet 7), bagaimanakah persamaan penguatan tegangan bandpass G-nya?",
+                    "options": {
+                        "a": "G = C3 / C1",
+                        "b": "G = 3 − a",
+                        "c": "G = 2R5 / R2",
+                        "d": "G = R1 / R3"
+                    },
+                    "answer": "a",
+                    "explanation": "Pada halaman PDF 40 tertulis untuk filter lolos tinggi ragam umpan balik: G = C3 / C1."
+                },
+                {
+                    "id": 6,
+                    "question": "Karena penguat operasional pada filter ragam umpan balik dipasang dalam mode inverting, bagaimanakah sifat fasa sinyal keluaran pada passband terhadap sinyal masukan?",
+                    "options": {
+                        "a": "Berlawanan fasa (bergeser 180°)",
+                        "b": "Tertunda tepat satu jam",
+                        "c": "Selalu sefasa (0°)",
+                        "d": "Berubah menjadi sinyal persegi"
+                    },
+                    "answer": "a",
+                    "explanation": "Konfigurasi op-amp mode inverting membalik fasa sinyal keluaran sebesar 180° terhadap sinyal masukan."
+                },
+                {
+                    "id": 7,
+                    "question": "Nilai komponen resistor dan kapasitor yang digunakan dalam daftar Alat Bahan Jobsheet 7 adalah...",
+                    "options": {
+                        "a": "R 1k (1 buah) dan kapasitor 10 µF (2 buah)",
+                        "b": "R 3k3 (2 buah) dan kapasitor 33 nF (3 buah)",
+                        "c": "R 33k (4 buah) dan kapasitor 4700 nF (4 buah)",
+                        "d": "R 6k8 (3 buah) dan kapasitor non polar 22 nF (2 buah)"
+                    },
+                    "answer": "d",
+                    "explanation": "Daftar Alat Bahan (PDF hlm. 41) mencantumkan IC OP07C/LM358N, R 6k8 (3 buah), dan Kapasitor non polar 22nF (2 buah)."
+                },
+                {
+                    "id": 8,
+                    "question": "Persamaan tanggapan amplitudo (dB) untuk LPF orde kedua ragam umpan balik pada Jobsheet 7 berbentuk...",
+                    "options": {
+                        "a": "dB = 10 mV / °C",
+                        "b": "dB = 20 log10 G − 20 log10 [ω⁴ + 1]^(1/2)",
+                        "c": "dB = Vin + VDC",
+                        "d": "dB = 20 log10 G − 20 log10 [(1/ω)⁴ + 1]^(1/2)"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 39 menuliskan untuk LPF orde kedua ragam umpan balik: dB = 20 log10 G − 20 log10 [ω⁴ + 1]^(1/2), sedangkan bentuk (1/ω)⁴ adalah untuk HPF."
+                },
+                {
+                    "id": 9,
+                    "question": "Jika pada LPF ragam umpan balik nilai R3 = 13,6 kΩ dan R1 = 6,8 kΩ, berapakah penguatan bandpass G-nya?",
+                    "options": {
+                        "a": "2 kali",
+                        "b": "0,5 kali",
+                        "c": "20,4 kali",
+                        "d": "6,8 kali"
+                    },
+                    "answer": "a",
+                    "explanation": "Menggunakan G = R3 / R1 = 13,6 kΩ / 6,8 kΩ = 2 kali."
+                },
+                {
+                    "id": 10,
+                    "question": "Apabila dalam percobaan praktikum rangkaian sudah selesai dirakit pada protoboard, apa syarat sebelum menekan tombol power supply?",
+                    "options": {
+                        "a": "Langsung menaikkan tegangan ke ±15 V",
+                        "b": "Memastikan letak kaki komponen, kesesuaian tegangan catu daya (5 V DC simetris), dan meminta cek dosen pendamping",
+                        "c": "Mengubah batas ukur multimeter ke paling kecil",
+                        "d": "Melepas salah satu kapasitor 22 nF saat listrik hidup"
+                    },
+                    "answer": "b",
+                    "explanation": "Sesuai prosedur K3 Jobsheet 7 (PDF hlm. 40), periksa kaki komponen, pastikan keluaran catu daya sesuai, dan hubungi dosen pendamping sebelum menyalakan daya."
+                }
+            ]
+        },
+        {
+            "slug": "butterworth-low-pass-orde-tiga",
+            "number": 8,
+            "title": "Filter Aktif Low Pass Butterworth Orde Tiga",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Bagaimana cara membentuk filter aktif ber-orde lebih tinggi dari 2 (misalnya orde ketiga) menurut Jobsheet 8?",
+                    "options": {
+                        "a": "Menghubungkan secara seri (kaskade) bagian filter orde pertama dan filter orde kedua",
+                        "b": "Mengurangi jumlah kapasitor menjadi satu buah saja",
+                        "c": "Mengganti resistor dengan potensiometer saja",
+                        "d": "Memparalelkan dua buah multimeter ke sumber sinyal"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 43 menyatakan filter aktif dengan orde lebih tinggi dari 2 dibuat dengan menghubungkan secara seri (kaskade) filter orde pertama dan kedua."
+                },
+                {
+                    "id": 2,
+                    "question": "Susunan rangkaian LPF Butterworth orde ketiga pada Jobsheet 8 terdiri dari...",
+                    "options": {
+                        "a": "Dua buah twin-T notch filter paralel",
+                        "b": "Satu integrator dan satu LED indikator",
+                        "c": "Penguat AD620 diikuti rangkaian adder",
+                        "d": "Filter orde 1 unity gain diikuti filter orde 2 VCVS"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 43 menjelaskan rangkaian terdiri dari bagian orde pertama filter lolos rendah dengan penguatan unitas diikuti orde kedua filter lolos rendah VCVS."
+                },
+                {
+                    "id": 3,
+                    "question": "Karena rangkaian LPF orde ketiga menggabungkan dua tahap aktif (orde 1 + orde 2), berapa buah IC op-amp (OP07C/LM358N) yang digunakan pada Alat Bahan Jobsheet 8?",
+                    "options": {
+                        "a": "2 buah",
+                        "b": "1 buah",
+                        "c": "6 buah",
+                        "d": "4 buah"
+                    },
+                    "answer": "a",
+                    "explanation": "Pada daftar Alat Bahan halaman PDF 45 tertulis IC OP07C/LM358N sebanyak 2 buah (atau 1 IC LM358 dual op-amp sesuai kebutuhan 2 tahap op-amp)."
+                },
+                {
+                    "id": 4,
+                    "question": "Persamaan hubungan antara penguatan tegangan bandpass (G) dan faktor redaman (a) pada tahap non-inverting filter Butterworth di Jobsheet 8 adalah...",
+                    "options": {
+                        "a": "G = a + 3",
+                        "b": "G = 3 − a",
+                        "c": "G = 1 / (2πRC)",
+                        "d": "G = 49,4 / RG"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 43 menuliskan hubungan penguatan tegangan bandpass dengan faktor redaman: G = 3 − a."
+                },
+                {
+                    "id": 5,
+                    "question": "Dengan faktor redaman tahap VCVS yang digunakan, hubungan resistor umpan balik non-inverting pada halaman PDF 43 dirumuskan sebagai...",
+                    "options": {
+                        "a": "RB = (a + 2) · RA",
+                        "b": "RB = RA / 2",
+                        "c": "RB = (2 − a) · RA",
+                        "d": "RB = 49,4 kΩ − RA"
+                    },
+                    "answer": "c",
+                    "explanation": "Karena G = 1 + RB/RA = 3 − a, maka perbandingan resistor umpan balik memenuhi RB = (2 − a) RA sebagaimana tertulis di halaman PDF 43."
+                },
+                {
+                    "id": 6,
+                    "question": "Apabila seluruh resistor penentu frekuensi dibuat bernilai sama (R) dan seluruh kapasitornya bernilai sama (C), maka rumus frekuensi cut-off LPF orde tiga adalah...",
+                    "options": {
+                        "a": "fc = 1 / (3RC)",
+                        "b": "fc = 2π(RC)",
+                        "c": "fc = 1 / [2π(RC)]",
+                        "d": "fc = 3 / [2π(RC)]"
+                    },
+                    "answer": "c",
+                    "explanation": "Halaman PDF 44 menyatakan jika nilai R sama dan nilai C sama, rumus frekuensi cut-off menyederhana menjadi fc = 1 / [2π(RC)]."
+                },
+                {
+                    "id": 7,
+                    "question": "Pada Tabel 11 Jobsheet 8, nilai komponen R 4k7 (3 buah) dan kapasitor 33 nF (3 buah) dirancang untuk menghasilkan frekuensi cut-off di sekitar...",
+                    "options": {
+                        "a": "1 kHz (sekitar 1026 Hz)",
+                        "b": "10 Hz",
+                        "c": "100 kHz",
+                        "d": "50 Hz"
+                    },
+                    "answer": "a",
+                    "explanation": "Dengan R = 4,7 kΩ dan C = 33 nF, fc = 1/(2π×4700×33nF) ≈ 1,03 kHz sesuai rancangan filter LPF orde ketiga 1 kHz di halaman PDF 43."
+                },
+                {
+                    "id": 8,
+                    "question": "Bagaimanakah perbedaan kemiringan (roll-off) kurva tanggapan frekuensi filter Butterworth orde tiga dibandingkan orde dua dan orde satu?",
+                    "options": {
+                        "a": "Orde tiga tidak dapat digunakan di atas 500 Hz",
+                        "b": "Orde tiga menghilangkan seluruh sinyal frekuensi rendah",
+                        "c": "Orde tiga lebih landai daripada orde satu",
+                        "d": "Orde tiga memiliki kemiringan redaman stopband lebih curam (−60 dB/dekade) dibanding orde dua (−40 dB/dekade) dan orde satu (−20 dB/dekade)"
+                    },
+                    "answer": "d",
+                    "explanation": "Setiap penambahan 1 orde filter menambah kecuraman roll-off sebesar −20 dB/dekade (orde 1: −20 dB/dek, orde 2: −40 dB/dek, orde 3: −60 dB/dek)."
+                },
+                {
+                    "id": 9,
+                    "question": "Pada langkah diskusi nomor 1 Jobsheet 8, mahasiswa diminta merancang LPF orde tiga yang meloloskan sinyal dengan frekuensi di bawah...",
+                    "options": {
+                        "a": "5 kHz",
+                        "b": "110 Hz",
+                        "c": "500 Hz",
+                        "d": "10 Hz"
+                    },
+                    "answer": "b",
+                    "explanation": "Diskusi nomor 1 halaman PDF 46 meminta perancangan rangkaian yang meloloskan sinyal frekuensi di bawah 110 Hz."
+                },
+                {
+                    "id": 10,
+                    "question": "Apa yang terjadi pada daerah passband jika penguatan filter VCVS terlalu besar dan faktor redaman tidak sesuai kriteria Butterworth?",
+                    "options": {
+                        "a": "Frekuensi listrik PLN otomatis berubah dari 50 Hz menjadi 60 Hz",
+                        "b": "Muncul puncak resonansi (peaking) atau osilasi di dekat frekuensi cut-off sehingga kurva tidak lagi datar",
+                        "c": "Kapasitor berubah menjadi resistor murni",
+                        "d": "Osiloskop tidak bisa menampilkan sinyal AC sama sekali"
+                    },
+                    "answer": "b",
+                    "explanation": "Nilai G = 3 − a menentukan faktor redaman; jika G berlebih sehingga a terlalu kecil, respon akan mengalami peaking atau bahkan tidak stabil/berosilasi."
+                }
+            ]
+        },
+        {
+            "slug": "band-pass-filter",
+            "number": 9,
+            "title": "Band Pass Filter",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apa fungsi utama rangkaian Band Pass Filter (BPF) dalam sistem instrumentasi medis?",
+                    "options": {
+                        "a": "Menghitung suhu badan secara langsung",
+                        "b": "Meloloskan sinyal hanya pada rentang pita frekuensi antara fL dan fH serta meredam frekuensi di luar pita tersebut",
+                        "c": "Menolak semua frekuensi di bawah 10 kHz",
+                        "d": "Hanya meloloskan tegangan DC 0 Hz"
+                    },
+                    "answer": "b",
+                    "explanation": "Band pass filter meloloskan sinyal pada rentang pita frekuensi antara frekuensi cut-off bawah (fL) hingga cut-off atas (fH)."
+                },
+                {
+                    "id": 2,
+                    "question": "Pada Jobsheet 9, rangkaian dasar feedback bandpass filter menggunakan satu op-amp dirancang untuk nilai faktor kualitas (Q) mendekati...",
+                    "options": {
+                        "a": "0,1 – 0,5",
+                        "b": "15 – 20",
+                        "c": "1 – 2",
+                        "d": "500 – 1000"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 47 menyatakan rangkaian dasar feedback bandpass filter pada praktikum memiliki nilai Q mendekati 15–20 dengan penguatan rata-rata."
+                },
+                {
+                    "id": 3,
+                    "question": "Rumus menghitung faktor kualitas (Q) dari hasil pengukuran frekuensi tengah (f0), cut-off bawah (fL), dan cut-off atas (fH) pada langkah 14 Jobsheet 9 adalah...",
+                    "options": {
+                        "a": "Q = f0 / (fH − fL)",
+                        "b": "Q = fH × fL",
+                        "c": "Q = 1 / (2π f0)",
+                        "d": "Q = (fH − fL) / f0"
+                    },
+                    "answer": "a",
+                    "explanation": "Pada halaman PDF 50 tertulis Q = f0 / (fH − fL), yaitu rasio frekuensi tengah terhadap lebar pita (bandwidth)."
+                },
+                {
+                    "id": 4,
+                    "question": "Pada langkah 15 Jobsheet 9, hubungan antara frekuensi tengah f0 dengan kedua frekuensi cut-off fH dan fL diuji menggunakan persamaan...",
+                    "options": {
+                        "a": "f0 = fH / fL",
+                        "b": "f0 = fH − fL",
+                        "c": "f0 = (fH + fL) / 2 secara mutlak untuk segala kondisi",
+                        "d": "f0 = √(fH · fL)"
+                    },
+                    "answer": "d",
+                    "explanation": "Langkah 15 halaman PDF 50 meminta memeriksa apakah berlaku hubungan geometris f0 = √(fH · fL)."
+                },
+                {
+                    "id": 5,
+                    "question": "Bagaimana kriteria penentuan titik cut-off bawah (fL) dan atas (fH) saat mengamati tegangan output di osiloskop pada langkah 8 & 13 Jobsheet 9?",
+                    "options": {
+                        "a": "Ketika tegangan output mencapai 0,707 kali dari tegangan maksimum/referensi passband (−3 dB)",
+                        "b": "Ketika frekuensi signal generator disetel 0 Hz",
+                        "c": "Ketika tegangan output dua kali lipat tegangan catu daya",
+                        "d": "Ketika tegangan output tepat 0 V"
+                    },
+                    "answer": "a",
+                    "explanation": "Langkah 8 & 13 menginstruksikan menurunkan/menaikkan frekuensi hingga nilai output di channel 2 menjadi 0,707 kali nilai acuan (−3 dB)."
+                },
+                {
+                    "id": 6,
+                    "question": "Keunggulan menarik feedback bandpass filter pada Jobsheet 9 adalah frekuensi tengahnya (f0) dapat digeser tanpa mengubah penguatan passband maupun lebar pita (bandwidth) dengan cara...",
+                    "options": {
+                        "a": "Mengganti IC LM741 dengan dioda penyearah",
+                        "b": "Mengubah nilai resistor R3 sesuai persamaan R'3 = R3 · (f0 / f'0)²",
+                        "c": "Membalik kabel probe osiloskop channel 1 dan 2",
+                        "d": "Mengurangi nilai tegangan catu daya dari ±12 V menjadi ±2 V"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 48 & 50 menunjukkan pergeseran frekuensi tengah tanpa mengubah gain/bandwidth dilakukan dengan mengubah R3 (dalam percobaan dari 2,7 kΩ ke 1,5 kΩ)."
+                },
+                {
+                    "id": 7,
+                    "question": "Pada kondisi kapasitor C2 = C4 = C dalam rancangan Jobsheet 9, penguatan pada frekuensi tengah G dirumuskan sebagai...",
+                    "options": {
+                        "a": "G = R3 / R5",
+                        "b": "G = 1 + (49,4 kΩ / RG)",
+                        "c": "G = 2π f0 C",
+                        "d": "G = R5 / (2 · R3)"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada Dasar Perancangan halaman PDF 48 tertulis penguatan pada frekuensi tengah adalah G = R5 / (2 R3) (dengan notasi R2/R3 sesuai skema)."
+                },
+                {
+                    "id": 8,
+                    "question": "Tegangan input yang harus diatur secara akurat pada awal percobaan langkah 4 Jobsheet 9 adalah...",
+                    "options": {
+                        "a": "12 V",
+                        "b": "0,1 V",
+                        "c": "1,4 V",
+                        "d": "5,0 V"
+                    },
+                    "answer": "c",
+                    "explanation": "Langkah 4 halaman PDF 50 berbunyi: 'Atur tegangan input menjadi 1,4 V. Lakukanlah seakurat mungkin.'"
+                },
+                {
+                    "id": 9,
+                    "question": "IC op-amp dan nilai kapasitor yang tercatat pada daftar Alat Bahan Jobsheet 9 adalah...",
+                    "options": {
+                        "a": "IC LM35 dan 4 buah resistor 10 kΩ",
+                        "b": "IC AD620 dan 3 buah kapasitor 33 nF",
+                        "c": "IC LM741 dan 2 buah kapasitor non polar 10 nF",
+                        "d": "IC OP07C dan 2 buah kapasitor 22 nF"
+                    },
+                    "answer": "c",
+                    "explanation": "Alat Bahan halaman PDF 49 mencantumkan IC LM741 (1 buah), R 68k, R 2k7, R 180, dan Kapasitor non polar 10 nF (2 buah) dengan catu daya 12 V DC simetris."
+                },
+                {
+                    "id": 10,
+                    "question": "Pada soal diskusi nomor 2 Jobsheet 9, band pass filter 0,3 Hz – 100 Hz dapat pula dibentuk dari kombinasi kaskade dua filter berupa...",
+                    "options": {
+                        "a": "Filter low pass (fc ≈ 100 Hz) dilanjutkan dengan filter high pass (fc ≈ 0,3 Hz)",
+                        "b": "Rangkaian sensor suhu LM35 dengan Arduino Uno",
+                        "c": "Dua buah notch filter 50 Hz yang disusun paralel",
+                        "d": "Dua buah adder DC tanpa kapasitor"
+                    },
+                    "answer": "a",
+                    "explanation": "Diskusi nomor 2 halaman PDF 50 menyebut pembentukan BPF 0,3 Hz–100 Hz menggunakan kombinasi filter low pass dilanjutkan filter high pass (wideband bandpass)."
+                }
+            ]
+        },
+        {
+            "slug": "notch-filter",
+            "number": 10,
+            "title": "Notch Filter",
+            "group": "Filter",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apa fungsi spesifik rangkaian Notch Filter (band-reject sempit) pada instrumentasi medis?",
+                    "options": {
+                        "a": "Menghalangi/meredam sinyal AC pada satu nilai frekuensi gangguan tertentu sambil meloloskan frekuensi lainnya",
+                        "b": "Meloloskan hanya sinyal di atas 10 kHz",
+                        "c": "Menguatkan sinyal 50 Hz hingga maksimal 100 kali",
+                        "d": "Mengubah suhu tubuh menjadi tegangan 10 mV/°C"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 51 menyatakan Notch filter digunakan untuk menghalangi sinyal AC pada satu nilai frekuensi tertentu saja."
+                },
+                {
+                    "id": 2,
+                    "question": "Frekuensi gangguan (noise) eksternal yang paling sering ditapis menggunakan notch filter dalam pengukuran biopotensial di Indonesia adalah...",
+                    "options": {
+                        "a": "Tegangan DC 0 Hz",
+                        "b": "Noise jala-jala listrik pada frekuensi 50 Hz",
+                        "c": "Gelombang suara ultrasonik 40 kHz",
+                        "d": "Sinyal detak jantung 1,2 Hz"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 51 secara eksplisit mencontohkan bahwa filter ini sering dipakai untuk memfilter sinyal noise akibat jala-jala listrik pada frekuensi 50 Hz."
+                },
+                {
+                    "id": 3,
+                    "question": "Nama topologi desain notch filter paling terkenal yang dipraktikkan pada Jobsheet 10 adalah...",
+                    "options": {
+                        "a": "Driven Right Leg",
+                        "b": "Summing Amplifier",
+                        "c": "Twin-T (Active Twin-T Notch Filter)",
+                        "d": "Sallen-Key VCVS"
+                    },
+                    "answer": "c",
+                    "explanation": "Jobsheet 10 halaman PDF 51–52 membahas secara rinci rangkaian Twin-T Notch Filter dan Active Twin-T Notch Filter dengan op-amp tunggal."
+                },
+                {
+                    "id": 4,
+                    "question": "Persamaan menentukan frekuensi null (fn) pada rangkaian Twin-T Notch Filter adalah...",
+                    "options": {
+                        "a": "fn = 2π · R · C",
+                        "b": "fn = R2 / (2 R1)",
+                        "c": "fn = 4 Q R5",
+                        "d": "fn = 1 / (2π · R · C)"
+                    },
+                    "answer": "d",
+                    "explanation": "Pada halaman PDF 51 & 52 tertulis persamaan frekuensi null: fn = 1 / (2πRC)."
+                },
+                {
+                    "id": 5,
+                    "question": "Dengan komponen diskrit yang banyak dijumpai di pasaran, berapakah tingkat penolakan (kedalaman null / rejection) yang umumnya dicapai rangkaian Twin-T nyata?",
+                    "options": {
+                        "a": "0 dB sama sekali",
+                        "b": "30 – 40 dB",
+                        "c": "3 – 5 dB",
+                        "d": "150 – 200 dB"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 51 menyebutkan secara teoritis penolakan penuh, namun dengan komponen pasaran dicapai tingkat rejection sekitar 30 – 40 dB."
+                },
+                {
+                    "id": 6,
+                    "question": "Pada rangkaian Active Twin-T Notch Filter dengan op-amp pada halaman PDF 51, berapakah nilai penguatan (G) rangkaian?",
+                    "options": {
+                        "a": "G = (49,4 kΩ / RG) + 1",
+                        "b": "G = Vin + VDC",
+                        "c": "G = R2 / (2 R1) = C1 / C2",
+                        "d": "G = 3 − a"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 51 tercantum rumus gain active Twin-T: G = R2 / (2 R1) = C1 / C2."
+                },
+                {
+                    "id": 7,
+                    "question": "Saat melakukan pengujian frekuensi pada osiloskop (langkah 6 Jobsheet 10), bagaimana cara mengenali bahwa frekuensi sinyal generator tepat berada pada frekuensi tengah/notch (f0)?",
+                    "options": {
+                        "a": "Tegangan output pada channel 2 bernilai minimal (mengalami redaman terdalam)",
+                        "b": "Bentuk gelombang sinus berubah menjadi gelombang segitiga",
+                        "c": "LED pin 13 pada Arduino menyala konstan",
+                        "d": "Tegangan output mencapai nilai maksimum tak terhingga"
+                    },
+                    "answer": "a",
+                    "explanation": "Langkah 6 halaman PDF 54 menyatakan: ubah frekuensi signal generator secara perlahan hingga output pada channel 2 adalah minimal, dan catat frekuensi saat itu sebagai frekuensi tengah."
+                },
+                {
+                    "id": 8,
+                    "question": "Mengapa penggunaan komponen dengan toleransi presisi penting dalam merakit Twin-T Notch Filter?",
+                    "options": {
+                        "a": "Supaya power supply 12 V tidak memerlukan ground",
+                        "b": "Karena resistor toleransi besar tidak dapat dilalui arus AC",
+                        "c": "Agar op-amp berubah menjadi sensor suhu LM35",
+                        "d": "Ketidakseimbangan nilai R dan C membuat kedalaman null berkurang dan frekuensi notch bergeser dari target (misal 50 Hz)"
+                    },
+                    "answer": "d",
+                    "explanation": "Twin-T bergantung pada kesetimbangan cabang T atas dan bawah agar sinyal tepat saling meniadakan di fn; toleransi komponen langsung memengaruhi kedalaman rejection."
+                },
+                {
+                    "id": 9,
+                    "question": "Daftar Alat Bahan Jobsheet 10 (PDF hlm. 53) menggunakan IC op-amp dan catu daya sebesar...",
+                    "options": {
+                        "a": "IC AD620 dengan catu daya 3,3 V tunggal",
+                        "b": "IC LM741 dengan power supply 12 V DC simetris",
+                        "c": "Arduino Uno dengan daya USB 5 V",
+                        "d": "IC LM35 dengan baterai 1,5 V"
+                    },
+                    "answer": "b",
+                    "explanation": "Alat Bahan halaman PDF 53 mencantumkan IC LM741 (1 buah), R 33k (4), R 220k (2), C 1nF (1), C 4700nF (4), dan Power supply 12 V DC Simetris."
+                },
+                {
+                    "id": 10,
+                    "question": "Jika frekuensi notch dirancang tepat 50 Hz untuk sistem perekaman sinyal EKG (0,05–100 Hz), apa tujuan utama penempatan notch filter tersebut?",
+                    "options": {
+                        "a": "Menekan dengung interferensi listrik 50 Hz yang sering menumpangi elektroda tubuh tanpa menghilangkan komponen EKG di luar 50 Hz",
+                        "b": "Menghitung temperatur ruang pemeriksaan",
+                        "c": "Menaikkan level DC sinyal menjadi +5 V",
+                        "d": "Menghapus seluruh kompleks QRS pasien"
+                    },
+                    "answer": "a",
+                    "explanation": "Interferensi 50 Hz dari jaringan listrik sering merusak sinyal biopotensial (seperti EKG/EMG), sehingga notch filter 50 Hz meredam gangguan tersebut."
+                }
+            ]
+        },
+        {
+            "slug": "penghitung-detak-jantung-plethysmograph",
+            "number": 11,
+            "title": "Penghitung Detak Jantung Metode Plethysmograph",
+            "group": "Aplikasi",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apa yang dideteksi atau diukur oleh instrumen plethysmograph menurut Jobsheet 11?",
+                    "options": {
+                        "a": "Potensial aksi kontraksi otot bisep",
+                        "b": "Frekuensi interferensi jala-jala listrik 50 Hz",
+                        "c": "Perubahan suhu tubuh di permukaan kulit",
+                        "d": "Perubahan volume (darah) di dalam suatu organ atau jari"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 56 menyatakan plethysmograph adalah teknik untuk mendeteksi/mengukur perubahan volume di dalam suatu organ (pada jari berupa perubahan volume darah)."
+                },
+                {
+                    "id": 2,
+                    "question": "Photoplethysmograph (PPG) bekerja mendeteksi perubahan volume darah menggunakan jenis sensor apa?",
+                    "options": {
+                        "a": "Elektroda jarum invasif",
+                        "b": "Sensor termokopel logam",
+                        "c": "Sensor optik (pasangan LED dan LDR)",
+                        "d": "Sensor ultrasonik piezoelektrik"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 56 dijelaskan bahwa photoplethysmograph menggunakan sensor optik (LED dan LDR) untuk mendeteksi perubahan volume darah di jari."
+                },
+                {
+                    "id": 3,
+                    "question": "Metode optik plethysmograph yang dipraktikkan pada Jobsheet 11 dimana LED dan LDR diletakkan bersampingan disebut metode...",
+                    "options": {
+                        "a": "Induksi magnetik",
+                        "b": "Refleksi",
+                        "c": "Transmisi penuh",
+                        "d": "Diferensial tiga op-amp"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 56 menyatakan secara langsung: 'Metode plethysmograph disini dengan yang dipakai adalah refleksi dimana LED dan LDR diletakkan bersampingan.'"
+                },
+                {
+                    "id": 4,
+                    "question": "Mengapa sinyal perubahan volume darah di jari dapat dipakai untuk menghitung detak jantung per menit (BPM)?",
+                    "options": {
+                        "a": "Karena setiap puncak gelombang perubahan volume darah berkorelasi dengan satu denyut jantung",
+                        "b": "Karena darah mengalir hanya saat otot lengan berkontraksi",
+                        "c": "Karena tahanan LDR berubah 10 mV setiap 1 °C",
+                        "d": "Karena LED memancarkan gelombang radio 50 Hz"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 56 menjelaskan setiap puncak gelombang perubahan volume darah berkorelasi langsung dengan satu denyut jantung."
+                },
+                {
+                    "id": 5,
+                    "question": "Pada kode program Arduino di langkah 5 Jobsheet 11, sensor LED-LDR dihubungkan ke pin mana untuk dibaca dengan `analogRead`?",
+                    "options": {
+                        "a": "Pin analog A0",
+                        "b": "Pin digital 13",
+                        "c": "Pin ground saja",
+                        "d": "Pin TX/RX serial"
+                    },
+                    "answer": "a",
+                    "explanation": "Kode di halaman PDF 57 mendeklarasikan `int sensorPin = A0;` dan `int ledPin = 13;`."
+                },
+                {
+                    "id": 6,
+                    "question": "Dalam program Arduino pada Jobsheet 11, kapan LED indikator pada pin 13 akan menyala (`HIGH`)?",
+                    "options": {
+                        "a": "Saat `sensorValue > cutOff`",
+                        "b": "Hanya ketika potensiometer diputar ke nilai nol",
+                        "c": "Saat `sensorValue == 0`",
+                        "d": "Setiap 50 ms tanpa membaca sensor"
+                    },
+                    "answer": "a",
+                    "explanation": "Logika program tertulis: `if (sensorValue > cutOff) { digitalWrite(ledPin, HIGH); delay(300); } else { digitalWrite(ledPin, LOW); }`."
+                },
+                {
+                    "id": 7,
+                    "question": "Apa tujuan variasi nilai `cutOff` (50, 100, 150, 200, 230) dan posisi potensiometer pada Tabel 12 Jobsheet 11?",
+                    "options": {
+                        "a": "Mengubah frekuensi catu daya PLN",
+                        "b": "Mencari kombinasi ambang batas (cutOff) dan kepekaan potensiometer sehingga jumlah nyala LED dalam 1 menit sama dengan denyut nadi sebenarnya",
+                        "c": "Menguji ketahanan LED hingga putus",
+                        "d": "Membandingkan panjang jari mahasiswa"
+                    },
+                    "answer": "b",
+                    "explanation": "Langkah 13 pada halaman PDF 58 menanyakan pada nilai cutOff dan posisi potensiometer manakah jumlah nyala LED sama dengan jumlah denyut nadi per menit."
+                },
+                {
+                    "id": 8,
+                    "question": "Menurut Tabel 13 Jobsheet 11, selain pada jari manis/jempol, di lokasi tubuh manakah sensor refleksi PPG diuji coba untuk membandingkan pembacaan denyut nadi?",
+                    "options": {
+                        "a": "Telapak sepatu praktikan",
+                        "b": "Ujung jari lain, pergelangan tangan, dan daun telinga",
+                        "c": "Rambut kepala dan kuku jari kaki",
+                        "d": "Bahu dan tulang punggung tengah"
+                    },
+                    "answer": "b",
+                    "explanation": "Tabel 13 (PDF hlm. 58) mencantumkan empat lokasi pengukuran: Jari Jempol tangan, Ujung jari lain, Pergelangan tangan, dan Daun telinga."
+                },
+                {
+                    "id": 9,
+                    "question": "Apa tindakan persiapan fisik pada jari yang tercantum pada langkah 6 sebelum memasang sensor LED-LDR?",
+                    "options": {
+                        "a": "Mencelupkan jari ke dalam air mendidih 50 °C",
+                        "b": "Mengoleskan isolator plastik tebal di antara LED dan kulit",
+                        "c": "Memasang elektroda jarum di bawah kulit jari",
+                        "d": "Membersihkan kulit jari manis yang akan dipasang sensor LED-LDR"
+                    },
+                    "answer": "d",
+                    "explanation": "Langkah 6 pada halaman PDF 57 menyatakan: 'Bersihkan kulit jari manis yang akan dipasang sensor LED-LDR' agar pantulan optik tidak terganggu kotoran."
+                },
+                {
+                    "id": 10,
+                    "question": "Apa fungsi potensiometer pada rangkaian sensor LED-LDR di Jobsheet 11 (Diskusi no. 1)?",
+                    "options": {
+                        "a": "Mengubah sinyal ECG menjadi sinyal EMG",
+                        "b": "Menyimpan riwayat skor kuis mahasiswa",
+                        "c": "Mengatur pembagi tegangan / titik ambang referensi komparator atau sensitivitas sinyal keluaran LDR agar sesuai rentang baca pin A0",
+                        "d": "Mengganti peran mikrokontroler Arduino Uno"
+                    },
+                    "answer": "c",
+                    "explanation": "Potensiometer berfungsi mengatur level sensitivitas/pembagi tegangan sensor LDR sehingga puncak gelombang denyut dapat melewati ambang `cutOff` tanpa saturasi."
+                }
+            ]
+        },
+        {
+            "slug": "termometer-badan",
+            "number": 12,
+            "title": "Termometer Badan",
+            "group": "Aplikasi",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Berapakah koefisien skala keluaran linear IC sensor suhu LM35?",
+                    "options": {
+                        "a": "1 V/°C",
+                        "b": "10 mV/°C",
+                        "c": "100 mV/°C",
+                        "d": "1 mV/°C"
+                    },
+                    "answer": "b",
+                    "explanation": "Jobsheet 12 halaman PDF 59 menegaskan LM35 memiliki koefisien sebesar 10 mV/°C (kenaikan 1 °C menaikkan tegangan sebesar 10 mV)."
+                },
+                {
+                    "id": 2,
+                    "question": "Jika suhu yang diukur oleh IC LM35 adalah 37 °C (suhu normal tubuh), berapakah tegangan output ideal LM35?",
+                    "options": {
+                        "a": "370 mV (0,37 V)",
+                        "b": "300 mV",
+                        "c": "37 mV",
+                        "d": "3,7 V"
+                    },
+                    "answer": "a",
+                    "explanation": "Dengan skala 10 mV/°C, pada suhu 37 °C tegangan keluaran ideal adalah 37 × 10 mV = 370 mV (pada contoh modul: 30 °C menghasilkan 300 mV)."
+                },
+                {
+                    "id": 3,
+                    "question": "Berapakah akurasi pengukuran IC LM35 pada temperatur ruangan tanpa memerlukan kalibrasi eksternal?",
+                    "options": {
+                        "a": "± 1/4 °C (± 0,25 °C)",
+                        "b": "± 0,001 °C",
+                        "c": "± 10 °C",
+                        "d": "± 5 °C"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 59 menyatakan LM35 menyediakan akurasi ± 1/4 °C pada temperatur ruangan dan ± 3/4 °C pada kisaran −55 °C hingga +150 °C."
+                },
+                {
+                    "id": 4,
+                    "question": "Rentang suhu kerja IC LM35 standar vs varian LM35D yang tertulis pada Rangkuman Teori Jobsheet 12 adalah...",
+                    "options": {
+                        "a": "LM35: 0 hingga 50 °C; LM35D: −200 hingga 0 °C",
+                        "b": "Keduanya hanya bekerja di suhu 35–42 °C",
+                        "c": "LM35: −40 hingga +110 °C; LM35D: −100 hingga +300 °C",
+                        "d": "LM35: −55 °C hingga +150 °C; LM35D: 0 hingga 100 °C"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 59 menuliskan: LM35 beroperasi pada −55 °C hingga +150 °C, LM35C pada −40 °C hingga +110 °C, dan LM35D pada kisaran 0–100 °C."
+                },
+                {
+                    "id": 5,
+                    "question": "Pada langkah percobaan 4 dan 5 Jobsheet 12, +Vs LM35 dihubungkan ke catu daya DC 5 V dan tegangan output diukur pada...",
+                    "options": {
+                        "a": "Kaki 1 IC LM741 tanpa catu daya",
+                        "b": "Kaki 2 (Vout) LM35 sambil disandingkan dengan termometer pembanding",
+                        "c": "Pin ground saja menggunakan ohmmeter",
+                        "d": "Kaki katoda kedua dioda secara seri"
+                    },
+                    "answer": "b",
+                    "explanation": "Langkah 5 halaman PDF 60: sandingkan LM35 dengan termometer, kemudian ukur tegangan output kaki 2 LM35 dan catat pada Tabel 14."
+                },
+                {
+                    "id": 6,
+                    "question": "Pada Tabel 14 Jobsheet 12, jika suhu dinaikkan dari 20 °C menjadi 50 °C, tegangan keluaran ideal LM35 seharusnya berubah dari ... menjadi ...",
+                    "options": {
+                        "a": "20 mV menjadi 50 mV",
+                        "b": "100 mV menjadi 150 mV",
+                        "c": "200 mV menjadi 500 mV",
+                        "d": "2,0 V menjadi 5,0 V"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada 20 °C output ideal = 20 × 10 mV = 200 mV, sedangkan pada 50 °C output ideal = 50 × 10 mV = 500 mV."
+                },
+                {
+                    "id": 7,
+                    "question": "Selain LM35 dan komponen pasif, IC op-amp yang tertera di Alat Bahan Jobsheet 12 untuk rangkaian pengondisi sinyal termometer adalah...",
+                    "options": {
+                        "a": "IC 555 Timer (2 buah)",
+                        "b": "Mikrokontroler ESP32",
+                        "c": "IC AD620 (3 buah)",
+                        "d": "IC LM741 (1 buah)"
+                    },
+                    "answer": "d",
+                    "explanation": "Daftar Alat Bahan (PDF hlm. 60) mencakup IC LM741, R 10k, R 47k, potensiometer 50k, dioda (2), LM35, project board, dan power supply 12 V DC simetris."
+                },
+                {
+                    "id": 8,
+                    "question": "Mengapa pada soal diskusi nomor 3 Jobsheet 12 dibutuhkan kombinasi rangkaian penguat dan adder antara LM35 dan input analog Arduino (0–5 V)?",
+                    "options": {
+                        "a": "Karena LM35 menghasilkan arus bolak-balik negatif saja",
+                        "b": "Karena Arduino hanya menerima tegangan AC 12 V",
+                        "c": "Karena keluaran langsung LM35 untuk suhu tubuh (~350–420 mV) masih sangat kecil dibanding rentang penuh 0–5 V ADC Arduino sehingga penguatan dan penggeseran level meningkatkan resolusi pembacaan",
+                        "d": "Agar sensor bisa mendeteksi gelombang otak EEG"
+                    },
+                    "answer": "c",
+                    "explanation": "Menguatkan (dan menggeser offset bila perlu) tegangan mV LM35 ke kisaran mendekati 0–5 V memaksimalkan rentang dinamis ADC Arduino."
+                },
+                {
+                    "id": 9,
+                    "question": "Pada soal diskusi nomor 4 Jobsheet 12, untuk apakah satu buah potensiometer ditambahkan pada rangkaian pengondisi sinyal LM35?",
+                    "options": {
+                        "a": "Untuk memutus koneksi ground catu daya",
+                        "b": "Sebagai pengatur kalibrasi agar pembacaan tegangan sesuai suhu acuan termometer standar",
+                        "c": "Sebagai pengganti project board",
+                        "d": "Sebagai pemanas buatan untuk tubuh pasien"
+                    },
+                    "answer": "b",
+                    "explanation": "Diskusi nomor 4 secara eksplisit menyatakan: 'Tambahkan satu buah potensiometer pada rangkaian No.3 yang berfungsi untuk kalibrasi.'"
+                },
+                {
+                    "id": 10,
+                    "question": "Dalam aplikasi pengukuran suhu tubuh klinis (Diskusi no. 1 & 2), mengapa dibutuhkan jeda waktu beberapa saat setelah sensor ditempelkan ke tubuh (misal ketiak/mulut/permukaan kulit)?",
+                    "options": {
+                        "a": "Agar terjadi kesetimbangan termal antara kulit tubuh dengan kemasan IC sensor sehingga pembacaan stabil",
+                        "b": "Agar baterai power supply turun tegangannya",
+                        "c": "Karena potensiometer harus diputar terus-menerus selama 10 menit",
+                        "d": "Karena tegangan LM35 baru menyala setelah 30 menit"
+                    },
+                    "answer": "a",
+                    "explanation": "Sensor membutuhkan waktu respons termal hingga suhu kemasan LM35 setimbang dengan suhu tubuh tempat sensor diletakkan."
+                }
+            ]
+        },
+        {
+            "slug": "electrocardiogram-ecg",
+            "number": 13,
+            "title": "Electrocardiogram (ECG)",
+            "group": "Aplikasi",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apakah definisi instrumen Electrocardiogram (ECG) berdasarkan Jobsheet 13?",
+                    "options": {
+                        "a": "Alat medis untuk mengukur aktivitas elektris jantung melalui perbedaan biopotensial dari bagian luar tubuh",
+                        "b": "Alat perekam kontraksi otot rangka saja",
+                        "c": "Alat pengukur perubahan volume darah di jari menggunakan LED",
+                        "d": "Alat pengukur temperatur inti tubuh manusia menggunakan IC semikonduktor"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 62 menjelaskan ECG mengukur aktivitas elektris jantung dengan mengukur perbedaan biopotensial dari permukaan luar tubuh."
+                },
+                {
+                    "id": 2,
+                    "question": "Berapakah lebar pita frekuensi (bandwidth) sinyal ECG normal menurut rangkuman teori Jobsheet 13?",
+                    "options": {
+                        "a": "1 kHz sampai 100 kHz",
+                        "b": "0 Hz (DC) saja",
+                        "c": "0,05 Hz sampai 100 Hz",
+                        "d": "50 Hz sampai 5000 Hz"
+                    },
+                    "answer": "c",
+                    "explanation": "Halaman PDF 62 menyatakan secara eksplisit: sinyal ECG merupakan sinyal AC dengan bandwidth antara 0,05 Hz sampai 100 Hz."
+                },
+                {
+                    "id": 3,
+                    "question": "Komponen gelombang karakteristik utama pada sinyal ECG normal yang tercantum dalam Jobsheet 13 terdiri atas gelombang...",
+                    "options": {
+                        "a": "Gelombang sinus, kotak, dan gigi gergaji",
+                        "b": "Gelombang A, B, C, dan D",
+                        "c": "Gelombang P, kompleks QRS, T, dan U",
+                        "d": "Gelombang alfa, beta, dan teta saja"
+                    },
+                    "answer": "c",
+                    "explanation": "Pada halaman PDF 62 dijelaskan sinyal ECG normal terdiri atas gelombang P, kompleks QRS, gelombang T, dan (bila tampak) gelombang U."
+                },
+                {
+                    "id": 4,
+                    "question": "Pada pemasangan lead standar bipolar (bidang frontal), elektroda pada kaki kanan (RL / Right Leg) berfungsi sebagai...",
+                    "options": {
+                        "a": "Titik ukur utama Lead I",
+                        "b": "Sumber tegangan AC 220 V",
+                        "c": "Sensor suhu badan LM35",
+                        "d": "Driven Right Leg (referensi / penetral derau tubuh)"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 63 menyatakan elektroda ditempatkan di RA, LA, RL, dan LL dengan kaki kanan (RL) sebagai Driven Right Leg."
+                },
+                {
+                    "id": 5,
+                    "question": "Manakah pasangan elektroda yang tepat untuk mengukur ketiga Lead Bipolar Standar (Lead I, II, dan III)?",
+                    "options": {
+                        "a": "Lead I: RA–LA, Lead II: RA–LL, Lead III: LA–LL",
+                        "b": "Lead I: LA–LL, Lead II: RA–LA, Lead III: RA–RL",
+                        "c": "Lead I: RA–RL, Lead II: LA–RL, Lead III: RL–LL",
+                        "d": "Lead I: kepala–kaki, Lead II: jari–telinga, Lead III: dada–punggung"
+                    },
+                    "answer": "a",
+                    "explanation": "Sesuai halaman PDF 63: Lead I mengukur potensial RA dan LA; Lead II antara RA dan LL; Lead III antara LA dan LL."
+                },
+                {
+                    "id": 6,
+                    "question": "Apa perbedaan penting metode Goldberger dibandingkan metode Wilson pada pengukuran Lead Augmented (Unipolar Ekstremitas)?",
+                    "options": {
+                        "a": "Goldberger menurunkan amplitudo hingga menjadi 0 V",
+                        "b": "Wilson hanya bekerja tanpa kabel elektroda",
+                        "c": "Goldberger memakai elektroda jarum invasif ke jantung langsung",
+                        "d": "Goldberger memutus hubungan terminal pusat ke ekstremitas yang diukur sehingga diperoleh kenaikan amplitudo mencapai 50%"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 64 menjelaskan bahwa cara Goldberger memutus hubungan terminal pusat dengan ekstremitas yang diukur sehingga amplitudo naik hingga 50%."
+                },
+                {
+                    "id": 7,
+                    "question": "Tiga macam elektroda yang dikenal dalam pengambilan tegangan ECG pada halaman PDF 64 adalah...",
+                    "options": {
+                        "a": "Elektroda invasif, elektroda penetrasi, dan elektroda permukaan",
+                        "b": "Elektroda optik, elektroda termal, dan elektroda akustik",
+                        "c": "Elektroda digital, elektroda PWM, dan elektroda Wi-Fi",
+                        "d": "Elektroda positif, negatif, dan netral PLN"
+                    },
+                    "answer": "a",
+                    "explanation": "Jobsheet 13 mengelompokkan 3 jenis elektroda: (a) invasif (seluruh di bawah kulit), (b) penetrasi (bagian sensing masuk kulit), dan (c) permukaan (paling sering digunakan)."
+                },
+                {
+                    "id": 8,
+                    "question": "Jenis elektroda manakah yang paling sering digunakan dalam aplikasi praktikum dan pemeriksaan ECG rutin?",
+                    "options": {
+                        "a": "Elektroda invasif",
+                        "b": "Elektroda permukaan (surface electrodes)",
+                        "c": "Elektroda penetrasi",
+                        "d": "Elektroda pelat pemanas"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 64 secara eksplisit memberi catatan pada butir c: 'Elektroda permukaan (jenis yang sering digunakan)'."
+                },
+                {
+                    "id": 9,
+                    "question": "Perangkat lunak dan perlengkapan yang digunakan untuk mengamati gelombang ECG pada Alat Bahan Jobsheet 13 adalah...",
+                    "options": {
+                        "a": "Power supply 24 V dan motor DC",
+                        "b": "Notebook + Software FreeHC, Set EKG, dan 3 buah Elektroda EKG",
+                        "c": "Arduino IDE dan sensor LED-LDR saja",
+                        "d": "Signal generator dan resistor Twin-T tanpa set EKG"
+                    },
+                    "answer": "b",
+                    "explanation": "Alat Bahan halaman PDF 65 mencantumkan: Notebook + Software FreeHC (1 set), Set EKG (1 set), dan Elektroda EKG (3 buah)."
+                },
+                {
+                    "id": 10,
+                    "question": "Selain menghitung denyut jantung, untuk keperluan diagnostik medis apa sajakah ECG dimanfaatkan menurut Jobsheet 13?",
+                    "options": {
+                        "a": "Menentukan ketebalan tulang lengan",
+                        "b": "Mendiagnosis infark miokard yang berkembang, mengidentifikasi aritmia, dan memantau efek obat jantung",
+                        "c": "Menggantikan fungsi filter notch pada jaringan listrik",
+                        "d": "Mengukur kadar gula darah tanpa mengambil sampel"
+                    },
+                    "answer": "b",
+                    "explanation": "Paragraf pembuka Rangkuman Teori (PDF hlm. 62) menyebut ECG digunakan untuk mengukur denyut jantung, mendiagnosis infark miokard, mengidentifikasi aritmia, serta efek obat/alat jantung."
+                }
+            ]
+        },
+        {
+            "slug": "electromyogram-emg",
+            "number": 14,
+            "title": "Electromyogram (EMG)",
+            "group": "Aplikasi",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "Apakah fungsi alat Electromyograph (EMG) berdasarkan rangkuman teori Jobsheet 14?",
+                    "options": {
+                        "a": "Merekam aktivitas elektrik dari otot untuk mengetahui kondisi kontraksi atau relaksasi otot",
+                        "b": "Menapis interferensi sinyal ECG di kaki kiri",
+                        "c": "Mengukur suhu permukaan kulit pasien",
+                        "d": "Merekam gelombang tekanan darah di jari dengan LED"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 66 menjelaskan Electromyograph merekam aktivitas elektrik yang ditimbulkan suatu otot akibat terjadinya kontraksi dan menampilkannya pada CRO/perangkat lunak."
+                },
+                {
+                    "id": 2,
+                    "question": "Berapakah rentang amplitudo tegangan yang dihasilkan oleh otot saat berkontraksi menurut Jobsheet 14?",
+                    "options": {
+                        "a": "50 µV – 5 mV",
+                        "b": "10 V – 50 V",
+                        "c": "1 nV – 10 nV",
+                        "d": "1 V – 5 V"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 66 menyebutkan secara eksplisit bahwa kontraksi otot menghasilkan tegangan berkisar antara 50 µV hingga 5 mV."
+                },
+                {
+                    "id": 3,
+                    "question": "Berapakah rentang durasi sinyal listrik kontraksi otot yang tercatat pada rangkuman teori Jobsheet 14?",
+                    "options": {
+                        "a": "2 – 15 detik",
+                        "b": "2 – 15 ms",
+                        "c": "0,01 – 0,05 µs",
+                        "d": "1 – 5 menit"
+                    },
+                    "answer": "b",
+                    "explanation": "Pada halaman PDF 66 tertulis: kontraksi otot menghasilkan tegangan 50 µV − 5 mV dengan durasi 2 – 15 ms."
+                },
+                {
+                    "id": 4,
+                    "question": "Bagaimanakah kondisi sinyal listrik EMG ketika otot berada dalam keadaan berelaksasi normal?",
+                    "options": {
+                        "a": "Menghasilkan tegangan konstan +5 V DC",
+                        "b": "Menghasilkan sinyal gelombang kotak 1 kHz",
+                        "c": "Beramplitudo jauh lebih besar daripada saat kontraksi penuh",
+                        "d": "Normalnya tidak ada tegangan/aktivitas listrik kontraksi yang muncul (garis dasar tenang)"
+                    },
+                    "answer": "d",
+                    "explanation": "Halaman PDF 66 menyatakan: 'Pada otot yang berelaksasi normalnya tidak ada tegangan' aktivitas aksi otot yang timbul."
+                },
+                {
+                    "id": 5,
+                    "question": "Faktor apa sajakah yang memengaruhi besarnya nilai tegangan EMG yang terekam menurut Jobsheet 14?",
+                    "options": {
+                        "a": "Posisi anatomi otot, ukuran elektroda, dan penempatan elektroda",
+                        "b": "Kapasitas harddisk notebook yang dipakai",
+                        "c": "Jenis lampu penerangan laboratorium",
+                        "d": "Warna baju praktikan dan suhu ruangan saja"
+                    },
+                    "answer": "a",
+                    "explanation": "Halaman PDF 66 menyatakan nilai tegangan EMG bergantung kepada posisi anatomi dari otot, ukuran, dan penempatan elektroda."
+                },
+                {
+                    "id": 6,
+                    "question": "Jenis elektroda yang digunakan pada permukaan kulit manusia untuk menyadap sinyal otot dalam Jobsheet 14 disebut...",
+                    "options": {
+                        "a": "Thermistor bridge",
+                        "b": "Surface electrodes",
+                        "c": "Deep-brain microelectrode",
+                        "d": "Optical LED-LDR sensor"
+                    },
+                    "answer": "b",
+                    "explanation": "Halaman PDF 67 menjelaskan salah satu jenis elektroda yang menyadap sinyal otot di permukaan kulit manusia adalah surface electrodes."
+                },
+                {
+                    "id": 7,
+                    "question": "Pada langkah 9–11 Jobsheet 14, set EMG disambungkan ke notebook untuk mengamati dan menyimpan bentuk gelombang menggunakan...",
+                    "options": {
+                        "a": "Multimeter analog batas ukur terbesar",
+                        "b": "Editor gambar vektor browser",
+                        "c": "Software FreeHC dan fasilitas screenshot",
+                        "d": "Software Arduino IDE Serial Plotter saja"
+                    },
+                    "answer": "c",
+                    "explanation": "Langkah 9–11 halaman PDF 68: sambungkan Set EMG ke notebook, buka software FreeHC, dan gunakan fasilitas screenshot untuk menyimpan hasil gelombang."
+                },
+                {
+                    "id": 8,
+                    "question": "Mengapa pada langkah 12–15 mahasiswa diminta melepas, memasang kembali elektroda di lengan sampai 5 kali pengulangan, dan menyimpan setiap screenshot?",
+                    "options": {
+                        "a": "Untuk menghabiskan perekat elektroda secepat mungkin",
+                        "b": "Untuk memanaskan lengan agar terbaca oleh LM35",
+                        "c": "Untuk mengubah sinyal otot menjadi sinyal ECG Lead II",
+                        "d": "Untuk mengamati pengaruh posisi/kontak penempatan ulang elektroda terhadap amplitudo dan bentuk gelombang EMG saat kontraksi dan relaksasi"
+                    },
+                    "answer": "d",
+                    "explanation": "Karena nilai EMG sangat bergantung pada posisi anatomi otot dan penempatan elektroda, pengulangan 5× menunjukkan konsistensi/pergeseran sinyal akibat reposisi elektroda."
+                },
+                {
+                    "id": 9,
+                    "question": "Pada soal diskusi nomor 1 Jobsheet 14, mahasiswa diminta merancang skema rangkaian EMG hasil kombinasi dari materi praktikum 1–12. Susunan blok pengondisi sinyal yang paling logis terdiri atas...",
+                    "options": {
+                        "a": "Penyearah 220 V AC langsung ke elektroda permukaan",
+                        "b": "Penguat instrumentasi (awal) → filter (HPF/LPF/BPF + Notch 50 Hz) → penguat lanjut/adder bila menuju ADC",
+                        "c": "Sensor suhu LM35 → potensiometer kalibrasi → LED 13",
+                        "d": "Sensor LED-LDR refleksi → timer 300 ms tanpa penguatan"
+                    },
+                    "answer": "b",
+                    "explanation": "Materi 1–12 mencakup penguat instrumentasi/AD620 untuk menangkap sinyal µV–mV otot, filter aktif + notch 50 Hz untuk membatasi pita EMG dan menolak dengung listrik, serta adder untuk ADC."
+                },
+                {
+                    "id": 10,
+                    "question": "Berdasarkan informasi pada modul sebelumnya (Jobsheet 5 diskusi no. 2) dan Jobsheet 14, jika merancang HPF untuk sinyal EMG, frekuensi bawah yang biasa diloloskan agar bebas artefak gerak/DC adalah di atas...",
+                    "options": {
+                        "a": "5000 Hz",
+                        "b": "0,01 Hz",
+                        "c": "20 Hz",
+                        "d": "1 MHz"
+                    },
+                    "answer": "c",
+                    "explanation": "Sebagaimana tercantum pada Jobsheet 5 Diskusi No. 2 ('kasus EMG!'), HPF sinyal EMG umumnya memiliki batas bawah sekitar 20 Hz untuk menghilangkan artefak gerak berfrekuensi rendah."
+                }
+            ]
+        }
+    ]
+}

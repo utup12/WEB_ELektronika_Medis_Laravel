@@ -11,16 +11,28 @@ test('2019 jobsheet catalog contains fourteen topics', function () {
     expect(collect($edition['modules'])->pluck('slug')->unique())->toHaveCount(14);
 });
 
-test('jobsheet catalog route renders available editions and topics', function () {
+test('praktikum page merges panduan first, jobsheet catalog with mulai praktikum, and smartwatch simulation at the bottom', function () {
+    $response = $this->get(route('praktikum'));
+
+    $response->assertOk()
+        ->assertSeeInOrder([
+            'Panduan Praktikum',
+            '01 · Sebelum',
+            'Katalog Jobsheet',
+            'Penguat Instrumentasi',
+            'Notch Filter',
+            'Electromyogram (EMG)',
+            'Mulai Praktikum',
+            'Praktikum Simulasi: Heart Rate Smartwatch (PPG)',
+        ])
+        ->assertDontSee('Monitor Heart Rate')
+        ->assertDontSee('Praktik dengan Trainer Kit');
+
     $this->get(route('jobsheet'))
-        ->assertOk()
-        ->assertSee('Katalog Jobsheet')
-        ->assertSee('Penguat Instrumentasi')
-        ->assertSee('Notch Filter')
-        ->assertSee('Electromyogram (EMG)');
+        ->assertRedirect('/praktikum#jobsheet');
 });
 
-test('jobsheet topic route renders source information', function () {
+test('jobsheet topic route renders source information and practice quiz link', function () {
     $this->get(route('jobsheet.module', [
         'edition' => 'panduan-instrumentasi-elektronika-medis-2019',
         'module' => 'penguat-ad620',
@@ -30,7 +42,8 @@ test('jobsheet topic route renders source information', function () {
         ->assertSee('Mulai halaman PDF: 14')
         ->assertSee('Arsip Teks PDF per Halaman')
         ->assertSee('Halaman PDF 14')
-        ->assertSee('49,4');
+        ->assertSee('49,4')
+        ->assertSee('Latihan 10 Soal Jobsheet Ini');
 });
 
 test('unknown jobsheet topic returns not found', function () {
