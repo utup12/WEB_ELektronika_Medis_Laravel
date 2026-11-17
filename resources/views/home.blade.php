@@ -259,8 +259,8 @@
                     </div>
 
                     <div>
-                        <strong>8</strong>
-                        <span>Modul praktikum</span>
+                        <strong>14</strong>
+                        <span>Topik jobsheet</span>
                     </div>
 
                     <div>
@@ -531,7 +531,7 @@
 
 
                     <h2>
-                        Delapan modul, satu alur belajar.
+                        Empat belas jobsheet, satu alur belajar.
                     </h2>
 
                 </div>

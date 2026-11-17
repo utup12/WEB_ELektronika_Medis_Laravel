@@ -98,27 +98,16 @@ test('praktikum page links to the PPG pilot procedure', function () {
         ->assertSee(route('pilot.heart-rate').'#pilot-jobsheet', false);
 });
 
-test('report page clearly distinguishes local pilot notes from server upload', function () {
-    $this->get(route('laporan'))
+test('report page requires authentication and displays 10 MB PDF limit', function () {
+    $this->get(route('laporan'))->assertRedirect(route('masuk'));
+
+    $student = \App\Models\User::factory()->create(['role' => 'student']);
+
+    $this->actingAs($student)
+        ->get(route('laporan'))
         ->assertOk()
-        ->assertSee('tidak mengirim berkas ke dosen atau server')
-        ->assertSee(route('pilot.heart-rate').'#pilot-reflection-form', false);
-});
-
-test('report interface explicitly states PDF limits and does not claim upload', function () {
-    $this->get(route('laporan'))
-        ->assertOk()
-        ->assertSee('Maksimum 10 MB')
-        ->assertSee('Siapkan Pengumpulan')
-        ->assertSee('tidak mengirim berkas ke dosen atau server');
-});
-
-test('browser script contains report PDF validation and honest local-only status', function () {
-    $script = file_get_contents(public_path('js/script.js'));
-
-    expect($script)->toContain('maxReportBytes = 10 * 1024 * 1024')
-        ->toContain("file.type === 'application/pdf'")
-        ->toContain('Belum dikirim ke dosen atau server');
+        ->assertSee('Unggah Laporan Praktikum')
+        ->assertSee('Maksimum 10 MB');
 });
 
 test('trainer BLE notifications guard incomplete 16-bit readings and invalid BPM', function () {
@@ -152,14 +141,6 @@ test('evaluasi page links to actual PPG prelab', function () {
     $this->get(route('evaluasi'))
         ->assertOk()
         ->assertSee(route('pilot.heart-rate').'#pilot-prelab', false);
-});
-
-test('report is honest about lack of server submission', function () {
-    $this->get(route('laporan'))
-        ->assertOk()
-        ->assertSee('Persiapan Laporan Praktikum')
-        ->assertSee('Pengiriman ke dosen atau server belum tersedia.')
-        ->assertSee('tidak dikirim maupun disimpan oleh website');
 });
 
 test('BLE connected state waits for valid heart rate notifications', function () {
