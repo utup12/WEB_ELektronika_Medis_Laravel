@@ -137,6 +137,15 @@
                         Profil Dosen
                     </a>
 
+                    @auth
+                        @if(auth()->user()->isLecturer())
+                            <a href="{{ route('dosen.dashboard', [], false) }}">Dashboard Dosen</a>
+                        @else
+                            <a href="{{ route('student.progress', [], false) }}">Progres Saya</a>
+                            <a href="{{ route('student.notes', [], false) }}">Catatan Mahasiswa</a>
+                        @endif
+                    @endauth
+
                     <a href="#tentang">
                         Tentang
                     </a>
@@ -154,6 +163,16 @@
                 >
                     Praktik Elektronika Medis
                 </a>
+
+                @guest
+                    <a class="header-login" href="{{ route('masuk', [], false) }}">Masuk</a>
+                @else
+                    @if(auth()->user()->isLecturer())
+                        <a class="header-login" href="{{ route('dosen.dashboard', [], false) }}">Dashboard Dosen</a>
+                    @else
+                        <a class="header-login" href="{{ route('student.progress', [], false) }}">Progres Saya</a>
+                    @endif
+                @endguest
 
 
                 <button
@@ -230,7 +249,7 @@
                         class="button text-button"
                         href="#training-kit"
                     >
-                        Lihat training kit
+                        Lihat trainer kit
                         <span>↓</span>
                     </a>
 
@@ -262,7 +281,7 @@
 
 
         <!-- ==========================================
-             TRAINING KIT
+             TRAINER KIT
         =========================================== -->
 
         <section
@@ -274,7 +293,7 @@
 
                 <img
                     src="/assets/training-kit-hd.png"
-                    alt="Ilustrasi training kit elektronika medis dengan monitor dan beberapa sensor"
+                    alt="Ilustrasi trainer kit elektronika medis dengan monitor dan beberapa sensor"
                 >
 
                 <figcaption>
@@ -293,7 +312,7 @@
 
 
                 <h2>
-                    Training kit elektronika medis terintegrasi.
+                    Trainer kit elektronika medis terintegrasi.
                 </h2>
 
 
@@ -986,27 +1005,28 @@
         <div>
 
             <h3>
-                Hubungi Admin
+                Pengembang
             </h3>
 
 
-            <a href="mailto:ft@uny.ac.id">
-                ft@uny.ac.id
-            </a>
+            <p>
+                I Putu Adhi Baswara, S.Pd.
+            </p>
+
+            <p>
+                NIM 26051640021
+            </p>
 
 
             <a
-                href="https://wa.me/6289529199119"
+                href="https://wa.me/6285800302847"
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                WhatsApp Help Desk
+                WhatsApp · 0858 0030 2847
             </a>
 
 
-            <p>
-                Senin–Jumat · 08.00–16.00 WIB
-            </p>
 
         </div>
 
@@ -1027,6 +1047,7 @@
     <script src="/js/navigation.js"></script>
 
     <script src="/js/script.js"></script>
+    <script src="/js/motion.js"></script>
 
 </body>
 </html>

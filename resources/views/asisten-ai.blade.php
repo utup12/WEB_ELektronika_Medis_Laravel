@@ -88,7 +88,7 @@
                     <span aria-hidden="true">↑</span>
                 </button>
             </form>
-            <p class="chat-notice" id="chat-notice" role="status">Asisten tidak menggunakan sumber dari luar website ini.</p>
+            <p class="chat-notice" id="chat-notice" role="status">Asisten hanya menggunakan sumber website ini; verifikasi prosedur dan keselamatan dengan dosen sebelum praktik.</p>
         </section>
     </main>
 
