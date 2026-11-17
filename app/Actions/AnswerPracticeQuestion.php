@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class AnswerPracticeQuestion
 {
@@ -62,11 +63,21 @@ class AnswerPracticeQuestion
         if ($normalized === 'update memory') return $canUpdateMemory ? ['answer' => 'Pertanyaan: \nJawaban: \n\nIsi formulir yang muncul untuk menyimpan memori baru.', 'sources' => [], 'memoryForm' => true] : ['answer' => 'Fitur Update memory hanya tersedia bagi dosen.', 'sources' => []];
         if (preg_match('/^pertanyaan\s*:\s*(.+?)\s*jawaban\s*:\s*(.+)$/si', $question, $memory) === 1) {
             if (! $canUpdateMemory || $userId === null) return ['answer' => 'Hanya dosen yang dapat menyimpan memori AI.', 'sources' => []];
-            DB::table('ai_memories')->updateOrInsert(['question' => trim($memory[1])], ['answer' => trim($memory[2]), 'user_id' => $userId, 'updated_at' => now(), 'created_at' => now()]);
+
+            try {
+                DB::table('ai_memories')->updateOrInsert(['question' => trim($memory[1])], ['answer' => trim($memory[2]), 'user_id' => $userId, 'updated_at' => now(), 'created_at' => now()]);
+            } catch (Throwable) {
+                return ['answer' => 'Memori AI belum dapat disimpan karena penyimpanan data deployment belum tersedia. Jawaban asisten lokal tetap dapat digunakan.', 'sources' => []];
+            }
+
             return ['answer' => 'Memori berhasil diperbarui dan dapat digunakan semua mahasiswa.', 'sources' => []];
         }
-        $saved = DB::table('ai_memories')->whereRaw('LOWER(question) = ?', [$normalized])->first();
-        if ($saved !== null) return ['answer' => $saved->answer, 'sources' => []];
+        try {
+            $saved = DB::table('ai_memories')->whereRaw('LOWER(question) = ?', [$normalized])->first();
+            if ($saved !== null) return ['answer' => $saved->answer, 'sources' => []];
+        } catch (Throwable) {
+            // Deployment tanpa database tetap dapat menjawab materi statis dan perhitungan lokal.
+        }
         $greetingResponse = $this->greetingResponse($question);
 
         if ($greetingResponse !== null) {
