@@ -14,7 +14,7 @@
                 <a class="button primary" href="{{ $driveFolderUrl }}" target="_blank" rel="noopener">Buka Folder Google Drive Dosen <span>↗</span></a>
             </p>
         @else
-            <p style="margin-top:8px;color:#6b5216">Tautan folder Google Drive belum diatur oleh dosen pengampu. Anda tetap dapat mengirim tautan Google Drive pribadi atau mengunggah PDF langsung bila tersedia.</p>
+            <p style="margin-top:8px;color:#6b5216">Tautan folder Google Drive belum diatur oleh dosen pengampu. Hubungi dosen atau gunakan unggah PDF langsung bila tersedia.</p>
         @endif
     </section>
 
@@ -22,11 +22,15 @@
         <div style="display:grid;gap:20px">
             <form class="learning-panel" action="{{ route('laporan.store') }}" method="POST">
                 @csrf
-                <h2>1. Kirim Tautan Google Drive</h2>
-                <p style="margin:0;color:var(--muted);font-size:.9rem">Paling disarankan di Vercel: unggah file PDF Anda ke Google Drive, atur akses <em>Anyone with the link can view</em> (atau ke folder dosen), lalu tempelkan tautannya di sini.</p>
+                <input type="hidden" name="confirm_drive" value="1">
+                <h2>1. Catat Pengumpulan ke Google Drive Dosen</h2>
+                <p style="margin:0;color:var(--muted);font-size:.9rem">Unggah file PDF Anda ke folder Google Drive dosen di atas terlebih dahulu, lalu catat modul dan nama berkasnya di bawah ini agar masuk ke antrean koreksi dosen.</p>
                 @if(session('success'))
                     <p class="notice success">{{ session('success') }}</p>
                 @endif
+                @error('confirm_drive')
+                    <p class="notice error">{{ $message }}</p>
+                @enderror
                 <label>Modul praktikum
                     <select name="module" required>
                         <option value="">Pilih modul</option>
@@ -36,16 +40,13 @@
                         <option value="Simulasi Heart Rate Smartwatch">Simulasi Heart Rate Smartwatch (PPG)</option>
                     </select>
                 </label>
-                <label>Tautan Google Drive (PDF Laporan)
-                    <input type="url" name="drive_url" placeholder="https://drive.google.com/file/d/..." value="{{ old('drive_url') }}" required>
+                <label>Nama berkas / catatan singkat
+                    <input type="text" name="report_title" placeholder="Contoh: NIM_Nama_Jobsheet01.pdf" value="{{ old('report_title') }}" maxlength="180" required>
                 </label>
-                @error('drive_url')
+                @error('report_title')
                     <p class="notice error">{{ $message }}</p>
                 @enderror
-                <label>Nama berkas / catatan singkat (opsional)
-                    <input type="text" name="report_title" placeholder="Contoh: NIM_Nama_Jobsheet01.pdf" value="{{ old('report_title') }}" maxlength="180">
-                </label>
-                <button class="button primary" type="submit">Kirim Tautan Drive <span>→</span></button>
+                <button class="button primary" type="submit" @disabled(empty($driveFolderUrl))>Catat Pengumpulan Laporan <span>→</span></button>
             </form>
 
             <form
