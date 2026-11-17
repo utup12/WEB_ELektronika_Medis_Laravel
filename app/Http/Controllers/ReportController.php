@@ -71,11 +71,39 @@ class ReportController extends Controller
         $user = $request->user();
         abort_if($user === null, 401);
 
+        if ($request->boolean('confirm_drive')) {
+            $data = $request->validate([
+                'module' => ['required', 'string', 'max:120'],
+                'report_title' => ['required', 'string', 'max:180'],
+            ]);
+
+            $driveFolderUrl = $this->settingValue('report_drive_folder_url') ?: (string) env('REPORT_DRIVE_FOLDER_URL', '');
+            if ($driveFolderUrl === '') {
+                return back()->withErrors([
+                    'confirm_drive' => 'Folder Google Drive belum diatur oleh dosen pengampu.',
+                ])->withInput();
+            }
+
+            /** @var Report $report */
+            $report = $user->reports()->create([
+                'module' => $data['module'],
+                'file_path' => $driveFolderUrl,
+                'original_name' => trim($data['report_title']),
+            ]);
+
+            ModuleProgress::updateOrCreate(
+                ['user_id' => $user->id, 'module' => $report->module, 'activity' => 'report_submitted'],
+                ['completed_at' => now()],
+            );
+
+            return back()->with('success', 'Laporan berhasil dicatat pada folder Google Drive dosen dan menunggu koreksi.');
+        }
+
         if ($request->filled('drive_url')) {
             $data = $request->validate([
                 'module' => ['required', 'string', 'max:120'],
                 'drive_url' => ['required', 'url:https', 'max:500'],
-                'report_title' => ['nullable', 'string', 'max:180'],
+                'report_title' => ['required', 'string', 'max:180'],
             ]);
 
             $host = parse_url($data['drive_url'], PHP_URL_HOST);
@@ -85,10 +113,7 @@ class ReportController extends Controller
                 ])->withInput();
             }
 
-            $label = trim((string) ($data['report_title'] ?? ''));
-            if ($label === '') {
-                $label = 'Google Drive · '.$data['module'];
-            }
+            $label = trim($data['report_title']);
 
             /** @var Report $report */
             $report = $user->reports()->create([
