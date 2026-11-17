@@ -56,7 +56,6 @@
                 <span>Menjawab dari:</span>
                 <a href="{{ route('materi', [], false) }}">Materi</a>
                 <a href="{{ route('jobsheet', [], false) }}">Jobsheet</a>
-                <a href="{{ route('panduan-praktikum', [], false) }}">Panduan</a>
                 <a href="{{ route('praktikum', [], false) }}">Praktikum</a>
                 <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
                 <a href="{{ route('laporan', [], false) }}">Laporan</a>

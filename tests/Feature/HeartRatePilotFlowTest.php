@@ -55,12 +55,24 @@ test('pilot includes a complete preliminary learning and simulation workflow', f
 test('main learning pages and pilot route respond successfully', function () {
     foreach ([
         'home', 'materi', 'jobsheet', 'praktikum',
-        'panduan-praktikum', 'evaluasi', 'laporan',
+        'evaluasi', 'laporan',
         'monitor-trainer', 'profil-mahasiswa', 'profil-dosen',
         'tentang', 'pilot.heart-rate',
     ] as $name) {
         $this->get(route($name))->assertOk();
     }
+});
+
+test('praktikum page includes merged panduan praktikum content and legacy route redirects', function () {
+    $this->get(route('praktikum'))
+        ->assertOk()
+        ->assertSee('Panduan Praktikum')
+        ->assertSee('01 · Sebelum')
+        ->assertSee('02 · Saat')
+        ->assertSee('03 · Sesudah');
+
+    $this->get(route('panduan-praktikum'))
+        ->assertRedirect('/praktikum#panduan-praktikum');
 });
 
 test('materi and evaluasi link directly to the PPG learning section', function () {
@@ -160,8 +172,8 @@ test('BLE connected state waits for valid heart rate notifications', function ()
         ->toContain("trainerHeaderLabel.textContent = 'HEART RATE MONITOR · MODE BLE'");
 });
 
-test('shared practical guide link uses a root absolute path on nested pages', function () {
+test('navigation script does not inject a separate practical guide link', function () {
     $script = file_get_contents(public_path('js/script.js'));
 
-    expect($script)->toContain("guideLink.href = '/panduan-praktikum';");
+    expect($script)->not->toContain("guideLink.href = '/panduan-praktikum'");
 });

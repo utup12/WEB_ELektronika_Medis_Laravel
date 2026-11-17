@@ -16,7 +16,6 @@ class AnswerPracticeQuestion
         ['title' => 'Beranda', 'route' => 'home', 'view' => 'home'],
         ['title' => 'Materi Praktikum', 'route' => 'materi', 'view' => 'materi'],
         ['title' => 'Jobsheet Praktikum', 'route' => 'jobsheet', 'view' => 'jobsheet'],
-        ['title' => 'Panduan Praktikum', 'route' => 'panduan-praktikum', 'view' => 'panduan-praktikum'],
         ['title' => 'Praktikum', 'route' => 'praktikum', 'view' => 'praktikum'],
         ['title' => 'Monitor Trainer', 'route' => 'monitor-trainer', 'view' => 'monitor-trainer'],
         ['title' => 'Evaluasi Praktikum', 'route' => 'evaluasi', 'view' => 'evaluasi'],
@@ -184,13 +183,16 @@ class AnswerPracticeQuestion
     {
         $template = File::get(resource_path("views/{$view}.blade.php"));
 
-        preg_match('/<main\\b[^>]*>(.*?)<\\/main>/is', $template, $matches);
+        if (preg_match('/<main\b[^>]*>(.*?)<\/main>/is', $template, $matches) === 1) {
+            $mainContent = $matches[1];
+        } else {
+            $mainContent = $template;
+        }
 
-        $mainContent = $matches[1] ?? '';
         $withoutBladeExpressions = preg_replace('/{{.*?}}/s', ' ', $mainContent) ?? '';
         $plainText = preg_replace('/<[^>]+>/', ' ', $withoutBladeExpressions) ?? '';
 
-        return trim((string) preg_replace('/\\s+/u', ' ', html_entity_decode($plainText, ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        return trim((string) preg_replace('/\s+/u', ' ', html_entity_decode($plainText, ENT_QUOTES | ENT_HTML5, 'UTF-8')));
     }
 
     /**
