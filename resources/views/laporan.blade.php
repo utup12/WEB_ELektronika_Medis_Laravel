@@ -2,54 +2,91 @@
 <section class="page-hero">
     <p class="eyebrow">Pengumpulan laporan</p>
     <h1>Unggah Laporan Praktikum</h1>
-    <p>PDF maksimum 10 MB. Laporan akan masuk ke antrean koreksi dosen.</p>
+    <p>Unggah PDF (Maksimum 10 MB) ke folder Google Drive dosen lalu kirim tautannya di sini agar masuk ke antrean koreksi dosen.</p>
 </section>
+
 <section class="page-content">
+    <section class="ai-boundary" style="margin-bottom:24px" aria-labelledby="drive-target-heading">
+        <strong id="drive-target-heading">Folder Google Drive Pengumpulan Laporan</strong>
+        <p>{{ $driveNote }}</p>
+        @if(!empty($driveFolderUrl))
+            <p style="margin-top:12px">
+                <a class="button primary" href="{{ $driveFolderUrl }}" target="_blank" rel="noopener">Buka Folder Google Drive Dosen <span>↗</span></a>
+            </p>
+        @else
+            <p style="margin-top:8px;color:#6b5216">Tautan folder Google Drive belum diatur oleh dosen pengampu. Anda tetap dapat mengirim tautan Google Drive pribadi atau mengunggah PDF langsung bila tersedia.</p>
+        @endif
+    </section>
+
     <div class="learning-grid">
-        <form
-            class="learning-panel"
-            action="{{ route('laporan.store') }}"
-            method="POST"
-            enctype="multipart/form-data"
-            data-r2-upload-form
-            data-r2-enabled="{{ ($r2Configured ?? false) ? '1' : '0' }}"
-            data-presign-url="{{ route('laporan.presign') }}"
-            data-store-url="{{ route('laporan.store') }}"
-        >
-            @csrf
-            <h2>Kirim laporan</h2>
-            @if ($r2Configured ?? false)
-                <p class="notice success">Penyimpanan objek <strong>Cloudflare R2</strong> aktif — PDF diunggah langsung ke R2 (aman hingga 10 MB).</p>
-            @else
-                <p class="notice">Mode penyimpanan lokal aktif. Di production Vercel, aktifkan variabel <code>R2_*</code> agar berkas PDF tersimpan permanen di Cloudflare R2.</p>
-            @endif
-            @if(session('success'))
-                <p class="notice success">{{ session('success') }}</p>
-            @endif
-            <p data-r2-status role="status" aria-live="polite" hidden></p>
-            <label>Modul praktikum
-                <select name="module" required>
-                    <option value="">Pilih modul</option>
-                    @for($i = 1; $i <= 14; $i++)
-                        <option value="Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}">Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}</option>
-                    @endfor
-                    <option value="Simulasi Heart Rate Smartwatch">Simulasi Heart Rate Smartwatch (PPG)</option>
-                </select>
-            </label>
-            <label>Berkas PDF
-                <input type="file" name="report" accept="application/pdf" required>
-            </label>
-            @error('report')
-                <p class="notice error">{{ $message }}</p>
-            @enderror
-            <button class="button primary" type="submit">Kirim Laporan <span>→</span></button>
-        </form>
-        <aside class="learning-panel">
+        <div style="display:grid;gap:20px">
+            <form class="learning-panel" action="{{ route('laporan.store') }}" method="POST">
+                @csrf
+                <h2>1. Kirim Tautan Google Drive</h2>
+                <p style="margin:0;color:var(--muted);font-size:.9rem">Paling disarankan di Vercel: unggah file PDF Anda ke Google Drive, atur akses <em>Anyone with the link can view</em> (atau ke folder dosen), lalu tempelkan tautannya di sini.</p>
+                @if(session('success'))
+                    <p class="notice success">{{ session('success') }}</p>
+                @endif
+                <label>Modul praktikum
+                    <select name="module" required>
+                        <option value="">Pilih modul</option>
+                        @for($i = 1; $i <= 14; $i++)
+                            <option value="Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}">Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}</option>
+                        @endfor
+                        <option value="Simulasi Heart Rate Smartwatch">Simulasi Heart Rate Smartwatch (PPG)</option>
+                    </select>
+                </label>
+                <label>Tautan Google Drive (PDF Laporan)
+                    <input type="url" name="drive_url" placeholder="https://drive.google.com/file/d/..." value="{{ old('drive_url') }}" required>
+                </label>
+                @error('drive_url')
+                    <p class="notice error">{{ $message }}</p>
+                @enderror
+                <label>Nama berkas / catatan singkat (opsional)
+                    <input type="text" name="report_title" placeholder="Contoh: NIM_Nama_Jobsheet01.pdf" value="{{ old('report_title') }}" maxlength="180">
+                </label>
+                <button class="button primary" type="submit">Kirim Tautan Drive <span>→</span></button>
+            </form>
+
+            <form
+                class="learning-panel"
+                action="{{ route('laporan.store') }}"
+                method="POST"
+                enctype="multipart/form-data"
+                data-r2-upload-form
+                data-r2-enabled="{{ ($r2Configured ?? false) ? '1' : '0' }}"
+                data-presign-url="{{ route('laporan.presign') }}"
+                data-store-url="{{ route('laporan.store') }}"
+            >
+                @csrf
+                <h2>2. Unggah Berkas PDF Langsung (Alternatif)</h2>
+                <p data-r2-status role="status" aria-live="polite" hidden></p>
+                <label>Modul praktikum
+                    <select name="module" required>
+                        <option value="">Pilih modul</option>
+                        @for($i = 1; $i <= 14; $i++)
+                            <option value="Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}">Jobsheet {{ str_pad((string) $i, 2, '0', STR_PAD_LEFT) }}</option>
+                        @endfor
+                        <option value="Simulasi Heart Rate Smartwatch">Simulasi Heart Rate Smartwatch (PPG)</option>
+                    </select>
+                </label>
+                <label>Berkas PDF
+                    <input type="file" name="report" accept="application/pdf" required>
+                </label>
+                @error('report')
+                    <p class="notice error">{{ $message }}</p>
+                @enderror
+                <button class="button outline" type="submit">Unggah PDF Langsung <span>→</span></button>
+            </form>
+        </div>
+
+        <aside class="learning-panel" style="align-self:start">
             <h2>Ketentuan</h2>
             <ol>
                 <li>Gunakan format PDF (Maksimum 10 MB).</li>
                 <li>Sertakan identitas mahasiswa, data pengukuran, analisis teknis, dan kesimpulan.</li>
-                <li>Periksa status dan umpan balik pada daftar riwayat.</li>
+                <li>Beri nama file: <code>NIM_Nama_JobsheetXX.pdf</code>.</li>
+                <li>Periksa status dan umpan balik dosen pada daftar riwayat di bawah.</li>
             </ol>
         </aside>
     </div>
@@ -58,13 +95,13 @@
         <h2>Riwayat laporan saya</h2>
         <table class="review-table">
             <thead>
-                <tr><th>Modul</th><th>Berkas</th><th>Status</th><th>Nilai</th><th>Umpan balik</th></tr>
+                <tr><th>Modul</th><th>Berkas / Tautan</th><th>Status</th><th>Nilai</th><th>Umpan balik</th></tr>
             </thead>
             <tbody>
                 @forelse($reports as $report)
                     <tr>
                         <td>{{ $report->module }}</td>
-                        <td><a href="{{ route('laporan.download', $report) }}" target="_blank">{{ $report->original_name }}</a></td>
+                        <td><a href="{{ route('laporan.download', $report) }}" target="_blank" rel="noopener">{{ $report->original_name }}</a></td>
                         <td><span class="review-status {{ $report->status }}">{{ $report->status }}</span></td>
                         <td>{{ $report->score ?? '—' }}</td>
                         <td>{{ $report->feedback ?? 'Belum ada.' }}</td>
