@@ -181,7 +181,7 @@
 .account-choice { text-decoration:none; color:inherit; }
 .account-choice:hover { border-color:#168885; }
 .header-login { padding:8px 14px; border-radius:6px; background:#0b3b62; color:#fff; text-decoration:none; font-weight:700; }
-.logout-form { margin-left:auto; }.logout-form button { padding:8px 14px; border:1px solid rgba(255,255,255,.45); border-radius:999px; background:transparent; color:#fff; cursor:pointer; font:inherit; font-weight:700; }.logout-form button:hover { background:#fff; color:var(--uny-blue); }
+.logout-form { margin-left:0; order:2; }.logout-form button { padding:8px 14px; border:1px solid rgba(255,255,255,.45); border-radius:999px; background:transparent; color:#fff; cursor:pointer; font:inherit; font-weight:700; }.logout-form button:hover { background:#fff; color:var(--uny-blue); }
 .notes-toolbar { display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }.notes-toolbar button { border:1px solid var(--line); background:#fff; color:var(--uny-blue); padding:9px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
 .notes-board { position:relative; border:1px solid #cbdced; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 12px 24px rgba(0,54,104,.08); }.notes-board canvas { display:block; width:100%; touch-action:none; background-image:linear-gradient(#eef4fa 1px,transparent 1px); background-size:100% 32px; }.notes-board textarea { position:absolute; inset:18px; width:calc(100% - 36px); height:calc(100% - 36px); resize:none; border:0; outline:0; background:transparent; font:16px/2 Manrope,Arial,sans-serif; color:#153752; padding:0; }
 .learning-panel h2 { margin:0; }

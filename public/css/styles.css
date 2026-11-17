@@ -1064,7 +1064,8 @@ html[data-theme='dark'] .theme-control {
    ===================================================== */
 .platform-bar {
     position: relative;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 12px;
 }
 
 .platform-bar .nav-menu-toggle {
@@ -1151,16 +1152,23 @@ html[data-theme='dark'] .theme-control {
 }
 
 /* Tombol tema lama dari script.js dipertahankan dan dipindahkan ke kanan. */
-.platform-bar > .nav-menu-toggle {
+.platform-bar > .nav-menu-toggle,
+.platform-bar > .nav-dropdown {
     order: 1;
 }
 
-.platform-bar > .header-tools {
+.platform-bar > .logout-form {
     order: 2;
+    margin-left: 0;
+}
+
+.platform-bar > .header-tools {
+    order: 3;
+    margin-left: auto;
 }
 
 .platform-bar > .theme-toggle {
-    order: 3;
+    order: 4;
     flex: 0 0 38px;
     margin-left: 0;
 }
