@@ -35,12 +35,21 @@
     display: none;
 }
 
+.module-card {
+    border-radius: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.module-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px rgba(11, 59, 98, 0.1);
+}
 .module-card::before {
+    content: '◈';
     display: inline-grid;
     place-items: center;
-    width: 31px;
-    height: 31px;
-    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
     background: rgba(18, 126, 123, 0.12);
     color: #0d7775;
     font-size: 0.95rem;

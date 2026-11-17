@@ -167,6 +167,7 @@ class ReportController extends Controller
 
         $data = $request->validate([
             'module' => ['required', 'string', 'max:120'],
+            'report_title' => ['nullable', 'string', 'max:180'],
             'report' => ['required', 'file', 'mimes:pdf', 'max:10240'],
         ]);
 
@@ -175,11 +176,16 @@ class ReportController extends Controller
         $storedPath = $file->store('reports/'.$user->id, 'public');
         abort_if($storedPath === false, 500, 'Gagal menyimpan berkas laporan.');
 
+        $displayName = trim((string) ($data['report_title'] ?? ''));
+        if ($displayName === '') {
+            $displayName = $file->getClientOriginalName();
+        }
+
         /** @var Report $report */
         $report = $user->reports()->create([
             'module' => $data['module'],
             'file_path' => $storedPath,
-            'original_name' => $file->getClientOriginalName(),
+            'original_name' => $displayName,
         ]);
 
         ModuleProgress::updateOrCreate(

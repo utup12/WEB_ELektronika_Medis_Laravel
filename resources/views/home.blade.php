@@ -141,10 +141,6 @@
                         @endif
                     @endauth
 
-                    <a href="#tentang">
-                        Tentang
-                    </a>
-
                 </nav>
 
             </details>

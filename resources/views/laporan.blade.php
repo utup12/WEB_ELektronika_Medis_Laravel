@@ -20,11 +20,20 @@
 
     <div class="learning-grid">
         <div style="display:grid;gap:20px">
-            <form class="learning-panel" action="{{ route('laporan.store') }}" method="POST">
+            <form
+                class="learning-panel"
+                action="{{ route('laporan.store') }}"
+                method="POST"
+                enctype="multipart/form-data"
+                data-r2-upload-form
+                data-r2-enabled="{{ ($r2Configured ?? false) ? '1' : '0' }}"
+                data-presign-url="{{ route('laporan.presign') }}"
+                data-store-url="{{ route('laporan.store') }}"
+            >
                 @csrf
-                <input type="hidden" name="confirm_drive" value="1">
-                <h2>Catat Pengumpulan ke Google Drive Dosen</h2>
-                <p style="margin:0;color:var(--muted);font-size:.9rem">Unggah file PDF Anda ke folder Google Drive dosen di atas terlebih dahulu, lalu catat modul dan nama berkasnya di bawah ini agar masuk ke antrean koreksi dosen.</p>
+                <h2>Unggah Laporan Praktikum</h2>
+                <p style="margin:0;color:var(--muted);font-size:.9rem">Pilih modul, isi nama berkas, dan unggah file PDF laporan Anda (maksimum 10 MB). Jika dosen menyediakan folder Google Drive di atas, Anda juga dapat mengunggah salinannya ke sana.</p>
+                <p data-r2-status role="status" aria-live="polite" hidden></p>
                 @if(session('success'))
                     <p class="notice success">{{ session('success') }}</p>
                 @endif
@@ -46,7 +55,13 @@
                 @error('report_title')
                     <p class="notice error">{{ $message }}</p>
                 @enderror
-                <button class="button primary" type="submit" @disabled(empty($driveFolderUrl))>Catat Pengumpulan Laporan <span>→</span></button>
+                <label>Berkas PDF Laporan
+                    <input type="file" name="report" accept="application/pdf" required>
+                </label>
+                @error('report')
+                    <p class="notice error">{{ $message }}</p>
+                @enderror
+                <button class="button primary" type="submit">Unggah Laporan <span>→</span></button>
             </form>
         </div>
 
@@ -83,4 +98,5 @@
         </table>
     </section>
 </section>
+<script defer src="{{ asset('js/report-upload-r2.js') }}"></script>
 </x-layouts.platform>

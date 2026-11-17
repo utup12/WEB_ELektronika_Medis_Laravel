@@ -32,7 +32,6 @@
                 <a href="{{ route('laporan', [], false) }}">Unggah Laporan</a>
                 <a class="active" href="{{ route('asisten-ai', [], false) }}">Asisten AI</a>
                 <a href="{{ route('profil-dosen', [], false) }}">Profil Dosen</a>
-                <a href="{{ route('tentang', [], false) }}">Tentang</a>
             </nav>
         </div>
     </header>
