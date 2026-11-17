@@ -28,7 +28,6 @@
                 <nav class="main-nav" aria-label="Navigasi utama">
                     <a href="{{ route('home') }}">Beranda</a>
                     <a href="{{ route('materi') }}">Materi</a>
-                    <a href="{{ route('jobsheet') }}">Jobsheet</a>
                     <a class="active" href="{{ route('praktikum') }}">Praktikum</a>
                     <a href="{{ route('evaluasi') }}">Evaluasi</a>
                     <a href="{{ route('laporan') }}">Unggah Laporan</a>

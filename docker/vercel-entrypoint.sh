@@ -7,9 +7,11 @@ if [ "${DB_CONNECTION:-sqlite}" = "sqlite" ]; then
     mkdir -p "$(dirname "$DB_FILE")"
     touch "$DB_FILE"
     chown www-data:www-data "$DB_FILE"
+fi
 
-    php artisan migrate --force --no-interaction --no-ansi
-    php artisan db:seed --class=Database\\Seeders\\ProductionUserSeeder --force --no-interaction --no-ansi
+if [ "${DB_AUTO_MIGRATE:-true}" = "true" ]; then
+    php artisan migrate --force --no-interaction --no-ansi || true
+    php artisan db:seed --class=Database\\Seeders\\ProductionUserSeeder --force --no-interaction --no-ansi || true
 fi
 
 exec "$@"

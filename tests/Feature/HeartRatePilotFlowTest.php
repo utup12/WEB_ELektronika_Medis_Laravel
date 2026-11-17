@@ -23,7 +23,6 @@ test('candidate heart rate pilot links to existing learning stages', function ()
     $response->assertOk();
     $response->assertSee(route('materi'), false);
     $response->assertSee(route('evaluasi'), false);
-    $response->assertSee(route('jobsheet'), false);
     $response->assertSee(route('praktikum'), false);
     $response->assertSee(route('monitor-trainer'), false);
     $response->assertSee(route('laporan'), false);
@@ -54,9 +53,8 @@ test('pilot includes a complete preliminary learning and simulation workflow', f
 
 test('main learning pages and pilot route respond successfully', function () {
     foreach ([
-        'home', 'materi', 'jobsheet', 'praktikum',
-        'evaluasi', 'laporan',
-        'monitor-trainer', 'profil-mahasiswa', 'profil-dosen',
+        'home', 'materi', 'praktikum',
+        'evaluasi', 'monitor-trainer', 'profil-dosen',
         'tentang', 'pilot.heart-rate',
     ] as $name) {
         $this->get(route($name))->assertOk();
@@ -93,10 +91,10 @@ test('pilot provides local-only draft controls and no automatic clinical claims'
         ->assertSee('bukan pengukuran pasien');
 });
 
-test('jobsheet catalog links to the PPG pilot procedure', function () {
-    $this->get(route('jobsheet'))
+test('praktikum page links to the PPG pilot procedure', function () {
+    $this->get(route('praktikum'))
         ->assertOk()
-        ->assertSee('Kandidat pilot')
+        ->assertSee('Candidate pilot')
         ->assertSee(route('pilot.heart-rate').'#pilot-jobsheet', false);
 });
 

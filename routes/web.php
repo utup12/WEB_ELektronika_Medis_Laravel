@@ -41,8 +41,8 @@ Route::get('/materi', function () {
     return view('materi');
 })->name('materi');
 
-Route::get('/jobsheet', function (JobsheetCatalog $catalog) {
-    return view('jobsheet', ['editions' => $catalog->editions()]);
+Route::get('/jobsheet', function () {
+    return redirect()->to(route('praktikum', [], false).'#jobsheet');
 })->name('jobsheet');
 
 Route::get('/jobsheet/{edition}/{module}', function (
@@ -64,10 +64,13 @@ Route::get('/jobsheet/{edition}/{module}', function (
     return view('jobsheet-module', $found);
 })->where(['edition' => '[a-z0-9-]+', 'module' => '[a-z0-9-]+'])->name('jobsheet.module');
 
+Route::get('/evaluasi', [QuizAttemptController::class, 'index'])->name('evaluasi');
+
 Route::middleware('auth')->group(function () {
     Route::get('/laporan', [ReportController::class, 'index'])->name('laporan');
+    Route::post('/laporan/presign', [ReportController::class, 'presign'])->name('laporan.presign');
     Route::post('/laporan', [ReportController::class, 'store'])->name('laporan.store');
-    Route::get('/evaluasi', [QuizAttemptController::class, 'index'])->name('evaluasi');
+    Route::get('/laporan/{report}/berkas', [ReportController::class, 'download'])->name('laporan.download');
     Route::post('/evaluasi', [QuizAttemptController::class, 'store'])->name('evaluasi.store');
     Route::get('/progres-saya', StudentProgressController::class)->name('student.progress');
     Route::get('/presensi', [StudentAttendanceController::class, 'index'])->name('attendance.index');
@@ -107,8 +110,8 @@ Route::get('/panduan-praktikum', function () {
     return redirect()->to(route('praktikum', [], false).'#panduan-praktikum');
 })->name('panduan-praktikum');
 
-Route::get('/praktikum', function () {
-    return view('praktikum');
+Route::get('/praktikum', function (JobsheetCatalog $catalog) {
+    return view('praktikum', ['editions' => $catalog->editions()]);
 })->name('praktikum');
 
 Route::get('/praktikum/trainer-kit', function () {
