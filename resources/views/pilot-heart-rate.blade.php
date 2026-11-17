@@ -30,7 +30,6 @@
                 <a href="{{ route('laporan') }}">Unggah Laporan</a>
                 <a href="{{ route('asisten-ai') }}">Asisten AI</a>
                 <a href="{{ route('profil-dosen') }}">Profil Dosen</a>
-                <a href="{{ route('tentang') }}">Tentang</a>
             </nav>
         </div>
     </header>
