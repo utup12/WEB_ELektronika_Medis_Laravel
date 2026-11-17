@@ -8,6 +8,7 @@
     const form = document.getElementById('practice-quiz-form');
     const resultBox = document.getElementById('practice-quiz-result');
     const resetButton = document.getElementById('practice-reset-btn');
+    const shuffleButton = document.getElementById('practice-shuffle-btn');
     const nextButton = document.getElementById('practice-next-btn');
 
     if (
@@ -33,7 +34,25 @@
         return;
     }
 
+    const STORAGE_KEY = 'pem-practice-progress-v1';
+    let progress = {};
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) progress = JSON.parse(saved) || {};
+    } catch {
+        progress = {};
+    }
+
+    const saveProgress = () => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+        } catch {
+            // Ignore when localStorage is unavailable.
+        }
+    };
+
     let currentIndex = 0;
+    let currentQuestions = [];
 
     const escapeHtml = (value) =>
         String(value)
@@ -43,11 +62,37 @@
             .replaceAll('"', '&quot;')
             .replaceAll("'", '&#39;');
 
-    const renderModule = (index) => {
+    const syncSelectLabels = () => {
+        if (!selectElement.options) return;
+        for (const option of selectElement.options) {
+            const mod = modules.find((m) => m.slug === option.value);
+            if (!mod) continue;
+            const record = progress[mod.slug];
+            const suffix = record
+                ? ` · ✓ Terbaik ${record.best}/${record.total}`
+                : '';
+            option.textContent = `Jobsheet ${mod.number} · ${mod.title} (${mod.group})${suffix}`;
+        }
+    };
+
+    const shuffleArray = (items) => {
+        const copy = [...items];
+        for (let i = copy.length - 1; i > 0; i -= 1) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+    };
+
+    const renderModule = (index, shuffle = false) => {
         currentIndex = (index + modules.length) % modules.length;
         const mod = modules[currentIndex];
         selectElement.value = mod.slug;
+        currentQuestions = shuffle
+            ? shuffleArray(mod.questions)
+            : [...mod.questions];
 
+        const record = progress[mod.slug];
         if (titleElement) {
             titleElement.textContent = `Jobsheet ${mod.number}: ${mod.title}`;
         }
@@ -55,11 +100,12 @@
             groupElement.textContent = `${mod.group} · 10 Soal Pilihan Ganda`;
         }
         if (metaElement) {
-            metaElement.textContent =
-                'Latihan mandiri — skor langsung muncul setelah selesai dan tidak masuk nilai resmi.';
+            metaElement.textContent = record
+                ? `Latihan mandiri (tidak masuk nilai resmi) · Skor terbaik Anda di perangkat ini: ${record.best}/${record.total}.`
+                : 'Latihan mandiri — skor langsung muncul setelah selesai dan tidak masuk nilai resmi.';
         }
 
-        const questionsHtml = mod.questions
+        const questionsHtml = currentQuestions
             .map((item, qIdx) => {
                 const optionsHtml = ['a', 'b', 'c', 'd']
                     .map((key) => {
@@ -82,6 +128,7 @@
         container.innerHTML = questionsHtml;
         resultBox.hidden = true;
         resultBox.innerHTML = '';
+        syncSelectLabels();
 
         if (nextButton) {
             const nextMod = modules[(currentIndex + 1) % modules.length];
@@ -92,20 +139,26 @@
     selectElement.addEventListener('change', () => {
         const idx = modules.findIndex((m) => m.slug === selectElement.value);
         if (idx >= 0) {
-            renderModule(idx);
+            renderModule(idx, false);
         }
     });
 
     if (resetButton) {
         resetButton.addEventListener('click', () => {
-            renderModule(currentIndex);
+            renderModule(currentIndex, false);
             form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+
+    if (shuffleButton) {
+        shuffleButton.addEventListener('click', () => {
+            renderModule(currentIndex, true);
         });
     }
 
     if (nextButton) {
         nextButton.addEventListener('click', () => {
-            renderModule((currentIndex + 1) % modules.length);
+            renderModule((currentIndex + 1) % modules.length, false);
             form.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     }
@@ -113,18 +166,18 @@
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const mod = modules[currentIndex];
-        const total = mod.questions.length;
+        const total = currentQuestions.length;
         const unanswered = [];
         let correctCount = 0;
 
-        for (const item of mod.questions) {
+        currentQuestions.forEach((item, idx) => {
             const selected = form.querySelector(
                 `input[name="q_${item.id}"]:checked`,
             );
             if (!selected) {
-                unanswered.push(item.id);
+                unanswered.push(idx + 1);
             }
-        }
+        });
 
         if (unanswered.length > 0) {
             resultBox.hidden = false;
@@ -134,7 +187,7 @@
             return;
         }
 
-        for (const item of mod.questions) {
+        for (const item of currentQuestions) {
             const fieldset = form.querySelector(
                 `fieldset[data-question-id="${item.id}"]`,
             );
@@ -167,6 +220,19 @@
             }
         }
 
+        const prevBest = progress[mod.slug]?.best ?? 0;
+        progress[mod.slug] = {
+            last: correctCount,
+            best: Math.max(prevBest, correctCount),
+            total,
+        };
+        saveProgress();
+        syncSelectLabels();
+
+        if (metaElement) {
+            metaElement.textContent = `Latihan mandiri (tidak masuk nilai resmi) · Skor terbaik Anda di perangkat ini: ${progress[mod.slug].best}/${total}.`;
+        }
+
         const percent = Math.round((correctCount / total) * 100);
         const message =
             percent >= 80
@@ -193,5 +259,5 @@
     const initialIdx = initialSlug
         ? modules.findIndex((m) => m.slug === initialSlug)
         : 0;
-    renderModule(initialIdx >= 0 ? initialIdx : 0);
+    renderModule(initialIdx >= 0 ? initialIdx : 0, false);
 })();

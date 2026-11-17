@@ -58,7 +58,10 @@ html[data-theme='dark'] .practice-score-note{color:#b8cdd6}
                     @endforeach
                 </select>
             </label>
-            <button type="button" class="button outline" id="practice-reset-btn">Ulangi Modul Ini</button>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button type="button" class="button outline" id="practice-shuffle-btn">Acak Urutan Soal</button>
+                <button type="button" class="button outline" id="practice-reset-btn">Ulangi Modul Ini</button>
+            </div>
         </div>
 
         <div class="practice-header">
