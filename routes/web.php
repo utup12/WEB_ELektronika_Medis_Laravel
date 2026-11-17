@@ -20,8 +20,10 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', function (JobsheetCatalog $catalog) {
+    return view('home', [
+        'editions' => $catalog->editions(),
+    ]);
 })->name('home');
 
 Route::get('/masuk', [LocalAuthController::class, 'loginForm'])->name('masuk');

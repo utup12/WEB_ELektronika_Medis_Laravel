@@ -548,161 +548,33 @@
             </div>
 
 
+            @php($homeEdition = $editions[0] ?? null)
             <div class="module-grid">
+                @if($homeEdition && !empty($homeEdition['modules']))
+                    @foreach($homeEdition['modules'] as $module)
+                        <a
+                            class="module-card {{ $loop->first ? 'featured' : ($loop->last ? 'accent' : '') }}"
+                            href="{{ route('jobsheet.module', [$homeEdition['id'], $module['slug']], false) }}"
+                            style="text-decoration:none;color:inherit"
+                        >
+                            <span class="module-label">
+                                Jobsheet {{ str_pad((string) ($module['number'] ?? $loop->iteration), 2, '0', STR_PAD_LEFT) }}
+                            </span>
 
+                            <h3>
+                                {{ $module['title'] }}
+                            </h3>
 
-                <article class="module-card featured">
+                            <p>
+                                {{ $module['summary'] ?? '' }}
+                            </p>
 
-                    <span class="module-label">
-                        Modul 01–02
-                    </span>
-
-
-                    <h3>
-                        Dasar Instrumentasi & Keselamatan
-                    </h3>
-
-
-                    <p>
-
-                        Orientasi alat, blok diagram,
-                        isolasi dasar, dan prosedur pengukuran
-                        yang bertanggung jawab.
-
-                    </p>
-
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
-
-                </article>
-
-
-                <article class="module-card">
-
-                    <span class="module-label">
-                        Modul 03
-                    </span>
-
-
-                    <h3>
-                        Sensor Suhu Tubuh
-                    </h3>
-
-
-                    <p>
-                        Kalibrasi, pembacaan sensor,
-                        dan visualisasi data suhu.
-                    </p>
-
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
-
-                </article>
-
-
-                <article class="module-card">
-
-                    <span class="module-label">
-                        Modul 04
-                    </span>
-
-
-                    <h3>
-                        Detak Jantung & PPG
-                    </h3>
-
-
-                    <p>
-                        Akuisisi sinyal optik
-                        dan ekstraksi denyut sederhana.
-                    </p>
-
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
-
-                </article>
-
-
-                <article class="module-card">
-
-                    <span class="module-label">
-                        Modul 05–06
-                    </span>
-
-
-                    <h3>
-                        ECG: Akuisisi & Filter
-                    </h3>
-
-
-                    <p>
-                        Mengenal sinyal ECG untuk pembelajaran
-                        rangkaian dan pemrosesan.
-                    </p>
-
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
-
-                </article>
-
-
-                <article class="module-card">
-
-                    <span class="module-label">
-                        Modul 07
-                    </span>
-
-
-                    <h3>
-                        EMG Dasar
-                    </h3>
-
-
-                    <p>
-                        Observasi sinyal otot
-                        dan pengaruh gerak terhadap sinyal.
-                    </p>
-
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
-
-                </article>
-
-
-                <article class="module-card accent">
-
-                    <span class="module-label">
-                        Modul 08
-                    </span>
-
-
-                    <h3>
-                        Integrasi Sistem IoT
-                    </h3>
-
-
-                    <p>
-                        Mengirim data pembelajaran
-                        dari trainer ke dashboard.
-                    </p>
-
-
-                    <span class="card-arrow">
-                        ↗
-                    </span>
-
-                </article>
-
+                            <span class="card-arrow">
+                                ↗
+                            </span>
+                        </a>
+                    @endforeach
+                @endif
             </div>
 
         </section>
