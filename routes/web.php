@@ -140,6 +140,7 @@ Route::get('/profil-dosen', function () {
 
 Route::middleware(['auth', 'lecturer'])->group(function () {
     Route::get('/dosen', [LecturerDashboardController::class, 'index'])->name('dosen.dashboard');
+    Route::post('/dosen/drive-folder', [LecturerDashboardController::class, 'updateDriveFolder'])->name('dosen.drive.update');
     Route::patch('/dosen/laporan/{report}', [LecturerDashboardController::class, 'grade'])->name('dosen.reports.grade');
     Route::get('/dosen/kelas', [LecturerManagementController::class, 'classes'])->name('dosen.classes');
     Route::post('/dosen/kelas', [LecturerManagementController::class, 'storeClass'])->name('dosen.classes.store');

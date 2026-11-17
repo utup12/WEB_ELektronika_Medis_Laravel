@@ -9,9 +9,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class ReportController extends Controller
 {
@@ -20,9 +22,14 @@ class ReportController extends Controller
         $user = $request->user();
         abort_if($user === null, 401);
 
+        $driveFolderUrl = $this->settingValue('report_drive_folder_url') ?: (string) env('REPORT_DRIVE_FOLDER_URL', '');
+        $driveNote = $this->settingValue('report_drive_note') ?: 'Unggah PDF ke folder Google Drive dosen dengan format nama: NIM_Nama_JobsheetXX.pdf, lalu tempelkan tautan berkas/folder di bawah agar tercatat pada antrean koreksi dosen.';
+
         return view('laporan', [
             'reports' => $user->reports()->latest()->get(),
             'r2Configured' => $r2->isConfigured(),
+            'driveFolderUrl' => $driveFolderUrl,
+            'driveNote' => $driveNote,
         ]);
     }
 
@@ -63,6 +70,40 @@ class ReportController extends Controller
     {
         $user = $request->user();
         abort_if($user === null, 401);
+
+        if ($request->filled('drive_url')) {
+            $data = $request->validate([
+                'module' => ['required', 'string', 'max:120'],
+                'drive_url' => ['required', 'url:https', 'max:500'],
+                'report_title' => ['nullable', 'string', 'max:180'],
+            ]);
+
+            $host = parse_url($data['drive_url'], PHP_URL_HOST);
+            if (! is_string($host) || ! in_array($host, ['drive.google.com', 'docs.google.com'], true)) {
+                return back()->withErrors([
+                    'drive_url' => 'Gunakan tautan Google Drive yang valid (drive.google.com atau docs.google.com).',
+                ])->withInput();
+            }
+
+            $label = trim((string) ($data['report_title'] ?? ''));
+            if ($label === '') {
+                $label = 'Google Drive · '.$data['module'];
+            }
+
+            /** @var Report $report */
+            $report = $user->reports()->create([
+                'module' => $data['module'],
+                'file_path' => $data['drive_url'],
+                'original_name' => $label,
+            ]);
+
+            ModuleProgress::updateOrCreate(
+                ['user_id' => $user->id, 'module' => $report->module, 'activity' => 'report_submitted'],
+                ['completed_at' => now()],
+            );
+
+            return back()->with('success', 'Tautan laporan Google Drive berhasil dikirim dan menunggu koreksi dosen.');
+        }
 
         if ($r2->isConfigured() && $request->filled('r2_key')) {
             $data = $request->validate([
@@ -129,6 +170,10 @@ class ReportController extends Controller
         $user = $request->user();
         abort_unless($user !== null && ($user->isLecturer() || $report->user_id === $user->id), 403);
 
+        if (str_starts_with($report->file_path, 'https://')) {
+            return redirect()->away($report->file_path);
+        }
+
         if (Storage::disk('public')->exists($report->file_path)) {
             return Storage::disk('public')->response($report->file_path, $report->original_name, [
                 'Content-Type' => 'application/pdf',
@@ -140,5 +185,16 @@ class ReportController extends Controller
         }
 
         abort(404, 'Berkas laporan tidak ditemukan.');
+    }
+
+    private function settingValue(string $key): ?string
+    {
+        try {
+            $value = DB::table('platform_settings')->where('key', $key)->value('value');
+
+            return is_string($value) ? $value : null;
+        } catch (Throwable) {
+            return null;
+        }
     }
 }
