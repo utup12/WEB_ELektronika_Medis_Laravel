@@ -89,6 +89,9 @@ ENV APP_ENV=production \
     LOG_CHANNEL=stderr \
     CACHE_STORE=array \
     QUEUE_CONNECTION=sync \
+    SESSION_DRIVER=file \
+    DB_CONNECTION=sqlite \
+    DB_DATABASE=/app/database/database.sqlite \
     PORT=80
 
 # Create directories and configure permissions
@@ -100,14 +103,22 @@ RUN mkdir -p \
     /app/storage/framework/views \
     /app/storage/logs \
     /app/bootstrap/cache \
+    /app/database \
     && chown -R www-data:www-data \
         /app/storage \
         /app/bootstrap/cache \
+        /app/database \
         /config \
         /data
+
+# SQLite is used only as a deployment fallback. A managed database can still
+# override DB_CONNECTION and DB_DATABASE through Vercel environment variables.
+COPY docker/vercel-entrypoint.sh /usr/local/bin/vercel-entrypoint
+RUN chmod +x /usr/local/bin/vercel-entrypoint
 
 # Expose HTTP port
 EXPOSE 80
 
-# Start FrankenPHP
+# Initialize the local fallback database before starting FrankenPHP.
+ENTRYPOINT ["/usr/local/bin/vercel-entrypoint"]
 CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile"]
