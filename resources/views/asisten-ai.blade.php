@@ -62,8 +62,40 @@
                 <a href="{{ route('laporan', [], false) }}">Laporan</a>
             </div>
 
+            @php
+                $usedCount = $memoryCount ?? 0;
+                $limitCount = $memoryLimit ?? \App\Models\AiConversationHistory::LIMIT_PER_PERSON;
+                $isFull = $memoryFull ?? ($usedCount >= $limitCount);
+                $historyItems = $savedHistory ?? collect();
+            @endphp
+
+            <div class="ai-memory-bar" aria-label="Status memori percakapan">
+                <div class="ai-memory-status">
+                    <span>Memori tersimpan:</span>
+                    <strong><span id="memory-count">{{ $usedCount }}</span> / <span id="memory-limit">{{ $limitCount }}</span></strong>
+                </div>
+                <button
+                    type="button"
+                    id="ai-reset-memory"
+                    class="ai-reset-btn"
+                    data-reset-url="{{ route('asisten-ai.reset', [], false) }}"
+                    @if ($usedCount === 0) disabled @endif
+                >
+                    Reset Memori
+                </button>
+            </div>
+
+            <div
+                id="memory-warning"
+                class="ai-memory-warning"
+                role="alert"
+                @if (! $isFull) hidden @endif
+            >
+                Memori penuh ({{ $limitCount }}/{{ $limitCount }}). Klik Reset Memori untuk menyimpan percakapan baru.
+            </div>
+
             <div class="chat-stream" id="chat-stream" aria-live="polite" aria-label="Percakapan dengan asisten">
-                <article class="chat-message assistant-message">
+                <article class="chat-message assistant-message" data-welcome-message="true">
                     <span class="message-avatar" aria-hidden="true">
                         <img src="/assets/ai-medtech-logo.svg" alt="AI" class="message-avatar-img">
                     </span>
@@ -82,13 +114,43 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
                         </div>
                     </div>
                 </article>
+
+                @foreach ($historyItems as $item)
+                    <article class="chat-message user-message">
+                        <span class="message-avatar" aria-hidden="true">Anda</span>
+                        <div class="message-content">
+                            <p class="message-author">Anda</p>
+                            <div class="message-bubble">{{ $item->question }}</div>
+                        </div>
+                    </article>
+
+                    <article class="chat-message assistant-message">
+                        <span class="message-avatar" aria-hidden="true">
+                            <img src="/assets/ai-medtech-logo.svg" alt="AI" class="message-avatar-img">
+                        </span>
+                        <div class="message-content">
+                            <p class="message-author">Asisten Praktik</p>
+                            <div class="message-bubble" data-raw-markdown="{{ $item->answer }}">{{ $item->answer }}</div>
+                            @if (! empty($item->sources))
+                                <div class="chat-sources">
+                                    <span>Sumber:</span>
+                                    @foreach ($item->sources as $source)
+                                        @if (! empty($source['url']) && ! empty($source['title']))
+                                            <a href="{{ $source['url'] }}">{{ $source['title'] }}</a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                    </article>
+                @endforeach
             </div>
 
             <form class="chat-composer" id="ai-chat-form" action="{{ route('asisten-ai.chat', [], false) }}" method="POST">
                 @csrf
                 <label class="sr-only" for="chat-message">Pertanyaan Anda</label>
-                <textarea id="chat-message" name="message" maxlength="1000" placeholder="Tulis pertanyaan seputar teori, rangkaian, atau praktikum elektronika medis…" required></textarea>
-                <button class="chat-send" type="submit">
+                <textarea id="chat-message" name="message" maxlength="1000" placeholder="{{ $isFull ? 'Memori penuh. Klik Reset Memori untuk melanjutkan…' : 'Tulis pertanyaan seputar teori, rangkaian, atau praktikum elektronika medis…' }}" @if ($isFull) disabled @endif required></textarea>
+                <button class="chat-send" type="submit" @if ($isFull) disabled @endif>
                     <span>Kirim</span>
                     <span aria-hidden="true">↑</span>
                 </button>
@@ -104,10 +166,68 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
         const chatStream = document.querySelector('#chat-stream');
         const chatNotice = document.querySelector('#chat-notice');
         const chatSendButton = chatForm.querySelector('.chat-send');
+        const memoryCountEl = document.querySelector('#memory-count');
+        const memoryLimitEl = document.querySelector('#memory-limit');
+        const memoryWarningEl = document.querySelector('#memory-warning');
+        const resetMemoryButton = document.querySelector('#ai-reset-memory');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+        let isMemoryFull = @json($isFull);
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function formatSafeMarkdown(text) {
+            let safe = escapeHtml(text);
+            safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            safe = safe.replace(/`([^`]+)`/g, '<code>$1</code>');
+            safe = safe.replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,!?:;]|$)/g, '$1<em>$2</em>');
+            return safe;
+        }
+
+        document.querySelectorAll('[data-raw-markdown]').forEach((el) => {
+            el.innerHTML = formatSafeMarkdown(el.dataset.rawMarkdown ?? el.textContent ?? '');
+        });
 
         function scrollToLatestMessage() {
             chatStream.scrollTop = chatStream.scrollHeight;
+        }
+
+        function updateMemoryState(memory) {
+            if (!memory || typeof memory !== 'object') {
+                return;
+            }
+
+            const used = Number(memory.used ?? 0);
+            const limit = Number(memory.limit ?? 10);
+            isMemoryFull = Boolean(memory.is_full);
+
+            if (memoryCountEl) {
+                memoryCountEl.textContent = String(used);
+            }
+            if (memoryLimitEl) {
+                memoryLimitEl.textContent = String(limit);
+            }
+            if (resetMemoryButton) {
+                resetMemoryButton.disabled = used <= 0;
+            }
+            if (memoryWarningEl) {
+                memoryWarningEl.hidden = !isMemoryFull;
+                if (isMemoryFull) {
+                    memoryWarningEl.textContent = `Memori penuh (${used}/${limit}). Klik Reset Memori untuk menyimpan percakapan baru.`;
+                }
+            }
+
+            chatMessage.disabled = isMemoryFull;
+            chatSendButton.disabled = isMemoryFull;
+            chatMessage.placeholder = isMemoryFull
+                ? 'Memori penuh. Klik Reset Memori untuk melanjutkan…'
+                : 'Tulis pertanyaan seputar teori, rangkaian, atau praktikum elektronika medis…';
         }
 
         function addMessage(role, message, sources = []) {
@@ -132,10 +252,13 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
 
             const bubble = document.createElement('div');
             bubble.className = 'message-bubble';
-            bubble.textContent = message;
+            if (role === 'assistant') {
+                bubble.innerHTML = formatSafeMarkdown(message);
+            } else {
+                bubble.textContent = message;
+            }
 
             content.append(author, bubble);
-
 
             if (sources.length > 0) {
                 const sourceList = document.createElement('div');
@@ -161,12 +284,17 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
         }
 
         function setSubmitting(isSubmitting) {
-            chatMessage.disabled = isSubmitting;
-            chatSendButton.disabled = isSubmitting;
+            chatMessage.disabled = isSubmitting || isMemoryFull;
+            chatSendButton.disabled = isSubmitting || isMemoryFull;
             chatSendButton.querySelector('span').textContent = isSubmitting ? 'Menjawab…' : 'Kirim';
         }
 
         async function sendMessage(message) {
+            if (isMemoryFull) {
+                chatNotice.textContent = 'Memori penuh. Klik Reset Memori untuk melanjutkan percakapan.';
+                return;
+            }
+
             addMessage('user', message);
             setSubmitting(true);
             chatNotice.textContent = 'Asisten sedang mencari jawaban dari sumber pembelajaran…';
@@ -203,7 +331,14 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
                 }
 
                 addMessage('assistant', data.answer, Array.isArray(data.sources) ? data.sources : []);
-                chatNotice.textContent = 'Jawaban diberikan dari sumber website yang paling relevan.';
+
+                if (data.memory) {
+                    updateMemoryState(data.memory);
+                }
+
+                chatNotice.textContent = data.memory_warning
+                    ? data.memory_warning
+                    : 'Jawaban diberikan dari sumber website yang paling relevan.';
             } catch (error) {
                 const message = error instanceof TypeError
                     ? 'Koneksi ke endpoint asisten gagal. Periksa domain dan koneksi, lalu muat ulang halaman.'
@@ -212,12 +347,59 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
                 chatNotice.textContent = 'Jawaban gagal dimuat. Pertanyaan masih dapat dikirim ulang.';
             } finally {
                 setSubmitting(false);
-                chatMessage.focus();
+                if (!isMemoryFull) {
+                    chatMessage.focus();
+                }
             }
+        }
+
+        if (resetMemoryButton) {
+            resetMemoryButton.addEventListener('click', async () => {
+                const resetUrl = resetMemoryButton.dataset.resetUrl;
+                if (!resetUrl) {
+                    return;
+                }
+
+                resetMemoryButton.disabled = true;
+                chatNotice.textContent = 'Menghapus riwayat memori percakapan Anda…';
+
+                try {
+                    const response = await fetch(resetUrl, {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok || !data?.ok) {
+                        throw new Error(data?.message ?? 'Gagal mereset memori.');
+                    }
+
+                    chatStream.querySelectorAll('.chat-message:not([data-welcome-message="true"])').forEach((node) => {
+                        node.remove();
+                    });
+
+                    updateMemoryState(data.memory);
+                    chatNotice.textContent = 'Memori percakapan berhasil direset. Silakan ajukan pertanyaan baru.';
+                    chatMessage.focus();
+                } catch (error) {
+                    chatNotice.textContent = error.message ?? 'Gagal mereset memori.';
+                    resetMemoryButton.disabled = false;
+                }
+            });
         }
 
         chatForm.addEventListener('submit', async (event) => {
             event.preventDefault();
+
+            if (isMemoryFull) {
+                return;
+            }
 
             const message = chatMessage.value.trim();
 
@@ -238,6 +420,11 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
 
         document.querySelectorAll('[data-prompt]').forEach((button) => {
             button.addEventListener('click', async () => {
+                if (isMemoryFull) {
+                    chatNotice.textContent = 'Memori penuh. Klik Reset Memori untuk melanjutkan percakapan.';
+                    return;
+                }
+
                 const message = button.dataset.prompt;
 
                 if (message) {
@@ -245,6 +432,8 @@ Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda m
                 }
             });
         });
+
+        scrollToLatestMessage();
     </script>
 </body>
 </html>

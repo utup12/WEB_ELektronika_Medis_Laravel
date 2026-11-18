@@ -32,7 +32,7 @@ class MedicalElectronicsAcademicTutor
                     ."\\[ \\text{BPM} = \\frac{60}{\\Delta t_{\\text{peak-to-peak}}} \\]\n\n"
                     ."4. **Implementasi pada Platform Praktikum:**\n"
                     ."Di website ini, mahasiswa dapat menghubungkan smartwatch secara langsung melalui halaman **Monitor Trainer** atau modul **Candidate Pilot Heart Rate**. Jika perangkat fisik belum tersedia, sistem menyediakan mode simulasi sintetis matematis untuk mempelajari interpretasi sinyal dan artefak gerak.\n\n"
-                    ."*Catatan Keselamatan Akademik:* Data smartwatch dan trainer pembelajaran ditujukan untuk keperluan praktikum instrumentasi, bukan alat diagnosis klinis tervalidasi.",
+                    .'*Catatan Keselamatan Akademik:* Data smartwatch dan trainer pembelajaran ditujukan untuk keperluan praktikum instrumentasi, bukan alat diagnosis klinis tervalidasi.',
                 'sources' => [
                     ['title' => 'Monitor Trainer', 'url' => route('monitor-trainer')],
                     ['title' => 'Candidate Pilot Heart Rate / PPG', 'url' => route('pilot.heart-rate')],
@@ -60,7 +60,7 @@ class MedicalElectronicsAcademicTutor
                     ."4. **Sumber Gangguan (Artefak) dalam Praktikum:**\n"
                     ."- **Motion Artifact:** Pergeseran relatif elektroda/sensor terhadap kulit mendistorsi sinyal AC.\n"
                     ."- **Ambient Light:** Cahaya lampu ruangan (50/100 Hz dari neon/LED) dapat bocor ke fotodioda bila pelindung optik kurang rapat.\n"
-                    ."- **Vasokonstriksi Perifer:** Suhu dingin menurunkan perfusi perifer sehingga amplitudo AC melemah.",
+                    .'- **Vasokonstriksi Perifer:** Suhu dingin menurunkan perfusi perifer sehingga amplitudo AC melemah.',
                 'sources' => [
                     ['title' => 'Candidate Pilot Heart Rate / PPG', 'url' => route('pilot.heart-rate')],
                     ['title' => 'Monitor Trainer', 'url' => route('monitor-trainer')],
@@ -86,7 +86,7 @@ class MedicalElectronicsAcademicTutor
                     ."\\[ R_G = \\frac{49{,}4\\text{ k}\\Omega}{G - 1} = \\frac{49.400\\ \\Omega}{G - 1} \\]\n\n"
                     ."3. **Aplikasi pada Praktikum Elektronika Medis:**\n"
                     ."Pada sistem akuisisi biopotensial (ECG, EMG, EEG), amplitudo sinyal tubuh sangat lemah (orde mikrovolt hingga milivolt). AD620 digunakan sebagai penguat tahap pertama (*pre-amplifier*) untuk menaikkan amplitudo sinyal biopotensial sebelum masuk ke rangkaian filter aktif dan ADC.\n\n"
-                    ."*Peringatan Keselamatan Praktikum:* Rangkaian uji laboratorium tidak boleh dihubungkan langsung ke tubuh manusia tanpa rangkaian proteksi isolasi galvanis sesuai standar IEC 60601-1.",
+                    .'*Peringatan Keselamatan Praktikum:* Rangkaian uji laboratorium tidak boleh dihubungkan langsung ke tubuh manusia tanpa rangkaian proteksi isolasi galvanis sesuai standar IEC 60601-1.',
                 'sources' => [
                     ['title' => 'Jobsheet Penguat AD620 · halaman PDF 16', 'url' => route('jobsheet.module', ['edition' => 'panduan-instrumentasi-elektronika-medis-2019', 'module' => 'penguat-ad620'])],
                     ['title' => 'Materi Praktikum', 'url' => route('materi')],
@@ -109,7 +109,7 @@ class MedicalElectronicsAcademicTutor
                     ."**Tantangan Instrumentasi Pengkondisi Sinyal:**\n"
                     ."1. **Amplitudo Sinyal Sangat Lemah:** Membutuhkan In-Amp gain tinggi (100–10.000 kali) dengan noise sangat rendah.\n"
                     ."2. **Interferensi Mode Bersama (50 Hz):** Tubuh bertindak sebagai antena penerima medan radiasi jala-jala listrik PLN.\n"
-                    ."3. **Tegangan Setengah-Sel Elektroda (DC Offset):** Mencapai ratusan mV di antarmuka kulit-elektroda, sehingga memerlukan kopling AC atau High-Pass Filter aktif.",
+                    .'3. **Tegangan Setengah-Sel Elektroda (DC Offset):** Mencapai ratusan mV di antarmuka kulit-elektroda, sehingga memerlukan kopling AC atau High-Pass Filter aktif.',
                 'sources' => [
                     ['title' => 'Materi Praktikum', 'url' => route('materi')],
                     ['title' => 'Praktikum & Jobsheet', 'url' => route('praktikum')],
@@ -131,7 +131,7 @@ class MedicalElectronicsAcademicTutor
                     ."- Tegangan pembalik dengan fase berlawanan diinjeksikan kembali ke elektroda kaki kanan (Right Leg).\n"
                     ."- Hal ini menciptakan *negative feedback* loop yang secara virtual menekan tegangan derau mode bersama hingga tereduksi puluhan desibel (dB).\n\n"
                     ."3. **Keuntungan Keselamatan Medis:**\n"
-                    ."Jika terjadi kegagalan isolasi atau lonjakan arus dari alat lain, resistor pembatas seri pada output RLD membatasi arus yang masuk ke tubuh di bawah batas aman arus mikro (\\(<10\\ \\mu\\text{A}\\)).",
+                    .'Jika terjadi kegagalan isolasi atau lonjakan arus dari alat lain, resistor pembatas seri pada output RLD membatasi arus yang masuk ke tubuh di bawah batas aman arus mikro (\\(<10\\ \\mu\\text{A}\\)).',
                 'sources' => [
                     ['title' => 'Materi Praktikum', 'url' => route('materi')],
                     ['title' => 'Jobsheet Penguat AD620', 'url' => route('jobsheet.module', ['edition' => 'panduan-instrumentasi-elektronika-medis-2019', 'module' => 'penguat-ad620'])],
@@ -152,7 +152,7 @@ class MedicalElectronicsAcademicTutor
                     ."| **Low-Pass Filter (LPF)** | Mengeliminasi derau frekuensi radio (RF), sinyal electrosurgical, dan aliasing sebelum ADC. | Butterworth Sallen-Key Orde 2 | \\(f_c = \\frac{1}{2\\pi \\sqrt{R_1 R_2 C_1 C_2}}\\) |\n"
                     ."| **Notch Filter (50 Hz)** | Meredam tajam interferensi frekuensi jala listrik PLN 50 Hz tanpa merusak komponen ECG di sekitarnya. | Twin-T / Bainter Band-Stop | \\(f_0 = \\frac{1}{2\\pi RC} = 50\\text{ Hz}\\) |\n\n"
                     ."2. **Karakteristik Respon Butterworth:**\n"
-                    ."Pada praktikum instrumentasi medik, respon **Butterworth** paling umum dipilih karena memiliki karakteristik *maximally flat* (amplitudo datar sempurna tanpa *ripple*) pada pita lewatan (*passband*), sehingga tidak mendistorsi morfologi puncak gelombang biopotensial.",
+                    .'Pada praktikum instrumentasi medik, respon **Butterworth** paling umum dipilih karena memiliki karakteristik *maximally flat* (amplitudo datar sempurna tanpa *ripple*) pada pita lewatan (*passband*), sehingga tidak mendistorsi morfologi puncak gelombang biopotensial.',
                 'sources' => [
                     ['title' => 'Materi Praktikum', 'url' => route('materi')],
                     ['title' => 'Praktikum & Jobsheet', 'url' => route('praktikum')],
@@ -173,7 +173,7 @@ class MedicalElectronicsAcademicTutor
                     ."- **Tipe BF (Body Floating):** Elektroda menempel pada permukaan tubuh pasien dengan isolasi terapung (contoh: ECG, EMG, PPG); batas arus bocor \\(<100\\ \\mu\\text{A}\\).\n"
                     ."- **Tipe CF (Cardiac Floating):** Kontak invasif langsung ke jantung pasien; batas arus bocor paling ketat yaitu **\\(<10\\ \\mu\\text{A}\\)**.\n\n"
                     ."3. **Teknik Perlindungan Laboratorium:**\n"
-                    ."Penggunaan transformator isolasi medis (*isolation transformer*), optocoupler (isolasi optik), penguat isolasi (*isolation amplifier*), dan kepatuhan grounding laboratoris sesuai SOP K3 UNY.",
+                    .'Penggunaan transformator isolasi medis (*isolation transformer*), optocoupler (isolasi optik), penguat isolasi (*isolation amplifier*), dan kepatuhan grounding laboratoris sesuai SOP K3 UNY.',
                 'sources' => [
                     ['title' => 'Evaluasi Praktikum', 'url' => route('evaluasi')],
                     ['title' => 'Praktikum & Jobsheet', 'url' => route('praktikum')],
@@ -194,7 +194,7 @@ class MedicalElectronicsAcademicTutor
                     ."- **Tegangan Setengah-Sel Rendah & Stabil:** Memiliki potensial kontak relatif stabil (~+0,222 V terhadap standar hidrogen), meminimalkan *drift baseline* pada osiloskop.\n"
                     ."- **Tingkat Noise Rendah:** Memiliki tegangan derau intrinsik sangat rendah dibandingkan elektroda logam murni (seperti tembaga atau perak polos).\n\n"
                     ."3. **Peran Gel Elektrolit & Preparasi Kulit:**\n"
-                    ."Lapisan tanduk kulit (*stratum corneum*) memiliki resistansi listrik tinggi dan bersifat dielektrik. Penggunaan gel elektrolit yang mengandung ion klorida (\\(\\text{Cl}^-\\)) serta pembersihan minyak kulit dengan alkohol berfungsi menjamin impedansi kontak rendah (\\(<5\\text{ k}\\Omega\\)) untuk sinyal yang jernih.",
+                    .'Lapisan tanduk kulit (*stratum corneum*) memiliki resistansi listrik tinggi dan bersifat dielektrik. Penggunaan gel elektrolit yang mengandung ion klorida (\\(\\text{Cl}^-\\)) serta pembersihan minyak kulit dengan alkohol berfungsi menjamin impedansi kontak rendah (\\(<5\\text{ k}\\Omega\\)) untuk sinyal yang jernih.',
                 'sources' => [
                     ['title' => 'Materi Praktikum', 'url' => route('materi')],
                     ['title' => 'Praktikum & Jobsheet', 'url' => route('praktikum')],
@@ -211,7 +211,7 @@ class MedicalElectronicsAcademicTutor
                     ."1. **Identitas & Judul Percobaan:** Nama mahasiswa, NIM, kelas, kelompok, tanggal praktikum, dan judul modul jobsheet.\n"
                     ."2. **Tujuan Praktikum:** Pernyataan capaian kompetensi terukur berdasarkan RPS dan indikator modul.\n"
                     ."3. **Landasan Teori:** Penjelasan konsep fisik, diagram blok, dan formulasi matematis acuan (misal: penurunan gain AD620, frekuensi cutoff filter, atau hukum optik PPG).\n"
-                    ."4. **Alat & Bahan:** Daftar instrumen laboratorium beserta spesifikasi dan nomor seri (misal: Osiloskop Digital 100 MHz, Function Generator, Power Supply Dual $\\pm12$V, IC AD620, Sensor PPG).\n"
+                    ."4. **Alat & Bahan:** Daftar instrumen laboratorium beserta spesifikasi dan nomor seri (misal: Osiloskop Digital 100 MHz, Function Generator, Power Supply Dual ±12 V, IC AD620, Sensor PPG).\n"
                     ."5. **Langkah Kerja & Skema Rangkaian:** Gambar skematik rangkaian dan diagram alir prosedur uji.\n"
                     ."6. **Data Hasil Pengukuran:** Tabel pencatatan nilai terukur, tangkapan osiloskop (*waveform screenshots*), dan visualisasi grafik.\n"
                     ."7. **Analisis Data & Pembahasan Komparatif:**\n"
@@ -221,7 +221,7 @@ class MedicalElectronicsAcademicTutor
                     ."   - Membahas faktor penyebab deviasi (toleransi komponen resistor/kapasitor, noise jala-jala listrik, impedansi probe osiloskop).\n"
                     ."8. **Kesimpulan & Refleksi:** Menjawab tujuan praktikum secara lugas dan mencantumkan refleksi perbaikan eksperimen berikutnya.\n"
                     ."9. **Daftar Pustaka:** Format rujukan baku (IEEE / APA).\n\n"
-                    ."*Ketentuan Berkas:* Laporan dikonversi ke format PDF (maksimal 10 MB) dan diunggah pada menu **Unggah Laporan** setelah masuk ke akun mahasiswa.",
+                    .'*Ketentuan Berkas:* Laporan dikonversi ke format PDF (maksimal 10 MB) dan diunggah pada menu **Unggah Laporan** setelah masuk ke akun mahasiswa.',
                 'sources' => [
                     ['title' => 'Unggah Laporan', 'url' => route('laporan')],
                     ['title' => 'Praktikum & Jobsheet', 'url' => route('praktikum')],
@@ -242,7 +242,7 @@ class MedicalElectronicsAcademicTutor
                     ."- **Probe 10X:** Menghubungkan attenuator resistor \\(9\\text{ M}\\Omega\\) seri sehingga total impedansi masukan menjadi **\\(10\\text{ M}\\Omega\\)** dengan kapasitansi hanya ~10–15 pF. Hal ini meminimalkan *circuit loading*.\n"
                     ."- *Kalibrasi Probe:* Hubungkan probe 10X ke terminal referensi gelombang kotak (biasanya 1 kHz / 2 Vpp). Putar sekrup trimmer pada probe hingga sudut gelombang kotak tepat siku (90°), tidak *under-compensated* (membulat) maupun *over-compensated* (overshoot lancip).\n\n"
                     ."3. **Penyetelan Sensitivitas & Pemicu (Triggering):**\n"
-                    ."Atur *Volts/Div* dan *Time/Div* agar satu siklus gelombang terlihat jelas memenuhi 60–80% layar tampilan osiloskop.",
+                    .'Atur *Volts/Div* dan *Time/Div* agar satu siklus gelombang terlihat jelas memenuhi 60–80% layar tampilan osiloskop.',
                 'sources' => [
                     ['title' => 'Materi Praktikum', 'url' => route('materi')],
                     ['title' => 'Praktikum & Jobsheet', 'url' => route('praktikum')],

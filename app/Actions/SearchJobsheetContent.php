@@ -15,6 +15,20 @@ class SearchJobsheetContent
         'fungsi', 'berapa', 'nilai', 'dan', 'atau', 'jika', 'saya', 'bisa',
         'pertama', 'kedua', 'ketiga', 'langkah', 'sebelum', 'menggunakan',
         'peralatan', 'praktik', 'hasil', 'pengamatan',
+        'siapa', 'saat', 'ini', 'itu', 'kapan', 'dimana', 'mana', 'sekarang',
+        'kami', 'kamu', 'ada', 'juga', 'akan', 'sudah', 'belum', 'hanya',
+        'lebih', 'sangat', 'agar', 'karena', 'oleh', 'sebagai', 'setelah',
+    ];
+
+    private const TERM_SYNONYMS = [
+        'cmrr' => ['common', 'mode', 'rejection'],
+        'lpf' => ['low', 'pass', 'filter'],
+        'hpf' => ['high', 'pass', 'filter'],
+        'bpf' => ['band', 'pass', 'filter'],
+        'opamp' => ['penguat', 'operasional'],
+        'adc' => ['analog', 'digital'],
+        'ecg' => ['elektrokardiogram', 'jantung'],
+        'emg' => ['elektromiogram', 'otot'],
     ];
 
     /**
@@ -26,9 +40,6 @@ class SearchJobsheetContent
     {
         $terms = $this->terms($question);
         $lowerQuestion = mb_strtolower($question);
-        $topicTerms = array_values(array_filter($terms, fn (string $term): bool => ! in_array($term, [
-            'tujuan', 'teori', 'ringkasan', 'diskusi', 'alat', 'bahan', 'jelaskan', 'kerja',
-        ], true)));
 
         if (count($terms) < 2) {
             return null;
@@ -58,11 +69,6 @@ class SearchJobsheetContent
 
                 $titleMatches = $this->matches($module['title'], $terms);
 
-                // Prefer matching a named module; avoid matching broad words from other jobsheets.
-                if ($titleMatches === 0 || ($topicTerms !== [] && $this->matches($module['title'], $topicTerms) === 0)) {
-                    continue;
-                }
-
                 $pages = array_values(array_filter(
                     $document['pages'],
                     fn (mixed $page): bool => is_array($page)
@@ -77,9 +83,12 @@ class SearchJobsheetContent
                         $matches = $this->matches($passage, $terms);
                         $sectionMatches = $this->matches($sectionLabel, $terms);
 
-                        // Evidence must appear in content, not only the module title.
-                        if (($matches < 2 && ! ($matches >= 1 && $sectionMatches >= 1))
-                            || str_ends_with(trim($passage), '?')) {
+                        // Require stronger grounding when the module title does not match the query.
+                        $passesThreshold = $titleMatches > 0
+                            ? ($matches >= 2 || ($matches >= 1 && $sectionMatches >= 1))
+                            : ($matches >= 3 || ($matches >= 2 && $sectionMatches >= 1));
+
+                        if (! $passesThreshold || str_ends_with(trim($passage), '?')) {
                             continue;
                         }
 
@@ -102,7 +111,7 @@ class SearchJobsheetContent
                             'page' => $section['pdf_page'],
                             'section' => $section['section'],
                             'passage' => $passage,
-                            'score' => $matches * 3 + $titleMatches + $sectionMatches * 3 + $sectionBoost,
+                            'score' => $matches * 3 + $titleMatches * 3 + $sectionMatches * 3 + $sectionBoost,
                         ];
                     }
                 }
@@ -130,11 +139,36 @@ class SearchJobsheetContent
             'module' => $best['module']['slug'],
         ]).'#halaman-'.$page;
 
+        $answer = "Tutor berbasis sumber lokal: **{$title}**, bagian {$sectionName} (Purwanto, 2019, halaman PDF {$page}):\n\n{$excerpt}";
+        $sources = [
+            ['title' => "Jobsheet {$title} · halaman PDF {$page}", 'url' => $url],
+        ];
+
+        // Add a second distinct supporting passage from the same module when available.
+        foreach (array_slice($candidates, 1, 5) as $extra) {
+            if ($extra['module']['slug'] === $best['module']['slug']
+                && ($extra['page'] !== $page || $extra['section'] !== $sectionName)
+                && $extra['score'] >= max(6, (int) ($best['score'] * 0.6))) {
+                $extraExcerpt = $this->excerpt($extra['passage'], $terms);
+                if ($extraExcerpt !== '' && $extraExcerpt !== $excerpt) {
+                    $answer .= "\n\n**Rujukan tambahan** (bagian {$extra['section']}, halaman PDF {$extra['page']}):\n{$extraExcerpt}";
+                    $sources[] = [
+                        'title' => "Jobsheet {$extra['module']['title']} · halaman PDF {$extra['page']}",
+                        'url' => route('jobsheet.module', [
+                            'edition' => $extra['edition']['id'],
+                            'module' => $extra['module']['slug'],
+                        ]).'#halaman-'.$extra['page'],
+                    ];
+                    break;
+                }
+            }
+        }
+
+        $answer .= "\n\nUntuk belajar: perhatikan konsep dan langkah pada kutipan tersebut, lalu cocokkan dengan jobsheet asli. Gambar rangkaian, rumus, dan tabel tetap perlu diperiksa pada PDF.";
+
         return [
-            'answer' => "Tutor berbasis sumber lokal — {$title}, bagian {$sectionName} (Purwanto, 2019, halaman PDF {$page}):\n\n{$excerpt}\n\nUntuk belajar: perhatikan konsep dan langkah pada kutipan tersebut, lalu cocokkan dengan jobsheet asli. Saya tidak membuat jawaban di luar informasi yang tersedia. Gambar rangkaian, rumus, dan tabel tetap perlu diperiksa pada PDF.",
-            'sources' => [
-                ['title' => "Jobsheet {$title} · halaman PDF {$page}", 'url' => $url],
-            ],
+            'answer' => $answer,
+            'sources' => $sources,
         ];
     }
 
@@ -143,11 +177,22 @@ class SearchJobsheetContent
     {
         $words = preg_split('/[^\\p{L}\\p{N}]+/u', mb_strtolower($question)) ?: [];
 
-        return array_values(array_unique(array_filter(
+        $base = array_values(array_unique(array_filter(
             $words,
             fn (string $word): bool => mb_strlen($word) >= 3
                 && ! in_array($word, self::STOP_WORDS, true),
         )));
+
+        $expanded = $base;
+        foreach ($base as $word) {
+            if (isset(self::TERM_SYNONYMS[$word])) {
+                foreach (self::TERM_SYNONYMS[$word] as $synonym) {
+                    $expanded[] = $synonym;
+                }
+            }
+        }
+
+        return array_values(array_unique($expanded));
     }
 
     /** @param array<int, string> $terms */
