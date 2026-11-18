@@ -3,8 +3,8 @@
 namespace App\Actions;
 
 use App\Support\JobsheetCatalog;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Throwable;
 
 class AnswerPracticeQuestion
@@ -32,6 +32,36 @@ class AnswerPracticeQuestion
     ];
 
     /**
+     * @var array<string, array<int, string>>
+     */
+    private const TERM_SYNONYMS = [
+        'cmrr' => ['common', 'mode', 'rejection', 'ratio', 'diferensial'],
+        'lpf' => ['low', 'pass', 'filter'],
+        'hpf' => ['high', 'pass', 'filter'],
+        'bpf' => ['band', 'pass', 'filter'],
+        'opamp' => ['op-amp', 'penguat', 'operasional'],
+        'ecg' => ['ekg', 'elektrokardiograf', 'jantung'],
+        'emg' => ['elektromiograf', 'otot'],
+        'ppg' => ['photoplethysmography', 'spo2', 'optik'],
+        'adc' => ['analog', 'digital', 'kuantisasi'],
+    ];
+
+    /**
+     * @var array<int, string>
+     */
+    private const FOLLOW_UP_PHRASES = [
+        'lanjut',
+        'lanjutkan',
+        'jelaskan lebih lanjut',
+        'lebih lanjut',
+        'contohnya',
+        'detailnya',
+        'rumusnya',
+        'maksudnya',
+        'bagaimana caranya',
+    ];
+
+    /**
      * @var array<string, string>
      */
     private const GREETING_RESPONSES = [
@@ -55,12 +85,20 @@ class AnswerPracticeQuestion
      *
      * @return array{answer: string, sources: array<int, array{title: string, url: string}>}
      */
-    public function handle(string $question, bool $canUpdateMemory = false, ?int $userId = null): array
-    {
+    public function handle(
+        string $question,
+        bool $canUpdateMemory = false,
+        ?int $userId = null,
+        ?string $lastQuestion = null,
+    ): array {
         $normalized = trim(mb_strtolower($question));
-        if ($normalized === 'update memory') return $canUpdateMemory ? ['answer' => 'Pertanyaan: \nJawaban: \n\nIsi formulir yang muncul untuk menyimpan memori baru.', 'sources' => [], 'memoryForm' => true] : ['answer' => 'Fitur Update memory hanya tersedia bagi dosen.', 'sources' => []];
+        if ($normalized === 'update memory') {
+            return $canUpdateMemory ? ['answer' => 'Pertanyaan: \nJawaban: \n\nIsi formulir yang muncul untuk menyimpan memori baru.', 'sources' => [], 'memoryForm' => true] : ['answer' => 'Fitur Update memory hanya tersedia bagi dosen.', 'sources' => []];
+        }
         if (preg_match('/^pertanyaan\s*:\s*(.+?)\s*jawaban\s*:\s*(.+)$/si', $question, $memory) === 1) {
-            if (! $canUpdateMemory || $userId === null) return ['answer' => 'Hanya dosen yang dapat menyimpan memori AI.', 'sources' => []];
+            if (! $canUpdateMemory || $userId === null) {
+                return ['answer' => 'Hanya dosen yang dapat menyimpan memori AI.', 'sources' => []];
+            }
 
             try {
                 DB::table('ai_memories')->updateOrInsert(['question' => trim($memory[1])], ['answer' => trim($memory[2]), 'user_id' => $userId, 'updated_at' => now(), 'created_at' => now()]);
@@ -72,7 +110,9 @@ class AnswerPracticeQuestion
         }
         try {
             $saved = DB::table('ai_memories')->whereRaw('LOWER(question) = ?', [$normalized])->first();
-            if ($saved !== null) return ['answer' => $saved->answer, 'sources' => []];
+            if ($saved !== null) {
+                return ['answer' => $saved->answer, 'sources' => []];
+            }
         } catch (Throwable) {
             // Deployment tanpa database tetap dapat menjawab materi statis dan perhitungan lokal.
         }
@@ -85,32 +125,34 @@ class AnswerPracticeQuestion
             ];
         }
 
-        $calculation = app(CalculateAd620::class)->answer($question);
+        $effectiveQuestion = $this->resolveFollowUpQuestion($question, $lastQuestion);
+
+        $calculation = app(CalculateAd620::class)->answer($effectiveQuestion);
 
         if ($calculation !== null) {
             return $calculation;
         }
 
-        $reportAnswer = $this->answerReportHelp($question);
+        $reportAnswer = $this->answerReportHelp($effectiveQuestion);
 
         if ($reportAnswer !== null) {
             return $reportAnswer;
         }
 
-        $academicAnswer = app(MedicalElectronicsAcademicTutor::class)->answer($question);
+        $academicAnswer = app(MedicalElectronicsAcademicTutor::class)->answer($effectiveQuestion);
 
         if ($academicAnswer !== null) {
             return $academicAnswer;
         }
 
         $jobsheetAnswer = app(SearchJobsheetContent::class)
-            ->answer($question, app(JobsheetCatalog::class));
+            ->answer($effectiveQuestion, app(JobsheetCatalog::class));
 
         if ($jobsheetAnswer !== null) {
             return $jobsheetAnswer;
         }
 
-        $terms = $this->searchTerms($question);
+        $terms = $this->searchTerms($effectiveQuestion);
 
         $sources = collect(self::SOURCES)
             ->map(function (array $source) use ($terms): array {
@@ -200,6 +242,23 @@ class AnswerPracticeQuestion
         return trim((string) preg_replace('/\s+/u', ' ', html_entity_decode($plainText, ENT_QUOTES | ENT_HTML5, 'UTF-8')));
     }
 
+    private function resolveFollowUpQuestion(string $question, ?string $lastQuestion): string
+    {
+        if ($lastQuestion === null || trim($lastQuestion) === '') {
+            return $question;
+        }
+
+        $normalized = trim((string) preg_replace('/[^\p{L}\p{N}\s]+/u', ' ', mb_strtolower($question)));
+
+        foreach (self::FOLLOW_UP_PHRASES as $phrase) {
+            if ($normalized === $phrase || str_starts_with($normalized, $phrase.' ')) {
+                return trim($lastQuestion).' '.$question;
+            }
+        }
+
+        return $question;
+    }
+
     /**
      * @return array<int, string>
      */
@@ -207,11 +266,21 @@ class AnswerPracticeQuestion
     {
         $words = preg_split('/[^\\p{L}\\p{N}]+/u', mb_strtolower($question)) ?: [];
 
-        return array_values(array_unique(array_filter(
+        $baseTerms = array_values(array_unique(array_filter(
             $words,
             fn (string $word): bool => mb_strlen($word) >= 3
                 && ! in_array($word, self::STOP_WORDS, true),
         )));
+
+        $expanded = $baseTerms;
+
+        foreach ($baseTerms as $term) {
+            if (isset(self::TERM_SYNONYMS[$term])) {
+                array_push($expanded, ...self::TERM_SYNONYMS[$term]);
+            }
+        }
+
+        return array_values(array_unique($expanded));
     }
 
     private function greetingResponse(string $question): ?string

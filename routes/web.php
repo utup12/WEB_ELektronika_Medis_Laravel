@@ -102,6 +102,13 @@ Route::post('/asisten-ai/chat', [
     ->middleware('throttle:ai-chat')
     ->name('asisten-ai.chat');
 
+Route::post('/asisten-ai/reset', [
+    AiAssistantController::class,
+    'reset',
+])
+    ->middleware('throttle:ai-chat')
+    ->name('asisten-ai.reset');
+
 /*
 |--------------------------------------------------------------------------
 | PRAKTIKUM DAN PANDUAN
