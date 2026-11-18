@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\Rules\Password;
 
@@ -65,6 +66,24 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('ai-chat', function (Request $request): Limit {
             return Limit::perMinute(12)->by(
                 'ai-chat:'.($request->user()?->getAuthIdentifier() ?? $request->ip()),
+            );
+        });
+
+        // Slow down password guessing per account name + IP (OWASP A07).
+        RateLimiter::for('local-login', function (Request $request): Limit {
+            return Limit::perMinute(5)->by(
+                'local-login:'.Str::lower((string) $request->input('name')).'|'.$request->ip(),
+            );
+        });
+
+        RateLimiter::for('local-register', function (Request $request): Limit {
+            return Limit::perMinute(5)->by('local-register:'.$request->ip());
+        });
+
+        // Attendance codes are short; stop students from brute-forcing them.
+        RateLimiter::for('attendance-code', function (Request $request): Limit {
+            return Limit::perMinute(10)->by(
+                'attendance-code:'.($request->user()?->getAuthIdentifier() ?? $request->ip()),
             );
         });
     }

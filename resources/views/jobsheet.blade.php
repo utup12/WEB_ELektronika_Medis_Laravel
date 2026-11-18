@@ -17,13 +17,14 @@
     .sheet-card-head{display:flex;align-items:center;gap:.75rem;margin:.1rem 0 .55rem}.sheet-card-head small{flex:1}.sheet-card-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:linear-gradient(135deg,#e4f1ff,#fff4c7);color:#004b93;border:1px solid #d3e5f7;font-size:1.35rem;font-weight:800;box-shadow:inset 0 1px #fff}.sheet-card:hover .sheet-card-icon{background:linear-gradient(135deg,#004b93,#006db8);color:#fff}.sheet-edition h3{display:flex;align-items:center;gap:.55rem;margin-top:1.4rem}.sheet-edition h3:before{content:'⌁';display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#e7f2fd;color:#004b93;font-weight:800}
     html[data-theme='dark'] .sheet-card-icon{background:#173f60;color:#f7d766;border-color:#45708e}html[data-theme='dark'] .sheet-edition h3:before{background:#173f60;color:#f7d766}
   </style>
+<link rel="stylesheet" href="/css/a11y.css">
 </head>
-<body>
+<body><a class="skip-link" href="#main-content">Lewati ke konten utama</a>
 <header class="site-header">
  <div class="identity-bar"><a class="uny-seal" href="{{ route('home') }}"><span><img src="{{ asset('assets/logo-uny-reference.png') }}" alt="Lambang UNY"></span></a><div class="institution-name"><strong>Universitas Negeri Yogyakarta</strong><span>Fakultas Teknik · Program Studi Pendidikan Teknik Elektronika</span></div></div>
  <div class="platform-bar"><a class="course-brand" href="{{ route('home') }}">Praktik Elektronika Medis</a><button class="menu-toggle" aria-label="Buka menu" aria-expanded="false"><span></span><span></span></button><nav class="main-nav" aria-label="Navigasi utama"><a href="{{ route('home') }}">Beranda</a><a href="{{ route('materi') }}">Materi</a><a class="active" href="{{ route('jobsheet') }}">Jobsheet</a><a href="{{ route('praktikum') }}">Praktikum</a><a href="{{ route('evaluasi') }}">Evaluasi</a><a href="{{ route('laporan') }}">Unggah Laporan</a><a href="{{ route('asisten-ai') }}">Asisten AI</a><a href="{{ route('profil-dosen') }}">Profil Dosen</a></nav></div>
 </header>
-<main>
+<main id="main-content" tabindex="-1">
  <section class="page-hero"><p class="eyebrow">Referensi praktikum</p><h1>Katalog Jobsheet</h1><p>Telusuri topik menurut edisi panduan. Materi 2019 digunakan sebagai referensi sementara dan bukan pengganti arahan dosen pengampu.</p></section>
  <section class="page-content">
  <section class="sheet-edition" aria-labelledby="pilot-ppg-heading">

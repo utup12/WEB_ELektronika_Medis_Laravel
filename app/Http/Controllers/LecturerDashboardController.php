@@ -20,7 +20,7 @@ class LecturerDashboardController extends Controller
             'pendingReports' => Report::query()->where('status', 'submitted')->count(),
             'attemptCount' => QuizAttempt::query()->count(),
             'reports' => Report::query()->with('user')->latest()->take(20)->get(),
-            'driveFolderUrl' => $this->settingValue('report_drive_folder_url') ?: (string) env('REPORT_DRIVE_FOLDER_URL', ''),
+            'driveFolderUrl' => $this->settingValue('report_drive_folder_url') ?: (string) config('services.reports.drive_folder_url', ''),
             'driveNote' => $this->settingValue('report_drive_note') ?: '',
         ]);
     }

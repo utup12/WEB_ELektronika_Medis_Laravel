@@ -8,8 +8,8 @@
         <link rel="stylesheet" href="{{ asset('css/identity.css') }}">
         <link rel="stylesheet" href="{{ asset('css/pages.css') }}">
         <link rel="stylesheet" href="{{ asset('css/trainer-monitor.css') }}">
-    </head>
-    <body>
+    <link rel="stylesheet" href="/css/a11y.css"></head>
+    <body><a class="skip-link" href="#main-content">Lewati ke konten utama</a>
         <header class="site-header">
             <div class="identity-bar">
                 <a class="uny-seal" href="{{ route('home') }}">
@@ -37,7 +37,7 @@
                 </nav>
             </div>
         </header>
-        <main>
+        <main id="main-content" tabindex="-1">
             <section class="page-hero">
                 <p class="eyebrow">Praktikum · Instrumentasi Digital &amp; Telemetri BLE</p>
                 <h1>Monitor LCD &amp; Smartwatch BLE</h1>

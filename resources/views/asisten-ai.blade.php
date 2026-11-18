@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/identity.css">
     <link rel="stylesheet" href="/css/ai.css">
+<link rel="stylesheet" href="/css/a11y.css">
 </head>
-<body>
+<body><a class="skip-link" href="#main-content">Lewati ke konten utama</a>
     <header class="site-header">
         <div class="identity-bar">
             <a class="uny-seal" href="{{ route('home', [], false) }}" aria-label="Kembali ke Beranda">
@@ -36,7 +37,7 @@
         </div>
     </header>
 
-    <main class="ai-chat-page">
+    <main id="main-content" tabindex="-1" class="ai-chat-page">
         <section class="ai-chat-shell" aria-labelledby="assistant-title">
             <header class="ai-chat-head">
                 <div class="ai-chat-title">

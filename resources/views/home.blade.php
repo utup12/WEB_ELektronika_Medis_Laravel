@@ -14,8 +14,9 @@
 
     <link rel="stylesheet" href="/css/identity.css">
     <link rel="stylesheet" href="/css/hallmark-cobalt.css">
+<link rel="stylesheet" href="/css/a11y.css">
 </head>
-<body>
+<body><a class="skip-link" href="#main-content">Lewati ke konten utama</a>
 
     <header class="site-header">
         <div class="identity-bar">
@@ -82,7 +83,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         <!-- HERO (Stage Posture) -->
         <section class="hm-hero" id="beranda">
             <div class="hm-shell hm-hero-grid">

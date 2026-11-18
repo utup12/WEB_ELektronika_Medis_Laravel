@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="{{ asset('css/identity.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages.css') }}">
     <link rel="stylesheet" href="{{ asset('css/trainer-monitor.css') }}">
+<link rel="stylesheet" href="/css/a11y.css">
 </head>
-<body>
+<body><a class="skip-link" href="#main-content">Lewati ke konten utama</a>
     <header class="site-header">
         <div class="identity-bar">
             <a class="uny-seal" href="{{ route('home') }}">
@@ -35,7 +36,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         <section class="page-hero">
             <p class="eyebrow">Candidate pilot · belum modul resmi</p>
             <h1>Heart Rate / PPG</h1>

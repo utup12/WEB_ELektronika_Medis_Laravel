@@ -28,9 +28,9 @@ Route::get('/', function (JobsheetCatalog $catalog) {
 
 Route::get('/masuk', [LocalAuthController::class, 'loginForm'])->name('masuk');
 Route::get('/masuk/{role}', [LocalAuthController::class, 'roleLoginForm'])->whereIn('role', ['student', 'lecturer'])->name('masuk.role');
-Route::post('/masuk', [LocalAuthController::class, 'login'])->name('masuk.store');
+Route::post('/masuk', [LocalAuthController::class, 'login'])->middleware('throttle:local-login')->name('masuk.store');
 Route::get('/daftar', [LocalAuthController::class, 'registerForm'])->name('daftar');
-Route::post('/daftar', [LocalAuthController::class, 'register'])->name('daftar.store');
+Route::post('/daftar', [LocalAuthController::class, 'register'])->middleware('throttle:local-register')->name('daftar.store');
 Route::post('/keluar', [LocalAuthController::class, 'logout'])->middleware('auth')->name('keluar');
 
 /*
@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/evaluasi', [QuizAttemptController::class, 'store'])->name('evaluasi.store');
     Route::get('/progres-saya', StudentProgressController::class)->name('student.progress');
     Route::get('/presensi', [StudentAttendanceController::class, 'index'])->name('attendance.index');
-    Route::post('/presensi', [StudentAttendanceController::class, 'store'])->name('attendance.store');
+    Route::post('/presensi', [StudentAttendanceController::class, 'store'])->middleware('throttle:attendance-code')->name('attendance.store');
     Route::get('/catatan-mahasiswa', function () { return view('catatan-mahasiswa'); })->name('student.notes');
 });
 
