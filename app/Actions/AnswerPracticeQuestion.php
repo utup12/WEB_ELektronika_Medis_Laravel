@@ -104,6 +104,12 @@ class AnswerPracticeQuestion
             return $reportAnswer;
         }
 
+        $academicAnswer = app(MedicalElectronicsAcademicTutor::class)->answer($question);
+
+        if ($academicAnswer !== null) {
+            return $academicAnswer;
+        }
+
         $terms = $this->searchTerms($question);
 
         $sources = collect(self::SOURCES)
@@ -216,7 +222,8 @@ class AnswerPracticeQuestion
             mb_strtolower($question),
         ));
 
-        return self::GREETING_RESPONSES[$normalizedQuestion] ?? null;
+        return self::GREETING_RESPONSES[$normalizedQuestion]
+            ?? app(MedicalElectronicsAcademicTutor::class)->greeting($normalizedQuestion);
     }
 
     /**

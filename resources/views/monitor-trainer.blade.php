@@ -28,7 +28,8 @@
                 <nav class="main-nav" aria-label="Navigasi utama">
                     <a href="{{ route('home') }}">Beranda</a>
                     <a href="{{ route('materi') }}">Materi</a>
-                    <a class="active" href="{{ route('praktikum') }}">Praktikum</a>
+                    <a href="{{ route('praktikum') }}">Praktikum</a>
+                    <a class="active" href="{{ route('monitor-trainer') }}">Monitor Heart Rate (BLE)</a>
                     <a href="{{ route('evaluasi') }}">Evaluasi</a>
                     <a href="{{ route('laporan') }}">Unggah Laporan</a>
                     <a href="{{ route('asisten-ai') }}">Asisten AI</a>
@@ -38,9 +39,13 @@
         </header>
         <main>
             <section class="page-hero">
-                <p class="eyebrow">Praktikum · tampilan trainer</p>
-                <h1>Monitor LCD &amp; Training Kit</h1>
-                <p>Monitor pembelajaran ini bukan hasil diagnosis medis. Tampilan menggunakan data simulasi secara bawaan. Mode BLE hanya aktif jika perangkat mendukung Heart Rate Service dan mengirim data BPM; tampilan tidak membaca gelombang PPG mentah.</p>
+                <p class="eyebrow">Praktikum · Instrumentasi Digital &amp; Telemetri BLE</p>
+                <h1>Monitor LCD &amp; Smartwatch BLE</h1>
+                <p>Platform monitoring detak jantung (Heart Rate / PPG) real-time. Hubungkan smartwatch atau modul sensor detak jantung melalui Bluetooth Low Energy (Heart Rate Service UUID 0x180D), atau pelajari respon dinamis pada mode simulasi otomatis.</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+                    <a class="button outline" href="{{ route('pilot.heart-rate') }}">Buka Alur Praktikum Smartwatch &amp; PPG <span>→</span></a>
+                    <a class="button outline" href="{{ route('praktikum') }}">Daftar Modul Praktikum</a>
+                </div>
             </section>
             <section class="page-content">
                 <div class="trainer-screen">
@@ -126,6 +131,21 @@
                 <div class="ai-boundary">
                     <strong>Status integrasi</strong>
                     Untuk membaca BPM nyata, gunakan smartwatch atau sensor yang menyediakan Bluetooth Low Energy (BLE) Heart Rate Service (UUID 0x180D). Perangkat training kit memerlukan dukungan layanan BLE tersebut; koneksi ke hardware belum otomatis tersedia.
+                </div>
+
+                <div style="margin-top:1.5rem;padding:1.4rem;background:#ffffff;border:1px solid #d4e3ec;border-radius:16px;box-shadow:0 8px 24px rgba(8,36,64,0.06)">
+                    <h3 style="margin-top:0;color:#0b3b62;font-size:1.15rem">Panduan Menghubungkan Smartwatch (BLE Heart Rate)</h3>
+                    <p style="margin:6px 0 14px;color:#496172;font-size:0.9rem">Pastikan Bluetooth laptop/komputer Anda aktif dan gunakan browser modern yang mendukung Web Bluetooth API (Google Chrome atau Microsoft Edge melalui protokol HTTPS):</p>
+                    <ol style="margin:0 0 14px 1.2rem;padding:0;color:#284558;font-size:0.9rem;line-height:1.7">
+                        <li><strong>Garmin Watch:</strong> Masuk ke menu <em>Settings &rarr; Sensors &amp; Accessories &rarr; Wrist Heart Rate &rarr; Broadcast Heart Rate</em>, lalu pilih <em>Start</em>.</li>
+                        <li><strong>Polar / Chest Strap (H9, H10, Verity):</strong> Pasang strap pada dada/lengan; sensor BLE aktif secara otomatis.</li>
+                        <li><strong>Apple Watch / Wear OS:</strong> Buka aplikasi broadcast denyut BLE pihak ketiga (seperti <em>HeartCast</em> atau <em>BLE Heart Rate Transmitter</em>).</li>
+                        <li><strong>Smartphone / Simulator BLE:</strong> Anda juga dapat menguji menggunakan aplikasi <em>nRF Connect for Mobile</em> (tersedia di Android &amp; iOS) dengan mengaktifkan mode server *Heart Rate Service*.</li>
+                        <li>Klik tombol <strong>Connect Bluetooth</strong> pada monitor di atas, pilih perangkat smartwatch Anda pada jendela pop-up browser, lalu klik <strong>Pair</strong>.</li>
+                    </ol>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap">
+                        <a class="button primary" href="{{ route('pilot.heart-rate') }}#pilot-monitor-stage">Gunakan di Lembar Praktikum PPG <span>→</span></a>
+                    </div>
                 </div>
             </section>
         </main>
