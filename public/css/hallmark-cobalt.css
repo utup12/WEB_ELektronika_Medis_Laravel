@@ -93,22 +93,87 @@ p {
     order: 1;
 }
 
-.platform-bar > .logout-form {
-    order: 2;
-    margin-left: 0;
-}
-
 .platform-bar > .header-tools {
-    order: 3;
+    order: 2;
     margin-left: auto;
     display: flex;
     align-items: center;
     gap: var(--space-sm);
 }
 
+.platform-bar > .logout-form {
+    order: 3;
+    margin-left: 0;
+}
+
 .platform-bar > .theme-toggle {
     order: 4;
     margin-left: 0;
+}
+
+.logout-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: oklch(15% 0.03 260 / 0.58);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.2s var(--ease-out);
+}
+.logout-modal-backdrop.is-open {
+    opacity: 1;
+}
+.logout-modal-box {
+    width: min(100%, 380px);
+    padding: 24px;
+    border-radius: var(--radius-card);
+    border: var(--rule-hair) solid var(--color-rule-2);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 0 24px 54px oklch(15% 0.03 260 / 0.28);
+    transform: translateY(10px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.22s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+.logout-modal-backdrop.is-open .logout-modal-box {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+.logout-modal-box h3 {
+    margin: 0 0 8px;
+    font-size: 1.15rem;
+}
+.logout-modal-box p {
+    margin: 0 0 20px;
+    color: var(--color-muted);
+    font-size: 0.94rem;
+}
+.logout-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.logout-modal-actions button {
+    min-height: 40px;
+    padding: 0 18px;
+    border-radius: var(--radius-input);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.logout-modal-cancel {
+    border: var(--rule-hair) solid var(--color-rule-2);
+    background: var(--color-paper-2);
+    color: var(--color-ink);
+}
+.logout-modal-confirm {
+    border: var(--rule-hair) solid var(--color-accent-edge);
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
 }
 
 .nav-dropdown {

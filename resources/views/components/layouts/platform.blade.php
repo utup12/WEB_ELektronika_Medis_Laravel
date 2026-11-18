@@ -12,7 +12,7 @@
     @if(auth()->user()->isLecturer())
         <a href="{{ route('dosen.dashboard') }}">Dashboard Dosen</a>
     @else
-        <a href="{{ route('student.progress') }}">Progres Saya</a><a href="{{ route('attendance.index') }}">Presensi</a><a href="{{ route('student.notes') }}">Catatan</a>
+        <a href="{{ route('student.progress') }}">Progres Saya</a><a href="{{ route('student.notes') }}">Catatan</a>
     @endif
 @endauth
 </nav>

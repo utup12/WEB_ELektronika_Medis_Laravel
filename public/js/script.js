@@ -399,3 +399,75 @@ if (!document.querySelector('script[data-student-profile-loader]')) {
     profileScript.dataset.studentProfileLoader = '';
     document.body.appendChild(profileScript);
 }
+
+(() => {
+    const logoutForms = document.querySelectorAll('.logout-form');
+    if (!logoutForms.length) return;
+
+    let activeBackdrop = null;
+    let lastTrigger = null;
+
+    const closeLogoutModal = () => {
+        if (!activeBackdrop) return;
+        const backdrop = activeBackdrop;
+        activeBackdrop = null;
+        backdrop.classList.remove('is-open');
+        setTimeout(() => backdrop.remove(), 220);
+        lastTrigger?.focus();
+        lastTrigger = null;
+    };
+
+    const openLogoutModal = (form) => {
+        if (activeBackdrop) return;
+        lastTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+
+        const backdrop = document.createElement('div');
+        backdrop.className = 'logout-modal-backdrop';
+        backdrop.setAttribute('role', 'dialog');
+        backdrop.setAttribute('aria-modal', 'true');
+        backdrop.setAttribute('aria-labelledby', 'logout-modal-title');
+        backdrop.innerHTML = `
+            <div class="logout-modal-box">
+                <h3 id="logout-modal-title">Anda yakin ingin keluar?</h3>
+                <p>Sesi Anda akan diakhiri. Pilih Ya untuk keluar atau Tidak untuk tetap berada di halaman ini.</p>
+                <div class="logout-modal-actions">
+                    <button type="button" class="logout-modal-cancel">Tidak</button>
+                    <button type="button" class="logout-modal-confirm">Ya</button>
+                </div>
+            </div>
+        `;
+
+        const cancelBtn = backdrop.querySelector('.logout-modal-cancel');
+        const confirmBtn = backdrop.querySelector('.logout-modal-confirm');
+
+        cancelBtn.addEventListener('click', closeLogoutModal);
+        confirmBtn.addEventListener('click', () => {
+            confirmBtn.disabled = true;
+            form.submit();
+        });
+        backdrop.addEventListener('click', (event) => {
+            if (event.target === backdrop) closeLogoutModal();
+        });
+
+        document.body.appendChild(backdrop);
+        activeBackdrop = backdrop;
+        requestAnimationFrame(() => {
+            backdrop.classList.add('is-open');
+            cancelBtn.focus();
+        });
+    };
+
+    logoutForms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            openLogoutModal(form);
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && activeBackdrop) {
+            closeLogoutModal();
+        }
+    });
+})();
+
