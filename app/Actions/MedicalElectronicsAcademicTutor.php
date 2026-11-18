@@ -71,7 +71,7 @@ class MedicalElectronicsAcademicTutor
 
         // 3. PENGUAT INSTRUMENTASI (IN-AMP) & AD620
         if (preg_match('/(?:ad\s*-?620|in-amp|instrumentation\s*amp|penguat\s*instrumentasi)/u', $text)
-            && ! preg_match('/(?:hitung|kalkulasi|berapa|cari\s+nilai)/u', $text)) {
+            && ! preg_match('/(?:hitung|kalkulasi|berapa|cari\s+nilai|resistor\s+rg)/u', $text)) {
             return [
                 'answer' => "**Analisis Akademik: Penguat Instrumentasi (Instrumentation Amplifier) AD620**\n\n"
                     ."1. **Karakteristik & Keunggulan Komparatif:**\n"

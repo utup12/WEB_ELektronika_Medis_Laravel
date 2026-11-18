@@ -91,13 +91,6 @@ class AnswerPracticeQuestion
             return $calculation;
         }
 
-        $jobsheetAnswer = app(SearchJobsheetContent::class)
-            ->answer($question, app(JobsheetCatalog::class));
-
-        if ($jobsheetAnswer !== null) {
-            return $jobsheetAnswer;
-        }
-
         $reportAnswer = $this->answerReportHelp($question);
 
         if ($reportAnswer !== null) {
@@ -108,6 +101,13 @@ class AnswerPracticeQuestion
 
         if ($academicAnswer !== null) {
             return $academicAnswer;
+        }
+
+        $jobsheetAnswer = app(SearchJobsheetContent::class)
+            ->answer($question, app(JobsheetCatalog::class));
+
+        if ($jobsheetAnswer !== null) {
+            return $jobsheetAnswer;
         }
 
         $terms = $this->searchTerms($question);
