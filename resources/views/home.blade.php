@@ -22,7 +22,7 @@
         <div class="identity-bar">
             <a class="uny-seal" href="{{ route('home', [], false) }}" aria-label="Universitas Negeri Yogyakarta">
                 <span>
-                    <img src="/assets/logo-uny.png" alt="Lambang Universitas Negeri Yogyakarta">
+                    <img src="/assets/logo-uny.png" alt="Lambang Universitas Negeri Yogyakarta" width="48" height="49">
                 </span>
             </a>
             <div class="institution-name">
@@ -84,7 +84,7 @@
     </header>
 
     <main id="main-content" tabindex="-1">
-        <!-- HERO (Stage Posture) -->
+        <!-- HERO (Centered Campus Stage) -->
         <section class="hm-hero" id="beranda">
             <div class="hm-shell hm-hero-grid">
                 <div class="hm-hero-copy">
@@ -96,7 +96,6 @@
                     <div class="hm-hero-actions">
                         <a class="key key--primary" href="{{ route('praktikum', [], false) }}">
                             <span>Jelajahi Praktikum</span>
-                            <span aria-hidden="true">→</span>
                         </a>
                         <a class="key" href="#training-kit">
                             <span>Lihat trainer kit</span>
@@ -119,26 +118,6 @@
                         </div>
                     </div>
                 </div>
-
-                <aside class="hm-hero-stage cut" aria-label="Ringkasan perangkat praktikum">
-                    <figure>
-                        <img src="/assets/training-kit-hd.png" alt="Ilustrasi trainer kit elektronika medis dengan monitor dan sensor">
-                    </figure>
-                    <div class="hm-stage-meta">
-                        <div>
-                            <strong>AD620</strong>
-                            <span>Penguat instrumentasi</span>
-                        </div>
-                        <div>
-                            <strong>ECG / EMG</strong>
-                            <span>Akuisisi biopotensial</span>
-                        </div>
-                        <div>
-                            <strong>PPG</strong>
-                            <span>Simulasi detak jantung</span>
-                        </div>
-                    </div>
-                </aside>
             </div>
         </section>
 
@@ -146,8 +125,8 @@
         <section class="hm-graphite-band" id="training-kit">
             <div class="hm-shell hm-trainer-grid">
                 <figure class="hm-trainer-figure cut">
-                    <img src="/assets/training-kit-hd.png" alt="Ilustrasi trainer kit elektronika medis dengan monitor dan beberapa sensor">
-                    <figcaption>Ilustrasi sementara — akan diganti dengan foto training kit hasil pengembangan.</figcaption>
+                    <img src="/assets/training-kit-hd.png" alt="Ilustrasi trainer kit elektronika medis dengan monitor dan beberapa sensor" width="1788" height="880" loading="lazy">
+                    <figcaption>Ilustrasi sementara, akan diganti dengan foto training kit hasil pengembangan.</figcaption>
                 </figure>
 
                 <div>
@@ -164,11 +143,9 @@
                     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
                         <a class="key key--primary" href="{{ route('monitor-trainer', [], false) }}">
                             <span>Buka Monitor Heart Rate (BLE)</span>
-                            <span aria-hidden="true">→</span>
                         </a>
                         <a class="key" href="{{ route('pilot.heart-rate', [], false) }}">
                             <span>Alur Smartwatch &amp; PPG</span>
-                            <span aria-hidden="true">→</span>
                         </a>
                     </div>
                 </div>
@@ -220,7 +197,6 @@
                     </div>
                     <a class="key" href="{{ route('praktikum', [], false) }}#jobsheet">
                         <span>Lihat semua jobsheet</span>
-                        <span aria-hidden="true">→</span>
                     </a>
                 </div>
 
@@ -251,7 +227,6 @@
                     </p>
                     <a class="key" href="{{ route('evaluasi', [], false) }}">
                         <span>Lihat format evaluasi</span>
-                        <span aria-hidden="true">→</span>
                     </a>
                 </div>
 
@@ -295,7 +270,6 @@
                     <h2>Praktikum yang terarah dimulai dari persiapan yang baik.</h2>
                     <a class="key key--primary" href="#praktikum">
                         <span>Pilih Modul Praktikum</span>
-                        <span aria-hidden="true">→</span>
                     </a>
                 </div>
             </div>
@@ -320,7 +294,7 @@
                     <a href="https://wa.me/6285800302847" target="_blank" rel="noopener noreferrer">WhatsApp 0858 0030 2847</a>
                 </div>
             </div>
-            <p class="hm-footer-note">© 2026 Fakultas Teknik UNY — Dibuat untuk pembelajaran, bukan diagnosis medis.</p>
+            <p class="hm-footer-note">© 2026 Fakultas Teknik UNY. Dibuat untuk pembelajaran, bukan diagnosis medis.</p>
         </div>
     </footer>
 

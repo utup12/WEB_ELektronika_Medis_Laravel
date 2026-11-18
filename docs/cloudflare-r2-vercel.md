@@ -10,7 +10,7 @@ Agar unggahan laporan mahasiswa (PDF hingga 10 MB) dan data akun/evaluasi tersim
 [
   {
     "AllowedOrigins": [
-      "https://web-e-lektronika-medis-laravel.vercel.app",
+      "https://praktik-elkamedis.vercel.app",
       "http://localhost:8000"
     ],
     "AllowedMethods": ["GET", "PUT", "HEAD"],
