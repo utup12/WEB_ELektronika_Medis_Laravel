@@ -1,0 +1,86 @@
+/*
+ * Shared accessibility and interaction baseline.
+ * Loaded after each page's own stylesheets so it never changes layout or colour,
+ * only adds the keyboard, motion and typography floor every page should meet.
+ */
+
+/* Skip link: first focusable element, jumps past the header and navigation. */
+.skip-link {
+    position: absolute;
+    top: -80px;
+    left: 12px;
+    z-index: 1000;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: var(--color-graphite, #0b2a4a);
+    color: var(--color-graphite-ink, #fff);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 120ms ease-out;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: 12px;
+}
+
+/* Visible keyboard focus on every interactive element. */
+:focus-visible {
+    outline: 3px solid var(--color-focus, #0b5aa2);
+    outline-offset: 2px;
+}
+
+/* The skip link moves focus to <main>; do not draw a ring around the whole page. */
+main:focus,
+main:focus-visible {
+    outline: none;
+}
+
+/* Sticky headers must not hide the element that receives focus or an anchor jump. */
+html {
+    scroll-padding-top: 96px;
+}
+
+/* Remove the 300ms double-tap-to-zoom delay on touch devices. */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea,
+summary,
+label {
+    touch-action: manipulation;
+}
+
+/* Typographic polish: balanced headings, no single-word last lines. */
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p,
+li {
+    text-wrap: pretty;
+}
+
+/* Aligned digits in tables, scores and live readings. */
+table,
+.review-table,
+output,
+[data-numeric] {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Respect the operating-system "reduce motion" setting. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

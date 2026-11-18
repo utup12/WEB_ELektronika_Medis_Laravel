@@ -22,7 +22,7 @@ class ReportController extends Controller
         $user = $request->user();
         abort_if($user === null, 401);
 
-        $driveFolderUrl = $this->settingValue('report_drive_folder_url') ?: (string) env('REPORT_DRIVE_FOLDER_URL', '');
+        $driveFolderUrl = $this->settingValue('report_drive_folder_url') ?: (string) config('services.reports.drive_folder_url', '');
         $driveNote = $this->settingValue('report_drive_note') ?: 'Unggah PDF ke folder Google Drive dosen dengan format nama: NIM_Nama_JobsheetXX.pdf, lalu tempelkan tautan berkas/folder di bawah agar tercatat pada antrean koreksi dosen.';
 
         return view('laporan', [
@@ -77,7 +77,7 @@ class ReportController extends Controller
                 'report_title' => ['required', 'string', 'max:180'],
             ]);
 
-            $driveFolderUrl = $this->settingValue('report_drive_folder_url') ?: (string) env('REPORT_DRIVE_FOLDER_URL', '');
+            $driveFolderUrl = $this->settingValue('report_drive_folder_url') ?: (string) config('services.reports.drive_folder_url', '');
             if ($driveFolderUrl === '') {
                 return back()->withErrors([
                     'confirm_drive' => 'Folder Google Drive belum diatur oleh dosen pengampu.',
@@ -173,7 +173,8 @@ class ReportController extends Controller
 
         /** @var UploadedFile $file */
         $file = $data['report'];
-        $storedPath = $file->store('reports/'.$user->id, 'public');
+        // Private disk: PDFs must only be reachable through the authorised download route.
+        $storedPath = $file->store('reports/'.$user->id, 'local');
         abort_if($storedPath === false, 500, 'Gagal menyimpan berkas laporan.');
 
         $displayName = trim((string) ($data['report_title'] ?? ''));
@@ -205,10 +206,14 @@ class ReportController extends Controller
             return redirect()->away($report->file_path);
         }
 
-        if (Storage::disk('public')->exists($report->file_path)) {
-            return Storage::disk('public')->response($report->file_path, $report->original_name, [
-                'Content-Type' => 'application/pdf',
-            ]);
+        // Private disk first; fall back to the public disk for reports uploaded before the move.
+        foreach (['local', 'public'] as $disk) {
+            if (Storage::disk($disk)->exists($report->file_path)) {
+                return Storage::disk($disk)->response($report->file_path, $report->original_name, [
+                    'Content-Type' => 'application/pdf',
+                    'X-Content-Type-Options' => 'nosniff',
+                ]);
+            }
         }
 
         if ($r2->isConfigured()) {

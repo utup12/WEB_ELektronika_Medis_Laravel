@@ -100,8 +100,8 @@ test('authenticated student can request presigned URL and store R2 report metada
         ->assertRedirect();
 });
 
-test('local fallback upload stores PDF on public disk when R2 is not configured', function () {
-    Storage::fake('public');
+test('local fallback upload stores PDF on the private disk when R2 is not configured', function () {
+    Storage::fake('local');
 
     config()->set('filesystems.disks.r2.key', null);
     config()->set('filesystems.disks.r2.secret', null);
@@ -117,7 +117,8 @@ test('local fallback upload stores PDF on public disk when R2 is not configured'
 
     $report = Report::query()->first();
     expect($report)->not->toBeNull();
-    Storage::disk('public')->assertExists($report->file_path);
+    Storage::disk('local')->assertExists($report->file_path);
+    Storage::disk('public')->assertMissing($report->file_path);
 
     $this->actingAs($student)
         ->get(route('laporan.download', $report))
