@@ -40,11 +40,13 @@
         <section class="ai-chat-shell" aria-labelledby="assistant-title">
             <header class="ai-chat-head">
                 <div class="ai-chat-title">
-                    <span class="ai-avatar" aria-hidden="true">AI</span>
+                    <span class="ai-avatar" aria-hidden="true">
+                        <img src="/assets/ai-medtech-logo.svg" alt="Logo AI Elektronika Medis" class="ai-emblem-img">
+                    </span>
                     <div>
-                        <p class="eyebrow">Asisten pembelajaran</p>
+                        <p class="eyebrow">Asisten pembelajaran akademik</p>
                         <h1 id="assistant-title">Tanya Praktik Elektronika Medis</h1>
-                        <p>Jawaban dibatasi pada sumber pembelajaran yang tersedia di website ini.</p>
+                        <p>Kecerdasan buatan berbasis rujukan kurikulum dan teori instrumentasi elektronika medis.</p>
                     </div>
                 </div>
                 <div class="ai-status">100% lokal · tanpa API AI</div>
@@ -54,22 +56,28 @@
                 <span>Menjawab dari:</span>
                 <a href="{{ route('materi', [], false) }}">Materi</a>
                 <a href="{{ route('praktikum', [], false) }}">Praktikum &amp; Jobsheet</a>
+                <a href="{{ route('monitor-trainer', [], false) }}">Monitor Trainer (BLE)</a>
                 <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
                 <a href="{{ route('laporan', [], false) }}">Laporan</a>
             </div>
 
             <div class="chat-stream" id="chat-stream" aria-live="polite" aria-label="Percakapan dengan asisten">
                 <article class="chat-message assistant-message">
-                    <span class="message-avatar" aria-hidden="true">AI</span>
+                    <span class="message-avatar" aria-hidden="true">
+                        <img src="/assets/ai-medtech-logo.svg" alt="AI" class="message-avatar-img">
+                    </span>
                     <div class="message-content">
                         <p class="message-author">Asisten Praktik</p>
                         <div class="message-bubble">
-                            Halo! Saya membantu mencari materi Jobsheet 2019, menjelaskan kutipan sumber, dan menghitung penguatan AD620 tanpa mengirim pertanyaan ke layanan AI eksternal.
+Halo! Saya Asisten Akademik Praktik Elektronika Medis. Saya siap membantu Anda mendiskusikan konsep biosinyal, penguat instrumentasi AD620, filter aktif, prinsip sensor PPG dan smartwatch BLE, mitigasi noise 50 Hz, hingga sistematika penulisan laporan praktikum secara profesional dan akademik.
                         </div>
                         <div class="suggestion-row" aria-label="Contoh pertanyaan">
-                            <button class="suggestion" type="button" data-prompt="Apa langkah pertama sebelum menggunakan peralatan praktikum?">Persiapan praktikum</button>
-                            <button class="suggestion" type="button" data-prompt="Apa saja yang perlu dicantumkan dalam laporan praktikum?">Isi laporan</button>
+                            <button class="suggestion" type="button" data-prompt="Bagaimana cara kerja monitoring detak jantung dengan smartwatch menggunakan BLE?">Smartwatch BLE</button>
+                            <button class="suggestion" type="button" data-prompt="Jelaskan prinsip kerja sensor optik PPG dan saturasi oksigen SpO2">Prinsip PPG</button>
+                            <button class="suggestion" type="button" data-prompt="Apa perbedaan karakteristik sinyal ECG, EMG, dan EEG?">ECG vs EMG vs EEG</button>
+                            <button class="suggestion" type="button" data-prompt="Jelaskan fungsi rangkaian Right Leg Drive (RLD) dalam meredam noise 50 Hz">Right Leg Drive</button>
                             <button class="suggestion" type="button" data-prompt="Hitung RG AD620 untuk gain 100 kali">Hitung AD620</button>
+                            <button class="suggestion" type="button" data-prompt="Apa saja yang perlu dicantumkan dalam laporan praktikum?">Isi laporan</button>
                         </div>
                     </div>
                 </article>
@@ -78,13 +86,13 @@
             <form class="chat-composer" id="ai-chat-form" action="{{ route('asisten-ai.chat', [], false) }}" method="POST">
                 @csrf
                 <label class="sr-only" for="chat-message">Pertanyaan Anda</label>
-                <textarea id="chat-message" name="message" maxlength="1000" placeholder="Tulis pertanyaan tentang Praktik Elektronika Medis…" required></textarea>
+                <textarea id="chat-message" name="message" maxlength="1000" placeholder="Tulis pertanyaan seputar teori, rangkaian, atau praktikum elektronika medis…" required></textarea>
                 <button class="chat-send" type="submit">
                     <span>Kirim</span>
                     <span aria-hidden="true">↑</span>
                 </button>
             </form>
-            <p class="chat-notice" id="chat-notice" role="status">Asisten hanya menggunakan sumber website ini; verifikasi prosedur dan keselamatan dengan dosen sebelum praktik.</p>
+            <p class="chat-notice" id="chat-notice" role="status">Asisten menjawab secara akademis berlandaskan pustaka instrumentasi; selalu konfirmasikan prosedur dan keselamatan dengan dosen pengampu.</p>
         </section>
     </main>
 
@@ -108,7 +116,11 @@
             const avatar = document.createElement('span');
             avatar.className = 'message-avatar';
             avatar.setAttribute('aria-hidden', 'true');
-            avatar.textContent = role === 'assistant' ? 'AI' : 'Anda';
+            if (role === 'assistant') {
+                avatar.innerHTML = '<img src="/assets/ai-medtech-logo.svg" alt="AI" class="message-avatar-img">';
+            } else {
+                avatar.textContent = 'Anda';
+            }
 
             const content = document.createElement('div');
             content.className = 'message-content';
@@ -122,6 +134,7 @@
             bubble.textContent = message;
 
             content.append(author, bubble);
+
 
             if (sources.length > 0) {
                 const sourceList = document.createElement('div');

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="aiMedBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05192d"/>
+      <stop offset="50%" stop-color="#0a3250"/>
+      <stop offset="100%" stop-color="#0c4a6e"/>
+    </linearGradient>
+
+    <!-- Border Glow Gradient -->
+    <linearGradient id="aiMedBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#2dd4bf" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Pulse Line Gradient -->
+    <linearGradient id="vitalPulse" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="42%" stop-color="#22d3ee"/>
+      <stop offset="50%" stop-color="#4ade80"/>
+      <stop offset="58%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Base Badge Squircle -->
+  <rect x="6" y="6" width="108" height="108" rx="28" fill="url(#aiMedBg)" stroke="url(#aiMedBorder)" stroke-width="2.5"/>
+
+  <!-- Subtle Circuit Grid / Hex Mesh -->
+  <g stroke="#1e4e70" stroke-width="1" stroke-opacity="0.4" fill="none">
+    <circle cx="60" cy="60" r="38" stroke-dasharray="3 4"/>
+    <circle cx="60" cy="60" r="22" stroke-dasharray="2 3"/>
+  </g>
+
+  <!-- Neural Network Branches (AI Traces) -->
+  <g stroke="#38bdf8" stroke-width="1.6" stroke-opacity="0.6" stroke-linecap="round">
+    <!-- Top synapses -->
+    <line x1="60" y1="24" x2="38" y2="38"/>
+    <line x1="60" y1="24" x2="82" y2="38"/>
+    <line x1="38" y1="38" x2="60" y2="60"/>
+    <line x1="82" y1="38" x2="60" y2="60"/>
+    <!-- Bottom synapses -->
+    <line x1="60" y1="60" x2="36" y2="82"/>
+    <line x1="60" y1="60" x2="84" y2="82"/>
+    <line x1="36" y1="82" x2="60" y2="96"/>
+    <line x1="84" y1="82" x2="60" y2="96"/>
+  </g>
+
+  <!-- Neural Nodes (Glowing Dots) -->
+  <g fill="#22d3ee" filter="url(#subtleGlow)">
+    <circle cx="60" cy="24" r="3.5" fill="#facc15"/>
+    <circle cx="38" cy="38" r="3"/>
+    <circle cx="82" cy="38" r="3"/>
+    <circle cx="36" cy="82" r="3"/>
+    <circle cx="84" cy="82" r="3"/>
+    <circle cx="60" cy="96" r="3.5" fill="#4ade80"/>
+  </g>
+
+  <!-- Central Processing Core (AI Nexus) -->
+  <g transform="translate(60,60)">
+    <rect x="-10" y="-10" width="20" height="20" rx="6" fill="#092842" stroke="#22d3ee" stroke-width="1.8" filter="url(#subtleGlow)"/>
+    <!-- Small chip pins -->
+    <line x1="-14" y1="-5" x2="-10" y2="-5" stroke="#38bdf8" stroke-width="1.2"/>
+    <line x1="-14" y1="5" x2="-10" y2="5" stroke="#38bdf8" stroke-width="1.2"/>
+    <line x1="10" y1="-5" x2="14" y2="-5" stroke="#38bdf8" stroke-width="1.2"/>
+    <line x1="10" y1="5" x2="14" y2="5" stroke="#38bdf8" stroke-width="1.2"/>
+  </g>
+
+  <!-- Medical Vital Pulse Wave (ECG / Cardiac Rhythm) -->
+  <!-- Shadow/Glow Path -->
+  <path d="M 14 60 L 32 60 L 37 54 L 42 63 L 47 60 L 53 76 L 60 22 L 67 86 L 73 57 L 78 60 L 85 53 C 89 49, 93 49, 97 60 L 106 60"
+        fill="none"
+        stroke="#22d3ee"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.35"
+        filter="url(#neonGlow)"/>
+
+  <!-- Foreground Crisp Vital Wave -->
+  <path d="M 14 60 L 32 60 L 37 54 L 42 63 L 47 60 L 53 76 L 60 22 L 67 86 L 73 57 L 78 60 L 85 53 C 89 49, 93 49, 97 60 L 106 60"
+        fill="none"
+        stroke="url(#vitalPulse)"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Pulse Core Node / R-Peak Spark -->
+  <circle cx="60" cy="22" r="4" fill="#ffffff" filter="url(#neonGlow)"/>
+  <circle cx="60" cy="22" r="2.2" fill="#facc15"/>
+</svg>

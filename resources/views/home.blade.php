@@ -41,6 +41,7 @@
                     <a class="active" href="{{ route('home', [], false) }}">Beranda</a>
                     <a href="{{ route('materi', [], false) }}">Materi</a>
                     <a href="{{ route('praktikum', [], false) }}">Praktikum</a>
+                    <a href="{{ route('monitor-trainer', [], false) }}">Monitor Heart Rate (BLE)</a>
                     <a href="{{ route('evaluasi', [], false) }}">Evaluasi</a>
                     <a href="{{ route('laporan', [], false) }}">Unggah Laporan</a>
                     <a href="{{ route('asisten-ai', [], false) }}">Asisten AI</a>
@@ -156,13 +157,19 @@
 
                     <div class="hm-notice-box">
                         <strong>Ingin melihat keluaran sinyal?</strong>
-                        Buka menu Praktikum, pilih modul, lalu hubungkan perangkat yang tersedia. Untuk sementara, pengujian koneksi menggunakan smartwatch.
+                        Buka menu Praktikum, pilih modul, lalu hubungkan perangkat yang tersedia. Untuk sementara, pengujian koneksi menggunakan smartwatch via Bluetooth Low Energy (BLE).
                     </div>
 
-                    <a class="key key--primary" href="{{ route('praktikum', [], false) }}">
-                        <span>Buka menu Praktikum</span>
-                        <span aria-hidden="true">→</span>
-                    </a>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px">
+                        <a class="key key--primary" href="{{ route('monitor-trainer', [], false) }}">
+                            <span>Buka Monitor Heart Rate (BLE)</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                        <a class="key" href="{{ route('pilot.heart-rate', [], false) }}">
+                            <span>Alur Smartwatch &amp; PPG</span>
+                            <span aria-hidden="true">→</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
