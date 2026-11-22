@@ -86,14 +86,14 @@ class AiAssistantController extends Controller
 
         $newCount = $currentCount;
 
-        if ($dbAvailable && empty($result['memoryForm'])) {
+        if ($dbAvailable && ! ($result['memoryForm'] ?? false)) {
             try {
                 AiConversationHistory::query()->create([
                     'owner_key' => $ownerKey,
                     'user_id' => $user?->id,
                     'question' => $validated['message'],
                     'answer' => $result['answer'],
-                    'sources' => $result['sources'] ?? [],
+                    'sources' => $result['sources'],
                 ]);
 
                 $newCount = AiConversationHistory::query()

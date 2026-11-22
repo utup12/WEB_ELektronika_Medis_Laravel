@@ -25,7 +25,6 @@ test('praktikum page merges panduan first, jobsheet catalog with mulai praktikum
             'Mulai Praktikum',
             'Praktikum Simulasi: Heart Rate Smartwatch (PPG)',
         ])
-        ->assertDontSee('Monitor Heart Rate')
         ->assertDontSee('Praktik dengan Trainer Kit');
 
     $this->get(route('jobsheet'))

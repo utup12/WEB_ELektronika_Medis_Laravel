@@ -25,7 +25,10 @@
     border-radius: 16px;
     background: #fbfdfd;
     box-shadow: 0 8px 24px rgba(11, 59, 98, 0.05);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
 }
 .content-card:hover {
     transform: translateY(-2px);
@@ -87,8 +90,10 @@
 .review-status {
     display: inline-block;
     color: #168885;
-    font: 600 .73rem 'DM Mono', monospace;
-    letter-spacing: .04em;
+    font:
+        600 0.73rem 'DM Mono',
+        monospace;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 .review-status {
@@ -101,19 +106,70 @@
     margin: 10px 0 5px;
     font-size: 2rem;
 }
-.summary-card p { margin: 0; color: var(--muted); font-size: .85rem; }
-.lecturer-section { margin-top: 42px; }
-.lecturer-section h2 { margin-bottom: 8px; }
-.lecturer-section > p { margin-top: 0; color: var(--muted); }
-.review-table { width: 100%; border-collapse: collapse; font-size: .9rem; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 20px rgba(11, 59, 98, 0.04); }
-.review-table th, .review-table td { padding: 15px 14px; text-align: left; border-bottom: 1px solid var(--line); }
-.review-table th { color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; background: #f6fafc; }
-.review-table tbody tr:hover { background: #f9fcfe; }
-.review-status.pending, .review-status.submitted { color: #9a5800; background: #fff4e0; }
-.review-status.ready, .review-status.graded { color: #0e6f6c; background: #e3f6f5; }
-.review-status.revision { color: #9c381b; background: #fdece7; }
-.lecturer-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.learning-grid { display:grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr); gap: 24px; }
+.summary-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+.lecturer-section {
+    margin-top: 42px;
+}
+.lecturer-section h2 {
+    margin-bottom: 8px;
+}
+.lecturer-section > p {
+    margin-top: 0;
+    color: var(--muted);
+}
+.review-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(11, 59, 98, 0.04);
+}
+.review-table th,
+.review-table td {
+    padding: 15px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+.review-table th {
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: #f6fafc;
+}
+.review-table tbody tr:hover {
+    background: #f9fcfe;
+}
+.review-status.pending,
+.review-status.submitted {
+    color: #9a5800;
+    background: #fff4e0;
+}
+.review-status.ready,
+.review-status.graded {
+    color: #0e6f6c;
+    background: #e3f6f5;
+}
+.review-status.revision {
+    color: #9c381b;
+    background: #fdece7;
+}
+.lecturer-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.learning-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.6fr);
+    gap: 24px;
+}
 .learning-panel {
     display: grid;
     gap: 16px;
@@ -130,12 +186,12 @@
     font-size: 0.9rem;
     color: var(--ink);
 }
-.learning-panel input[type="text"],
-.learning-panel input[type="url"],
-.learning-panel input[type="email"],
-.learning-panel input[type="password"],
-.learning-panel input[type="number"],
-.learning-panel input[type="file"],
+.learning-panel input[type='text'],
+.learning-panel input[type='url'],
+.learning-panel input[type='email'],
+.learning-panel input[type='password'],
+.learning-panel input[type='number'],
+.learning-panel input[type='file'],
 .learning-panel select,
 .learning-panel textarea {
     width: 100%;
@@ -146,7 +202,10 @@
     background: #fbfdff;
     color: var(--ink);
     font: inherit;
-    transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    transition:
+        border-color 0.16s ease,
+        box-shadow 0.16s ease,
+        background 0.16s ease;
 }
 .learning-panel input:focus,
 .learning-panel select:focus,
@@ -163,34 +222,210 @@
     font-weight: 600;
     margin: 0;
 }
-.notice.success { background: #e6f7f2; color: #0c5e4b; border: 1px solid #b5e5d8; }
-.notice.error { background: #fdeceb; color: #962922; border: 1px solid #f5c2be; }
-.auth-panel { max-width: 480px; margin: 0 auto; }
-.calendar-layout { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr); gap:24px; align-items:start; }
-.calendar-card { padding:24px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 12px 28px rgba(0,54,104,.08); }
-.calendar-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-.calendar-head h2 { margin:0; text-transform:capitalize; }
-.calendar-head button { width:38px; height:38px; border:0; border-radius:50%; background:#e7f0fb; color:var(--uny-blue); font-size:1.2rem; cursor:pointer; }
-.calendar-weekdays,.calendar-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:7px; text-align:center; }
-.calendar-weekdays { margin-bottom:7px; color:var(--muted); font-size:.75rem; font-weight:800; }
-.calendar-grid > span { aspect-ratio:1; }
-.calendar-day { aspect-ratio:1; border:0; border-radius:10px; background:#f6f9fc; color:var(--ink); font-weight:700; cursor:pointer; }
-.calendar-day:hover,.calendar-day.selected { background:var(--uny-blue); color:#fff; transform:translateY(-2px); }
-.calendar-day.today { outline:2px solid var(--uny-gold); }
-@media (max-width:780px) { .calendar-layout { grid-template-columns:1fr; } }
-.account-choice { text-decoration:none; color:inherit; }
-.account-choice:hover { border-color:#168885; }
-.header-login { padding:8px 14px; border-radius:6px; background:#0b3b62; color:#fff; text-decoration:none; font-weight:700; }
-.logout-form { margin-left:0; order:3; }.logout-form button { padding:8px 14px; border:1px solid rgba(255,255,255,.45); border-radius:999px; background:transparent; color:#fff; cursor:pointer; font:inherit; font-weight:700; }.logout-form button:hover { background:#fff; color:var(--uny-blue); }
-.notes-toolbar { display:flex; gap:9px; flex-wrap:wrap; align-items:center; margin-bottom:16px; }.notes-toolbar button { border:1px solid var(--line); background:#fff; color:var(--uny-blue); padding:9px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
-.notes-board { position:relative; border:1px solid #cbdced; background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 12px 24px rgba(0,54,104,.08); }.notes-board canvas { display:block; width:100%; touch-action:none; background-image:linear-gradient(#eef4fa 1px,transparent 1px); background-size:100% 32px; }.notes-board textarea { position:absolute; inset:18px; width:calc(100% - 36px); height:calc(100% - 36px); resize:none; border:0; outline:0; background:transparent; font:16px/2 Manrope,Arial,sans-serif; color:#153752; padding:0; }
-.learning-panel h2 { margin:0; }
-.learning-panel label { display:grid; gap:7px; font-weight:600; }
-.learning-panel input, .learning-panel select, .learning-panel textarea, .review-table input, .review-table select, .review-table textarea { width:100%; box-sizing:border-box; padding:10px; border:1px solid var(--line); border-radius:6px; font:inherit; }
-.notice { padding:12px 14px; border-radius:6px; }
-.notice.success { background:#e6f6ef; color:#126b45; }
-.notice.error { background:#ffeded; color:#a22727; }
-@media (max-width: 880px) { .lecturer-summary { grid-template-columns: repeat(2, 1fr); } }
+.notice.success {
+    background: #e6f7f2;
+    color: #0c5e4b;
+    border: 1px solid #b5e5d8;
+}
+.notice.error {
+    background: #fdeceb;
+    color: #962922;
+    border: 1px solid #f5c2be;
+}
+.auth-panel {
+    max-width: 480px;
+    margin: 0 auto;
+}
+.calendar-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+    gap: 24px;
+    align-items: start;
+}
+.calendar-card {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 12px 28px rgba(0, 54, 104, 0.08);
+}
+.calendar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+.calendar-head h2 {
+    margin: 0;
+    text-transform: capitalize;
+}
+.calendar-head button {
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: #e7f0fb;
+    color: var(--uny-blue);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.calendar-weekdays,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 7px;
+    text-align: center;
+}
+.calendar-weekdays {
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+.calendar-grid > span {
+    aspect-ratio: 1;
+}
+.calendar-day {
+    aspect-ratio: 1;
+    border: 0;
+    border-radius: 10px;
+    background: #f6f9fc;
+    color: var(--ink);
+    font-weight: 700;
+    cursor: pointer;
+}
+.calendar-day:hover,
+.calendar-day.selected {
+    background: var(--uny-blue);
+    color: #fff;
+    transform: translateY(-2px);
+}
+.calendar-day.today {
+    outline: 2px solid var(--uny-gold);
+}
+@media (max-width: 780px) {
+    .calendar-layout {
+        grid-template-columns: 1fr;
+    }
+}
+.account-choice {
+    text-decoration: none;
+    color: inherit;
+}
+.account-choice:hover {
+    border-color: #168885;
+}
+.header-login {
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: #0b3b62;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+.logout-form {
+    margin-left: 0;
+    order: 3;
+}
+.logout-form button {
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+.logout-form button:hover {
+    background: #fff;
+    color: var(--uny-blue);
+}
+.notes-toolbar {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.notes-toolbar button {
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--uny-blue);
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.notes-board {
+    position: relative;
+    border: 1px solid #cbdced;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(0, 54, 104, 0.08);
+}
+.notes-board canvas {
+    display: block;
+    width: 100%;
+    touch-action: none;
+    background-image: linear-gradient(#eef4fa 1px, transparent 1px);
+    background-size: 100% 32px;
+}
+.notes-board textarea {
+    position: absolute;
+    inset: 18px;
+    width: calc(100% - 36px);
+    height: calc(100% - 36px);
+    resize: none;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font:
+        16px/2 Manrope,
+        Arial,
+        sans-serif;
+    color: #153752;
+    padding: 0;
+}
+.learning-panel h2 {
+    margin: 0;
+}
+.learning-panel label {
+    display: grid;
+    gap: 7px;
+    font-weight: 600;
+}
+.learning-panel input,
+.learning-panel select,
+.learning-panel textarea,
+.review-table input,
+.review-table select,
+.review-table textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font: inherit;
+}
+.notice {
+    padding: 12px 14px;
+    border-radius: 6px;
+}
+.notice.success {
+    background: #e6f6ef;
+    color: #126b45;
+}
+.notice.error {
+    background: #ffeded;
+    color: #a22727;
+}
+@media (max-width: 880px) {
+    .lecturer-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 @media (max-width: 680px) {
     .page-hero {
         padding: 52px 24px 38px;
@@ -201,7 +436,15 @@
     .content-grid {
         grid-template-columns: 1fr;
     }
-    .lecturer-summary { grid-template-columns: 1fr; }
-    .learning-grid { grid-template-columns: 1fr; }
-    .review-table { display: block; overflow-x: auto; white-space: nowrap; }
+    .lecturer-summary {
+        grid-template-columns: 1fr;
+    }
+    .learning-grid {
+        grid-template-columns: 1fr;
+    }
+    .review-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }

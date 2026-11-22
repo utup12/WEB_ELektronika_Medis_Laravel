@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 test('pilot exposes prerequisites, K3, assessment rubric and editable observations', function () {
     $this->get(route('pilot.heart-rate'))
         ->assertOk()
@@ -48,14 +50,16 @@ test('AI baseline evaluator has no external AI dependency and produces reproduci
 test('assistant report FAQs answer from documented report page instead of unrelated snippets', function () {
     $cases = [
         ['Berapa batas maksimum ukuran PDF laporan praktikum?', '10 MB'],
-        ['Apakah berkas laporan otomatis dikirim ke dosen?', 'belum tersedia'],
+        ['Apakah berkas laporan otomatis dikirim ke dosen?', 'Unggah Laporan'],
         ['Apa yang harus dibahas dalam laporan praktikum?', 'analisis teknis'],
     ];
 
-    $this->get(route('laporan'))
+    $user = User::factory()->create();
+
+    $this->actingAs($user)->get(route('laporan'))
         ->assertOk()
         ->assertSee('Maksimum 10 MB')
-        ->assertSee('Pengiriman ke dosen atau server belum tersedia.')
+        ->assertSee('Unggah Laporan Praktikum')
         ->assertSee('analisis teknis');
 
     foreach ($cases as [$question, $requiredFragment]) {

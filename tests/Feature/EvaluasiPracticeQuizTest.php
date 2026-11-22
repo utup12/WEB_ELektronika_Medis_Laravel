@@ -33,6 +33,6 @@ test('evaluasi page renders per-jobsheet practice quiz interface for guests and 
         ->assertSee('Latihan Soal per Jobsheet (10 Soal Pilihan Ganda)')
         ->assertSee('Jobsheet 1 · Penguat Instrumentasi')
         ->assertSee('Jobsheet 14 · Electromyogram (EMG)')
-        ->assertSee('Selesai & Lihat Skor', false)
+        ->assertSee('Selesai & Lihat Skor')
         ->assertSee('evaluasi-practice.js');
 });

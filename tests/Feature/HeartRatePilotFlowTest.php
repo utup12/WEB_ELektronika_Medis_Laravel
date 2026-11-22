@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 test('candidate heart rate pilot page renders the end to end scaffold', function () {
     $response = $this->get(route('pilot.heart-rate'));
 
@@ -101,7 +103,7 @@ test('praktikum page links to the PPG pilot procedure', function () {
 test('report page requires authentication and displays 10 MB PDF limit', function () {
     $this->get(route('laporan'))->assertRedirect(route('masuk'));
 
-    $student = \App\Models\User::factory()->create(['role' => 'student']);
+    $student = User::factory()->create(['role' => 'student']);
 
     $this->actingAs($student)
         ->get(route('laporan'))

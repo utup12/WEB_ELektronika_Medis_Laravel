@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -57,7 +57,27 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role === 'lecturer';
     }
 
-    public function reports(): HasMany { return $this->hasMany(Report::class); }
-    public function quizAttempts(): HasMany { return $this->hasMany(QuizAttempt::class); }
-    public function moduleProgress(): HasMany { return $this->hasMany(ModuleProgress::class); }
+    /**
+     * @return HasMany<Report, $this>
+     */
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    /**
+     * @return HasMany<QuizAttempt, $this>
+     */
+    public function quizAttempts(): HasMany
+    {
+        return $this->hasMany(QuizAttempt::class);
+    }
+
+    /**
+     * @return HasMany<ModuleProgress, $this>
+     */
+    public function moduleProgress(): HasMany
+    {
+        return $this->hasMany(ModuleProgress::class);
+    }
 }

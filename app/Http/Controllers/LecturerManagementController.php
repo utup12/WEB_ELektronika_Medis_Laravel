@@ -107,18 +107,19 @@ class LecturerManagementController extends Controller
                 'updated_at' => now(),
             ]);
 
-            DB::table('attendance_manual_entries')->insert(
-                collect($data['student_name'])
-                    ->map(fn (string $name, int|string $index): array => [
-                        'attendance_session_id' => $sessionId,
-                        'student_name' => $name,
-                        'status' => $data['status'][$index],
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ])
-                    ->values()
-                    ->all(),
+            $manualEntries = array_map(
+                fn (string $name, int|string $index): array => [
+                    'attendance_session_id' => $sessionId,
+                    'student_name' => $name,
+                    'status' => $data['status'][$index],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                $data['student_name'],
+                array_keys($data['student_name']),
             );
+
+            DB::table('attendance_manual_entries')->insert($manualEntries);
 
             DB::table('announcements')->insert([
                 'lecturer_id' => $request->user()->id,

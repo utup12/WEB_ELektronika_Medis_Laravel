@@ -33,7 +33,7 @@ class QuizAttemptController extends Controller
             'signal' => ['required', 'in:correct,wrong'],
             'report' => ['required', 'in:correct,wrong'],
         ]);
-        $score = collect($answers)->filter(fn (string $answer): bool => $answer === 'correct')->count();
+        $score = count(array_filter($answers, fn (string $answer): bool => $answer === 'correct'));
 
         $user->quizAttempts()->create([
             'score' => $score,

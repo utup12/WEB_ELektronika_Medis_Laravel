@@ -11,13 +11,7 @@
     const shuffleButton = document.getElementById('practice-shuffle-btn');
     const nextButton = document.getElementById('practice-next-btn');
 
-    if (
-        !dataElement ||
-        !selectElement ||
-        !container ||
-        !form ||
-        !resultBox
-    ) {
+    if (!dataElement || !selectElement || !container || !form || !resultBox) {
         return;
     }
 

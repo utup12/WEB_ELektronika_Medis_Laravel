@@ -12,7 +12,7 @@ use Illuminate\View\View;
 
 class LocalAuthController extends Controller
 {
-    public function loginForm(): View
+    public function showLogin(): View
     {
         return view('masuk');
     }
@@ -22,7 +22,7 @@ class LocalAuthController extends Controller
         return view('login-peran', ['role' => $role]);
     }
 
-    public function registerForm(): View
+    public function showRegister(): View
     {
         return view('daftar');
     }

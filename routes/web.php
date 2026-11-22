@@ -1,16 +1,16 @@
 <?php
 
 use App\Http\Controllers\AiAssistantController;
-use App\Http\Controllers\LocalAuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LecturerDashboardController;
 use App\Http\Controllers\LecturerManagementController;
-use App\Http\Controllers\StudentAttendanceController;
+use App\Http\Controllers\LocalAuthController;
 use App\Http\Controllers\QuizAttemptController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StudentAttendanceController;
 use App\Http\Controllers\StudentProgressController;
-use App\Models\ModuleProgress;
 use App\Http\Middleware\EnsureTeamMembership;
+use App\Models\ModuleProgress;
 use App\Support\JobsheetCatalog;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +26,10 @@ Route::get('/', function (JobsheetCatalog $catalog) {
     ]);
 })->name('home');
 
-Route::get('/masuk', [LocalAuthController::class, 'loginForm'])->name('masuk');
+Route::get('/masuk', [LocalAuthController::class, 'showLogin'])->name('masuk');
 Route::get('/masuk/{role}', [LocalAuthController::class, 'roleLoginForm'])->whereIn('role', ['student', 'lecturer'])->name('masuk.role');
 Route::post('/masuk', [LocalAuthController::class, 'login'])->middleware('throttle:local-login')->name('masuk.store');
-Route::get('/daftar', [LocalAuthController::class, 'registerForm'])->name('daftar');
+Route::get('/daftar', [LocalAuthController::class, 'showRegister'])->name('daftar');
 Route::post('/daftar', [LocalAuthController::class, 'register'])->middleware('throttle:local-register')->name('daftar.store');
 Route::post('/keluar', [LocalAuthController::class, 'logout'])->middleware('auth')->name('keluar');
 
@@ -77,7 +77,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/progres-saya', StudentProgressController::class)->name('student.progress');
     Route::get('/presensi', [StudentAttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/presensi', [StudentAttendanceController::class, 'store'])->middleware('throttle:attendance-code')->name('attendance.store');
-    Route::get('/catatan-mahasiswa', function () { return view('catatan-mahasiswa'); })->name('student.notes');
+    Route::get('/catatan-mahasiswa', function () {
+        return view('catatan-mahasiswa');
+    })->name('student.notes');
 });
 
 Route::get('/monitor-trainer', function () {

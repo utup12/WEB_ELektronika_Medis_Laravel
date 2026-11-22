@@ -83,7 +83,7 @@ class AnswerPracticeQuestion
     /**
      * Answer a question using only the learning content that appears on this website.
      *
-     * @return array{answer: string, sources: array<int, array{title: string, url: string}>}
+     * @return array{answer: string, sources: array<int, array{title: string, url: string}>, memoryForm?: bool}
      */
     public function handle(
         string $question,

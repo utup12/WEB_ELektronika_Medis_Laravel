@@ -8,9 +8,9 @@ test('home page static files and navigation use current origin on preview', func
         'HTTPS' => 'on',
     ])->get('/')
         ->assertOk()
-        ->assertSee('href="/css/styles.css"', false)
         ->assertSee('href="/css/identity.css"', false)
-        ->assertSee('href="/css/visual-enhancements.css"', false)
+        ->assertSee('href="/css/hallmark-cobalt.css"', false)
+        ->assertSee('href="/css/a11y.css"', false)
         ->assertSee('src="/assets/logo-uny.png"', false)
         ->assertSee('src="/js/navigation.js"', false)
         ->assertSee('src="/js/script.js"', false)

@@ -11,7 +11,7 @@ test('guests are redirected to the login page', function () {
     $team = $user->currentTeam;
 
     $response = $this->get(route('dashboard'));
-    $response->assertRedirect(route('login'));
+    $response->assertRedirect(route('masuk'));
 });
 
 test('authenticated users can visit the dashboard', function () {

@@ -54,10 +54,7 @@
 
         const maxBytes = 10 * 1024 * 1024;
         if (file.size > maxBytes) {
-            setStatus(
-                'Ukuran berkas melebihi batas maksimum 10 MB.',
-                'error',
-            );
+            setStatus('Ukuran berkas melebihi batas maksimum 10 MB.', 'error');
             return;
         }
 
@@ -82,8 +79,7 @@
             if (!presignRes.ok) {
                 const err = await presignRes.json().catch(() => ({}));
                 throw new Error(
-                    err.message ||
-                        'Gagal membuat tautan unggah Cloudflare R2.',
+                    err.message || 'Gagal membuat tautan unggah Cloudflare R2.',
                 );
             }
 

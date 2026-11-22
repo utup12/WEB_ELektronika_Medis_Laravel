@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Middleware\EnsureAuthenticated;
+use App\Http\Middleware\EnsureLecturer;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
-use App\Http\Middleware\EnsureLecturer;
-use App\Http\Middleware\EnsureAuthenticated;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetTeamUrlDefaults;
 use Illuminate\Foundation\Application;
