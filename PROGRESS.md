@@ -1,5 +1,7 @@
 # Progress Report — Praktik Elektronika Medis (Laravel)
 
+> **Catatan Konteks untuk Dosen:** Website, jobsheet, materi, dan simulasi yang ada saat ini **bersifat sementara (prototipe percobaan)** sambil menunggu **trainer kit fisik, jobsheet resmi, materi, RPS, dan buku panduan praktikum asli yang akan digunakan pada Semester 2**.
+
 Dokumen ini merangkum progres pengembangan dan pemulihan release gate berdasarkan **GitHub Issue #10 (Target 19–25 Nov 2026 — CI Recovery, Pilot Validation, Thesis Scope Freeze)**.
 
 ## Status P0 — Pemulihan CI & Kualitas Kode
