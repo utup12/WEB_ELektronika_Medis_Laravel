@@ -26,7 +26,7 @@ Dokumen ini merangkum progres pengembangan dan pemulihan release gate berdasarka
 - [x] Uji otomatis `HeartRatePilotFlowTest` dan headless DOM mock `scripts/test_pilot_client.mjs` lulus.
 - [x] Evaluasi otomatis 28 kasus AI (`scripts/evaluate_ai_baseline.php`) menghasilkan keluaran CSV/JSON lokal (`24/28` source/fallback match, `21/28` text indicator).
 - [ ] **Uji browser manual** (`docs/PPG_PILOT_ACCEPTANCE_CHECKLIST.md`) belum boleh diklaim lulus sebelum dilakukan langsung di browser oleh penguji.
-- [ ] **Uji ulang BLE fisik** pada commit Laravel terbaru (Advan S2A / perangkat kompatibel, mencatat OS, browser, durasi, 3 sampel BPM + timestamp, disconnect/reconnect, serta screenshot/log aman) sesuai `docs/BLE_SMARTWATCH_TEST_LOG.md`.
+- [x] **Uji ulang BLE fisik** pada build `6ce009d` (`https://praktik-elkamedis.vercel.app/monitor-trainer`, Brave/Windows, Advan S2A) terdokumentasi dengan 4 sampel BPM sinkron (`89`, `92 @ 12:27`, `94 @ 12:28`, `93 @ 12:28`) dan 5 bukti gambar di `docs/evidence/ble-retest-2026-11-25/` (menyisakan pelengkapan log `DISCONNECT → SIMULASI` & versi browser/OS spesifik).
 - [ ] **Review manusia 6 dimensi** terhadap hasil 28 kasus AI sesuai `docs/AI_BASELINE_EVALUATION_PROTOCOL.md`.
 
 ## Status P1 & P2 — Rekonsiliasi Roadmap, Stabilitas, & Disiplin Rilis

@@ -22,15 +22,27 @@ Pada 14 November 2026 pengguna kembali mengonfirmasi bahwa pengujian menggunakan
 
 Paket `0x06 0x55` pada characteristic standar bermakna flag `0x06` (format BPM 8-bit) dan nilai `0x55` = **85 BPM**. Angka tersebut menunjukkan dekode paket, bukan validasi terhadap pengukuran rujukan.
 
+## Hasil uji ulang pada build Laravel terbaru (`6ce009d`)
+
+| Parameter | Hasil Pengujian Ulang |
+| --- | --- |
+| Tanggal & waktu uji | 25 November 2026, pukul 12:27–12:28 WIB (terlihat pada jam smartwatch) |
+| URL & build yang diuji | `https://praktik-elkamedis.vercel.app/monitor-trainer` (commit `6ce009d`) |
+| Perangkat BLE | Smartwatch Advan S2A (`S2A - Paired`) |
+| Perangkat & browser penguji | Laptop Windows (Acer) menggunakan browser Brave (Web Bluetooth) |
+| Status awal & pairing | Status awal `SIMULASI`; dialog Web Bluetooth menampilkan `S2A - Paired` (`01-ble-pairing-dialog.png`) |
+| Transisi ke BLE LIVE | Status berubah menjadi `MODE BLE` / `BLE LIVE` dengan disclaimer non-klinis (`02-ble-live-89bpm.png`) |
+| Sampel BPM teramati (sinkron jam & web) | 1. **89 BPM** (`02-ble-live-89bpm.png`)<br>2. **92 BPM** pada **12:27** (`03-ble-live-92bpm-1227.png`)<br>3. **94 BPM** pada **12:28** (`04-ble-live-94bpm-1228.png`)<br>4. **93 BPM** pada **12:28** (`05-ble-live-93bpm-1228.png`) |
+| Lokasi berkas bukti | `docs/evidence/ble-retest-2026-11-25/` |
+
 ## Verifikasi yang masih perlu dilampirkan
 
-- [x] Identitas tipe perangkat smartwatch dilaporkan pada percakapan historis: Advan S2A.
-- [x] Service/characteristic BLE dan contoh hasil BPM dilaporkan.
-- [ ] Screenshot/log asli dimasukkan ke repository dengan izin, tanpa identitas atau data kesehatan pribadi.
-- [ ] Browser, versi, OS, tanggal/jam dan durasi tiap sesi dicatat dalam lembar pengujian yang dapat diaudit.
-- [ ] Situs Laravel **versi commit terbaru** diuji ulang melalui HTTPS/localhost: CONNECT → BLE WAIT → BLE LIVE → DISCONNECT → SIMULASI.
-- [ ] Minimal tiga sampel BPM dan timestamp yang benar-benar terlihat pada sesi uji ulang dicatat.
-- [ ] Kegagalan koneksi, izin browser, pemulihan disconnect, dan pembacaan 8/16-bit diuji.
+- [x] Identitas tipe perangkat smartwatch dilaporkan: Advan S2A (`S2A - Paired`).
+- [x] Service/characteristic BLE (`0x180D` / `0x2A37`) dan contoh hasil BPM dilaporkan.
+- [x] Screenshot/foto asli dimasukkan ke repository (`docs/evidence/ble-retest-2026-11-25/`) tanpa identitas atau data kesehatan pribadi.
+- [x] Situs Laravel **versi commit terbaru (`6ce009d`)** diuji ulang melalui HTTPS (`https://praktik-elkamedis.vercel.app/monitor-trainer`) dari pairing hingga `BLE LIVE`.
+- [x] Minimal tiga sampel BPM dan timestamp yang benar-benar terlihat pada sesi uji ulang dicatat (`89`, `92 @ 12:27`, `94 @ 12:28`, `93 @ 12:28`).
+- [ ] Lengkapi catatan versi OS/browser spesifik, durasi total sesi, serta log verifikasi langkah `DISCONNECT → SIMULASI` dan pemulihan error.
 - [ ] Jika penelitian memerlukan validitas pengukuran, lakukan perbandingan terhadap alat rujukan dengan protokol dan izin sesuai arahan dosen.
 
 ## Protokol uji ulang yang aman
